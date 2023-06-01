@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 39px 0;
+}
+.iconsContainer {
+  display: flex;
+  align-items: center;
+  gap: 23px;
+}
+.profileContainer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.profile {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #ffffff;
+}
