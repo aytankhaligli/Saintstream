@@ -23,20 +23,24 @@ a:visited {
   color: white;
   transition: all ease-out 0.03ms;
 }
+
 a:hover,
 a:active {
   font-weight: 800;
 }
+
 .app {
   /* padding: 0 75px; */
   height: 1000px;
   position: relative;
 }
+
 .icon {
   cursor: pointer;
 }
+
 .slick-slider {
-  margin-top: -116.5px;
+  /* margin-top: -116.5px; */
 }
 
 .slick-dots {
@@ -50,6 +54,7 @@ a:active {
 .slick-dots li.slick-active button:before {
   color: white;
 }
+
 .slick-dots li button:before {
   color: white;
 }
@@ -66,6 +71,7 @@ a:active {
   height: 32px;
   border-radius: 50%;
 }
+
 .slick-next:before {
   font-size: 32px;
   color: #28262d;
