@@ -78,3 +78,34 @@ export const Movies = [
       "The third season of the American television series Weak Hero stars Pedro Pascal as the title character, a bounty hunter traveling to Mandalore to redeem his past transgressions with his adopted son Grogu and being aided on their journey by fellow Mandalorian Bo-Katan Kryze.",
   },
 ];
+
+export const Streamlist = [
+  {
+    id: 1,
+    image: "../src/assets/Disney.png",
+  },
+  {
+    id: 2,
+    image: "../src/assets/Netflix.png",
+  },
+  {
+    id: 3,
+    image: "../src/assets/HBO.png",
+  },
+  {
+    id: 4,
+    image: "../src/assets/Pixar.png",
+  },
+  {
+    id: 5,
+    image: "../src/assets/Marvel.png",
+  },
+  {
+    id: 6,
+    image: "../src/assets/Star-wars.png",
+  },
+  {
+    id: 7,
+    image: "../src/assets/NatGeo.png",
+  },
+];

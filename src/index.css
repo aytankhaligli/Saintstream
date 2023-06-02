@@ -12,10 +12,9 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: white;
-  background-color: #242424;
+  background-color: #08080a;
 }
 
 a:link,
@@ -30,7 +29,7 @@ a:active {
 }
 .app {
   /* padding: 0 75px; */
-  height: 100vh;
+  height: 1000px;
   position: relative;
 }
 .icon {
@@ -39,6 +38,7 @@ a:active {
 .slick-slider {
   margin-top: -116.5px;
 }
+
 .slick-dots {
   position: absolute;
   bottom: 286px;
@@ -52,4 +52,22 @@ a:active {
 }
 .slick-dots li button:before {
   color: white;
+}
+
+.slick-track {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slick-next {
+  right: 28px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+.slick-next:before {
+  font-size: 32px;
+  color: #28262d;
+  content: "";
 }

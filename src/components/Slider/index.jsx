@@ -1,5 +1,4 @@
 import Slider from "react-slick";
-import styles from "./Slider.module.css";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -19,7 +18,7 @@ export default function SimpleSlider() {
 
   return (
     <div>
-      <Slider {...settings} className={styles.slider}>
+      <Slider {...settings}>
         {Movies.map((movie) => (
           <Hero
             key={movie.id}
