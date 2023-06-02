@@ -1,25 +1,33 @@
 import styles from "./Hero.module.css";
-import image from "../../assets/Mandalorian.png";
 import Button from "../Button";
 import bookmarkIcon from "../../assets/bookmark.svg";
 import playIcon from "../../assets/play.svg";
 import outlinePlayIcon from "../../assets/play_outline.svg";
-import SimpleSlider from "../Slider";
 
-export default function Hero() {
+export default function Hero({
+  description,
+  season,
+  image,
+  title,
+  releaseDate,
+  category,
+  time,
+}) {
+  console.log(category);
   return (
     <div className={styles.hero}>
       <div className={styles.overlay}></div>
-      <img src={image} alt="" className={styles.image} />
-      <div className={styles.season}>Season 3</div>
-      <h1 className={styles.title}>The Mandalorian</h1>
-      <p className={styles.subtitle}>2h40m • 2022 • Fantasy • Actions</p>
-      <p className={styles.text}>
-        The third season of the American television series The Mandalorian stars
-        Pedro Pascal as the title character, a bounty hunter traveling to
-        Mandalore to redeem his past transgressions with his adopted son Grogu
-        and being aided on their journey by fellow Mandalorian Bo-Katan Kryze.
+      <div className={styles.image}>
+        <img src={image} alt="" />
+      </div>
+      <div className={styles.season}>
+        {season ? `Season ${season}` : "Movie"}
+      </div>
+      <h1 className={styles.title}>{title}</h1>
+      <p className={styles.subtitle}>
+        {time} • {releaseDate} {category.map((cat) => ` • ${cat}`)}
       </p>
+      <p className={styles.text}>{description}</p>
       <div className={styles.buttonsContainer}>
         <Button
           text="Play Now"

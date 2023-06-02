@@ -1,13 +1,14 @@
 .hero {
   height: 648px;
-  margin-top: 130px;
+  margin-top: 120px;
   padding: 64px 75px;
   font-family: "Rubik";
+  position: relative;
 }
 .image {
   position: absolute;
   left: 0;
-  top: 0;
+  top: -118px;
   z-index: -50;
 }
 .overlay {
@@ -23,7 +24,7 @@
   width: 100%;
   position: absolute;
   left: 0;
-  top: 0;
+  top: -118px;
   z-index: -40;
 }
 .season {

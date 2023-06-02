@@ -2,7 +2,7 @@ import logo from "../../assets/logo.png";
 import searchIcon from "../../assets/search.svg";
 import bellIcon from "../../assets/bell.svg";
 import arrowIcon from "../../assets/arrow.svg";
-import Navbar from "../Navbar/index";
+import Navbar from "../Navbar";
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
 
