@@ -29,7 +29,7 @@ a:active {
   font-weight: 800;
 }
 .app {
-  padding: 0 75px;
+  /* padding: 0 75px; */
   height: 100vh;
   position: relative;
 }

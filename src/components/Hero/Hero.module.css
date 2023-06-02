@@ -1,0 +1,67 @@
+.hero {
+  height: 648px;
+  margin-top: 130px;
+  padding: 64px 75px;
+  font-family: "Rubik";
+}
+.image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -50;
+}
+.overlay {
+  background-image: linear-gradient(
+    358.93deg,
+    #0d0c0f 0.83%,
+    rgba(13, 12, 15, 0.85) 28.55%,
+    rgba(13, 12, 15, 0.26) 57.53%,
+    rgba(13, 12, 15, 0.284314) 70.66%,
+    #0d0c0f 103.18%
+  );
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -40;
+}
+.season {
+  width: 86px;
+  height: 28px;
+  background: #0d0c0f;
+  color: #f9f9f9;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 12px;
+  margin-bottom: 24px;
+}
+.title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #9ca4ab;
+  margin-bottom: 8px;
+}
+.text {
+  width: 506px;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.005em;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.buttonsContainer {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}

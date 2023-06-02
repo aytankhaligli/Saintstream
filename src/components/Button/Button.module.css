@@ -1,0 +1,12 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 24px;
+  color: white;
+  border-radius: 10px;
+  gap: 10px;
+  font-family: "Inter";
+  font-size: 14px;
+  cursor: pointer;
+}
