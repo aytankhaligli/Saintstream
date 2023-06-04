@@ -1,20 +1,20 @@
-import logo from "../../assets/logo.png";
-import searchIcon from "../../assets/search.svg";
-import bellIcon from "../../assets/bell.svg";
-import arrowIcon from "../../assets/arrow.svg";
+import logo from "../../assets/images/logo.png";
+import searchIcon from "../../assets/icons/search.svg";
+import bellIcon from "../../assets/icons/bell.svg";
+import arrowIcon from "../../assets/icons/arrow.svg";
 import Navbar from "../Navbar";
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <div className={styles.header}>
+    <header className={styles.header}>
       <div>
         <Link to="/">
           <img src={logo} alt="logo" />
         </Link>
       </div>
-      <Navbar />
+      <Navbar items={["Home", "Discover", "Movie Release", "Forum", "About"]} />
       <div className={styles.iconsContainer}>
         <img src={searchIcon} alt="search icon" className="icon" />
         <img src={bellIcon} alt="search icon" className="icon" />
@@ -23,6 +23,6 @@ export default function Header() {
           <img src={arrowIcon} alt="search icon" className="icon" />
         </div>
       </div>
-    </div>
+    </header>
   );
 }
