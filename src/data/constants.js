@@ -7,7 +7,7 @@ export const Movies = [
     time: "1h30m",
     year: 2022,
     catagory: ["Fantasy", "Actions"],
-    image: "../src/assets/lastofus.png",
+    image: "../src/assets/images/lastofus.png",
     imdb: 4.3,
     isMovie: false,
     desription:
@@ -21,7 +21,7 @@ export const Movies = [
     time: "2h40m",
     year: 2022,
     catagory: ["Fantasy", "Actions"],
-    image: "../src/assets/Mandalorian.png",
+    image: "../src/assets/images/Mandalorian.png",
     imdb: 4.3,
     isMovie: false,
     desription:
@@ -33,7 +33,7 @@ export const Movies = [
     time: "2h20m",
     year: 2020,
     catagory: ["Action"],
-    image: "../src/assets/lastofus.png",
+    image: "../src/assets/images/lastofus.png",
     imdb: 4.8,
     isMovie: true,
     desription:
@@ -45,7 +45,7 @@ export const Movies = [
     year: 2020,
     time: "1h20m",
     catagory: ["Horror"],
-    image: "../src/assets/Mandalorian.png",
+    image: "../src/assets/images/Mandalorian.png",
     imdb: 4.6,
     isMovie: true,
     desription:
@@ -57,7 +57,7 @@ export const Movies = [
     year: 2022,
     time: "2h",
     catagory: ["Mystery"],
-    image: "../src/assets/lastofus.png",
+    image: "../src/assets/images/lastofus.png",
     imdb: 4.6,
     isMovie: true,
     desription:
@@ -71,7 +71,7 @@ export const Movies = [
     time: "2h10m",
     year: 2019,
     catagory: ["Action", "Drama"],
-    image: "../src/assets/Mandalorian.png",
+    image: "../src/assets/images/Mandalorian.png",
     imdb: 4.6,
     isMovie: false,
     desription:
@@ -82,30 +82,30 @@ export const Movies = [
 export const Streamlist = [
   {
     id: 1,
-    image: "../src/assets/Disney.png",
+    image: "../src/assets/images/Disney.png",
   },
   {
     id: 2,
-    image: "../src/assets/Netflix.png",
+    image: "../src/assets/images/Netflix.png",
   },
   {
     id: 3,
-    image: "../src/assets/HBO.png",
+    image: "../src/assets/images/HBO.png",
   },
   {
     id: 4,
-    image: "../src/assets/Pixar.png",
+    image: "../src/assets/images/Pixar.png",
   },
   {
     id: 5,
-    image: "../src/assets/Marvel.png",
+    image: "../src/assets/images/Marvel.png",
   },
   {
     id: 6,
-    image: "../src/assets/Star-wars.png",
+    image: "../src/assets/images/Star-wars.png",
   },
   {
     id: 7,
-    image: "../src/assets/NatGeo.png",
+    image: "../src/assets/images/NatGeo.png",
   },
 ];

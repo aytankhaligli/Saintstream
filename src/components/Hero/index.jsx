@@ -1,8 +1,8 @@
 import styles from "./Hero.module.css";
 import Button from "../Button";
-import bookmarkIcon from "../../assets/bookmark.svg";
-import playIcon from "../../assets/play.svg";
-import outlinePlayIcon from "../../assets/play_outline.svg";
+import bookmarkIcon from "../../assets/icons/bookmark.svg";
+import playIcon from "../../assets/icons/play.svg";
+import outlinePlayIcon from "../../assets/icons/play_outline.svg";
 
 export default function Hero({
   description,
@@ -13,7 +13,6 @@ export default function Hero({
   category,
   time,
 }) {
-  console.log(category);
   return (
     <div className={styles.hero}>
       <div className={styles.overlay}></div>
