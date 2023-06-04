@@ -1,0 +1,73 @@
+import { faker } from "@faker-js/faker";
+export const fakeMovies = [
+  {
+    id: faker.number.bigInt(),
+    name: faker.word.adjective() + " " + faker.word.noun(),
+    image: faker.image.url(),
+    categories: [faker.word.adverb(), faker.word.noun()],
+    imdb: faker.number.float(),
+  },
+  {
+    id: faker.number.bigInt(),
+    name: faker.word.adjective() + " " + faker.word.noun(),
+    image: faker.image.url(),
+    categories: [faker.word.adverb(), faker.word.noun()],
+    imdb: faker.number.float(),
+  },
+  {
+    id: faker.number.bigInt(),
+    name: faker.word.adjective() + " " + faker.word.noun(),
+    image: faker.image.url(),
+    categories: [faker.word.adverb(), faker.word.noun()],
+    imdb: faker.number.float(),
+  },
+  {
+    id: faker.number.bigInt(),
+    name: faker.word.adjective() + " " + faker.word.noun(),
+    image: faker.image.url(),
+    categories: [faker.word.adverb(), faker.word.noun()],
+    imdb: faker.number.float(),
+  },
+  {
+    id: faker.number.bigInt(),
+    name: faker.word.adjective() + " " + faker.word.noun(),
+    image: faker.image.url(),
+    categories: [faker.word.adverb(), faker.word.noun()],
+    imdb: faker.number.float(),
+  },
+  {
+    id: faker.number.bigInt(),
+    name: faker.word.adjective() + " " + faker.word.noun(),
+    image: faker.image.url(),
+    categories: [faker.word.adverb(), faker.word.noun()],
+    imdb: faker.number.float(),
+  },
+  {
+    id: faker.number.bigInt(),
+    name: faker.word.adjective() + " " + faker.word.noun(),
+    image: faker.image.url(),
+    categories: [faker.word.adverb(), faker.word.noun()],
+    imdb: faker.number.float(),
+  },
+  {
+    id: faker.number.bigInt(),
+    name: faker.word.adjective() + " " + faker.word.noun(),
+    image: faker.image.url(),
+    categories: [faker.word.adverb(), faker.word.noun()],
+    imdb: faker.number.float(),
+  },
+  {
+    id: faker.number.bigInt(),
+    name: faker.word.adjective() + " " + faker.word.noun(),
+    image: faker.image.url(),
+    categories: [faker.word.adverb(), faker.word.noun()],
+    imdb: faker.number.float(),
+  },
+  {
+    id: faker.number.bigInt(),
+    name: faker.word.adjective() + " " + faker.word.noun(),
+    image: faker.image.url(),
+    categories: [faker.word.adverb(), faker.word.noun()],
+    imdb: faker.number.float(),
+  },
+];
