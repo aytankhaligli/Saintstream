@@ -1,3 +1,3 @@
 export default function Movie() {
-  return <div>MoviePage</div>;
+  return <div style={{ marginTop: "120px" }}>MoviePage</div>;
 }

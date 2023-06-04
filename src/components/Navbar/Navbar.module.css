@@ -19,3 +19,6 @@
 .element {
   margin-left: 10px;
 }
+a.active {
+  font-weight: 800;
+}

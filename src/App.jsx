@@ -1,22 +1,26 @@
-import { Route, Routes } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+  Route,
+} from "react-router-dom";
 import Home from "./pages/Home";
 import Movie from "./pages/Movie";
 import About from "./pages/About";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Root from "./components/Root";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<Root />}>
+      <Route index element={<Home />} />
+      <Route path="/:id" element={<Movie />} />
+      <Route path="/about" element={<About />} />
+    </Route>
+  )
+);
 
 function App() {
-  return (
-    <div className="app">
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/:id" element={<Movie />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-      <Footer />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

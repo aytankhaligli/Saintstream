@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
 export default function Navbar({ items, element }) {
@@ -7,7 +7,12 @@ export default function Navbar({ items, element }) {
       <ul className={styles.list}>
         {items.map((item, index) => (
           <li className={styles.item} key={index}>
-            <Link to="/">{item}</Link>
+            <NavLink
+              to={`${item === "Home" ? "/" : item}`}
+              className={({ isActive }) => (isActive ? styles.active : "")}
+            >
+              {item}
+            </NavLink>
             {element && <span className={styles.element}>{element}</span>}
           </li>
         ))}
