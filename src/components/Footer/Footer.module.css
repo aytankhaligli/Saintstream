@@ -16,7 +16,6 @@
   font-family: "Rubik";
   font-weight: 500;
   font-size: 40px;
-  line-height: 48px;
 }
 .secondBox {
   display: flex;
@@ -48,4 +47,51 @@
   display: flex;
   gap: 40px;
   justify-content: flex-end;
+}
+
+@media (max-width: 80em) {
+  .footer {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+  .title {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 66em) {
+  .icons {
+    gap: 20px;
+  }
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+  .title_box {
+    width: 320px;
+  }
+  .footer {
+    padding-top: 35px;
+  }
+}
+@media (max-width: 32em) {
+  .footer {
+    padding: 24px 16px;
+  }
+  .title_box {
+    width: 100%;
+  }
+  .title {
+    font-size: 20px;
+  }
+  .firstBox {
+    flex-direction: column;
+  }
+  .icons {
+    justify-content: flex-start;
+    margin-top: 20px;
+  }
+  .secondBox {
+    flex-direction: column;
+  }
 }

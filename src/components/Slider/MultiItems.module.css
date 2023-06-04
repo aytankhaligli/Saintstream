@@ -1,3 +1,11 @@
 .slide {
   padding-left: 75px;
 }
+
+@media (max-width: 80em) {
+  .slide {
+    padding-left: 48px;
+  }
+}
+@media (max-width: 32em) {
+}

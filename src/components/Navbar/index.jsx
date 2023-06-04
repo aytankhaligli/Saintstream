@@ -3,7 +3,7 @@ import styles from "./Navbar.module.css";
 
 export default function Navbar({ items, element }) {
   return (
-    <nav>
+    <nav className={styles.navbar}>
       <ul className={styles.list}>
         {items.map((item, index) => (
           <li className={styles.item} key={index}>

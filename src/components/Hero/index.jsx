@@ -13,6 +13,8 @@ export default function Hero({
   category,
   time,
 }) {
+  const width = window.innerWidth;
+  console.log(width);
   return (
     <div className={styles.hero}>
       <div className={styles.overlay}></div>
@@ -26,12 +28,18 @@ export default function Hero({
       <p className={styles.subtitle}>
         {time} • {releaseDate} {category.map((cat) => ` • ${cat}`)}
       </p>
-      <p className={styles.text}>{description}</p>
+      <p className={styles.text}>
+        {width > 500 ? description : description.slice(0, 120) + "..."}
+        <span className={styles.more}>Read more</span>
+      </p>
       <div className={styles.buttonsContainer}>
         <Button
           text="Play Now"
           icon={playIcon}
-          style={{ backgroundColor: "#00925D" }}
+          style={{
+            backgroundColor: "#00925D",
+            display: `${width < 500 ? "none" : "flex"}`,
+          }}
         />
         <Button
           text="Watch Trailer"

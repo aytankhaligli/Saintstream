@@ -11,16 +11,16 @@ export default function Header() {
     <header className={styles.header}>
       <div>
         <Link to="/">
-          <img src={logo} alt="logo" />
+          <img src={logo} alt="logo" className={styles.logo} />
         </Link>
       </div>
       <Navbar items={["Home", "Discover", "Movie Release", "Forum", "About"]} />
       <div className={styles.iconsContainer}>
-        <img src={searchIcon} alt="search icon" className="icon" />
-        <img src={bellIcon} alt="search icon" className="icon" />
+        <img src={searchIcon} alt="search icon" className={styles.icon} />
+        <img src={bellIcon} alt="search icon" className={styles.icon} />
         <div className={styles.profileContainer}>
           <div className={styles.profile}></div>
-          <img src={arrowIcon} alt="search icon" className="icon" />
+          <img src={arrowIcon} alt="search icon" className={styles.icon} />
         </div>
       </div>
     </header>

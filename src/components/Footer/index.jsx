@@ -24,10 +24,10 @@ export default function Footer() {
             />
           </div>
           <div className={styles.icons}>
-            <img src={facebookIcon} alt="" />
-            <img src={instagramIcon} alt="" />
-            <img src={twitterIcon} alt="" />
-            <img src={googleIcon} alt="" />
+            <img src={facebookIcon} alt="" className={styles.icon} />
+            <img src={instagramIcon} alt="" className={styles.icon} />
+            <img src={twitterIcon} alt="" className={styles.icon} />
+            <img src={googleIcon} alt="" className={styles.icon} />
           </div>
         </div>
       </div>
