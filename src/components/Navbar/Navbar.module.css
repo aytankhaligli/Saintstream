@@ -9,3 +9,13 @@
   gap: 32px;
   list-style: none;
 }
+.item {
+  min-width: 70px;
+}
+
+.item:hover {
+  font-weight: 800;
+}
+.element {
+  margin-left: 10px;
+}
