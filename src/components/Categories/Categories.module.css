@@ -1,0 +1,8 @@
+.category {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #78828a;
+  font-weight: 500;
+  font-size: 12px;
+}

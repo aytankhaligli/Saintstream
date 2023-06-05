@@ -1,7 +1,7 @@
 import Slider from "react-slick";
-import { Streamlist } from "../../data/constants";
 import rightArrow from "../../assets/images/arrow-right.png";
 import styles from "./MultiItems.module.css";
+import React from "react";
 
 function SampleNextArrow({ className, onClick }) {
   return (
@@ -21,11 +21,11 @@ function SamplePrevArrow({ className, onClick }) {
   );
 }
 
-export default function MultipleItems() {
+export default function MultipleItems({ data, count, children }) {
   const settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: 6,
+    slidesToShow: count,
     slidesToScroll: 3,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
@@ -34,9 +34,9 @@ export default function MultipleItems() {
   return (
     <div className={styles.slide}>
       <Slider {...settings}>
-        {Streamlist.map((item) => (
+        {data.map((item, index) => (
           <div key={item.id}>
-            <img src={item.image} alt="" />
+            {React.cloneElement(children, { item, index })}
           </div>
         ))}
       </Slider>

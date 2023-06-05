@@ -1,0 +1,40 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.number {
+  font-family: "Rubik";
+  font-weight: 600;
+  font-size: 48px;
+}
+.imageBox {
+  max-width: 107px;
+  height: 128px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.image {
+  width: 100%;
+  height: 100%;
+}
+.description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+.subtitle {
+  padding: 4px 8px;
+  border: 1px solid #28262d;
+  border-radius: 8px;
+  font-family: "Inter";
+  font-weight: 500;
+  font-size: 12px;
+}
+.title {
+  font-family: "Rubik";
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: capitalize;
+}

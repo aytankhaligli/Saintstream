@@ -2,34 +2,31 @@ import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Hero from "../Hero";
 import { Movies } from "../../data/constants";
+import React from "react";
 
-export default function SimpleSlider() {
+export default function SimpleSlider({
+  children,
+  hasArrow,
+  autoplay,
+  initialSlide,
+}) {
   const settings = {
-    arrows: false,
+    arrows: hasArrow,
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    // autoplay: true,
+    initialSlide: initialSlide,
+    autoplay: autoplay,
   };
 
   return (
     <div>
       <Slider {...settings}>
         {Movies.map((movie) => (
-          <Hero
-            key={movie.id}
-            description={movie.desription}
-            season={movie.season}
-            image={movie.image}
-            title={movie.name}
-            releaseDate={movie.year}
-            category={movie.catagory}
-            time={movie.time}
-          />
+          <div key={movie.id}>{React.cloneElement(children, { movie })}</div>
         ))}
       </Slider>
     </div>

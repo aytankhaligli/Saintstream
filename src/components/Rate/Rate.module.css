@@ -1,0 +1,12 @@
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  font-size: 12px;
+}
+.text {
+  font-size: 12px;
+  color: #78828a;
+  font-weight: 500;
+}

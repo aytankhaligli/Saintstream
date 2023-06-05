@@ -4,34 +4,33 @@ import bookmarkIcon from "../../assets/icons/bookmark.svg";
 import playIcon from "../../assets/icons/play.svg";
 import outlinePlayIcon from "../../assets/icons/play_outline.svg";
 
-export default function Hero({
-  description,
-  season,
-  image,
-  title,
-  releaseDate,
-  category,
-  time,
-}) {
-  const width = window.innerWidth;
-  console.log(width);
+export default function Hero({ movie, isExplore, width }) {
   return (
     <div className={styles.hero}>
       <div className={styles.overlay}></div>
       <div className={styles.image}>
-        <img src={image} alt="" />
+        <img src={movie.image} alt="" />
       </div>
       <div className={styles.season}>
-        {season ? `Season ${season}` : "Movie"}
+        {isExplore
+          ? "Explore by the genre"
+          : movie.season
+          ? `Season ${movie.season}`
+          : "Movie"}
       </div>
-      <h1 className={styles.title}>{title}</h1>
+      <h1 className={styles.title}>{movie.name}</h1>
       <p className={styles.subtitle}>
-        {time} • {releaseDate} {category.map((cat) => ` • ${cat}`)}
+        {movie.time} • {movie.year} {movie.category.map((cat) => ` • ${cat}`)}
       </p>
-      <p className={styles.text}>
-        {width > 500 ? description : description.slice(0, 120) + "..."}
-        <span className={styles.more}>Read more</span>
-      </p>
+      {!isExplore && (
+        <p className={styles.text}>
+          {width > 500
+            ? movie.description
+            : movie.description.slice(0, 120) + "..."}
+          <span className={styles.more}>Read more</span>
+        </p>
+      )}
+
       <div className={styles.buttonsContainer}>
         <Button
           text="Play Now"
@@ -41,11 +40,14 @@ export default function Hero({
             display: `${width < 500 ? "none" : "flex"}`,
           }}
         />
-        <Button
-          text="Watch Trailer"
-          icon={outlinePlayIcon}
-          style={{ backgroundColor: "#28262D" }}
-        />
+        {!isExplore && (
+          <Button
+            text="Watch Trailer"
+            icon={outlinePlayIcon}
+            style={{ backgroundColor: "#28262D" }}
+          />
+        )}
+
         <Button
           text="Add Watchlist"
           icon={bookmarkIcon}

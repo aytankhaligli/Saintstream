@@ -6,11 +6,11 @@ export const Movies = [
     episodes: 9,
     time: "1h30m",
     year: 2022,
-    catagory: ["Fantasy", "Actions"],
+    category: ["Fantasy", "Actions"],
     image: "../src/assets/images/lastofus.png",
     imdb: 4.3,
     isMovie: false,
-    desription:
+    description:
       "The third season of the American television series The Last of Us stars Pedro Pascal as the title character, a bounty hunter traveling to Mandalore to redeem his past transgressions with his adopted son Grogu and being aided on their journey by fellow Mandalorian Bo-Katan Kryze.",
   },
   {
@@ -20,11 +20,11 @@ export const Movies = [
     episodes: 9,
     time: "2h40m",
     year: 2022,
-    catagory: ["Fantasy", "Actions"],
+    category: ["Fantasy", "Actions"],
     image: "../src/assets/images/Mandalorian.png",
     imdb: 4.3,
     isMovie: false,
-    desription:
+    description:
       "The third season of the American television series The Mandalorian stars Pedro Pascal as the title character, a bounty hunter traveling to Mandalore to redeem his past transgressions with his adopted son Grogu and being aided on their journey by fellow Mandalorian Bo-Katan Kryze.",
   },
   {
@@ -32,11 +32,11 @@ export const Movies = [
     name: "Enola Holmes 2",
     time: "2h20m",
     year: 2020,
-    catagory: ["Action"],
+    category: ["Action"],
     image: "../src/assets/images/lastofus.png",
     imdb: 4.8,
     isMovie: true,
-    desription:
+    description:
       "The third season of the American television series Enola Holmes 2 stars Pedro Pascal as the title character, a bounty hunter traveling to Mandalore to redeem his past transgressions with his adopted son Grogu and being aided on their journey by fellow Mandalorian Bo-Katan Kryze.",
   },
   {
@@ -44,11 +44,11 @@ export const Movies = [
     name: "Satan's slaves",
     year: 2020,
     time: "1h20m",
-    catagory: ["Horror"],
+    category: ["Horror"],
     image: "../src/assets/images/Mandalorian.png",
     imdb: 4.6,
     isMovie: true,
-    desription:
+    description:
       "The third season of the American television series Satan's slaves stars Pedro Pascal as the title character, a bounty hunter traveling to Mandalore to redeem his past transgressions with his adopted son Grogu and being aided on their journey by fellow Mandalorian Bo-Katan Kryze.",
   },
   {
@@ -56,11 +56,11 @@ export const Movies = [
     name: "The Flash",
     year: 2022,
     time: "2h",
-    catagory: ["Mystery"],
+    category: ["Mystery"],
     image: "../src/assets/images/lastofus.png",
     imdb: 4.6,
     isMovie: true,
-    desription:
+    description:
       "The third season of the American television series The Flash stars Pedro Pascal as the title character, a bounty hunter traveling to Mandalore to redeem his past transgressions with his adopted son Grogu and being aided on their journey by fellow Mandalorian Bo-Katan Kryze.",
   },
   {
@@ -70,11 +70,11 @@ export const Movies = [
     episodes: 9,
     time: "2h10m",
     year: 2019,
-    catagory: ["Action", "Drama"],
+    category: ["Action", "Drama"],
     image: "../src/assets/images/Mandalorian.png",
     imdb: 4.6,
     isMovie: false,
-    desription:
+    description:
       "The third season of the American television series Weak Hero stars Pedro Pascal as the title character, a bounty hunter traveling to Mandalore to redeem his past transgressions with his adopted son Grogu and being aided on their journey by fellow Mandalorian Bo-Katan Kryze.",
   },
 ];
