@@ -5,6 +5,11 @@ import facebookIcon from "../../assets/icons/Facebook.svg";
 import instagramIcon from "../../assets/icons/Instagram.svg";
 import twitterIcon from "../../assets/icons/twitter.svg";
 import googleIcon from "../../assets/icons/google.svg";
+import {
+  footerNavElements,
+  footerElements,
+  socialIcons,
+} from "../../data/constants";
 
 export default function Footer() {
   return (
@@ -18,24 +23,27 @@ export default function Footer() {
         </div>
         <div className={styles.rightBox}>
           <div>
-            <Navbar
-              items={["Home", "Discover", "Forum", "About"]}
-              element="/"
-            />
+            <Navbar items={footerNavElements} element=" /" />
           </div>
           <div className={styles.icons}>
-            <img src={facebookIcon} alt="" className={styles.icon} />
-            <img src={instagramIcon} alt="" className={styles.icon} />
-            <img src={twitterIcon} alt="" className={styles.icon} />
-            <img src={googleIcon} alt="" className={styles.icon} />
+            {socialIcons.map((icon) => (
+              <img
+                key={icon.name}
+                src={icon.url}
+                alt={icon.name}
+                className={styles.icon}
+              />
+            ))}
           </div>
         </div>
       </div>
       <div className={styles.secondBox}>
         <div className={styles.textContainer}>
-          <p className={styles.text}>Privacy policy</p>
-          <p className={styles.text}>Term of service</p>
-          <p className={styles.text}>Language</p>
+          {footerElements.map((el, index) => (
+            <p key={index} className={styles.text}>
+              {el}
+            </p>
+          ))}
         </div>
         <div>
           <p className={styles.copyText}>&copy; 2023</p>

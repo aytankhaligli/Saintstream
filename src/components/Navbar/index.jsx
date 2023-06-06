@@ -8,7 +8,7 @@ export default function Navbar({ items, element }) {
         {items.map((item, index) => (
           <li className={styles.item} key={index}>
             <NavLink
-              to={`${item === "Home" ? "/" : item}`}
+              to={item}
               className={({ isActive }) => (isActive ? styles.active : "")}
             >
               {item}

@@ -5,6 +5,7 @@ import arrowIcon from "../../assets/icons/arrow.svg";
 import Navbar from "../Navbar";
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
+import { navElements } from "../../data/constants";
 
 export default function Header() {
   return (
@@ -14,7 +15,7 @@ export default function Header() {
           <img src={logo} alt="logo" className={styles.logo} />
         </Link>
       </div>
-      <Navbar items={["Home", "Discover", "Movie Release", "Forum", "About"]} />
+      <Navbar items={navElements} />
       <div className={styles.iconsContainer}>
         <img src={searchIcon} alt="search icon" className={styles.icon} />
         <img src={bellIcon} alt="search icon" className={styles.icon} />
