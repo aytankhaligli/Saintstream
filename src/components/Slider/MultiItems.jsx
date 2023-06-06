@@ -25,10 +25,36 @@ export default function MultipleItems({ data, count, children }) {
   const settings = {
     infinite: true,
     speed: 500,
-    slidesToShow: count,
     slidesToScroll: 3,
+    slidesToShow: count,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: count - 2,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: count - 3,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: count - 3,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
