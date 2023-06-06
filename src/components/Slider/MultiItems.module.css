@@ -8,4 +8,7 @@
   }
 }
 @media (max-width: 32em) {
+  .slide {
+    padding: 0 24px;
+  }
 }

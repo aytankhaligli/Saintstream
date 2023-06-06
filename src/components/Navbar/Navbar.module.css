@@ -27,7 +27,7 @@ a.active {
   }
 }
 
-@media (max-width: 32em) {
+@media (max-width: 38em) {
   .navbar {
     display: none;
   }

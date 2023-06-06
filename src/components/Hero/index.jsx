@@ -3,8 +3,25 @@ import Button from "../Button";
 import bookmarkIcon from "../../assets/icons/bookmark.svg";
 import playIcon from "../../assets/icons/play.svg";
 import outlinePlayIcon from "../../assets/icons/play_outline.svg";
+import { useEffect } from "react";
+import { useState } from "react";
 
-export default function Hero({ movie, isExplore, width }) {
+export default function Hero({ movie, isExplore }) {
+  const [width, setWidth] = useState("");
+  function getWindowSize() {
+    return window.innerWidth;
+  }
+  useEffect(() => {
+    function handleWindowResize() {
+      setWidth(getWindowSize());
+    }
+
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
   return (
     <div className={styles.hero}>
       <div className={styles.overlay}></div>
@@ -32,14 +49,16 @@ export default function Hero({ movie, isExplore, width }) {
       )}
 
       <div className={styles.buttonsContainer}>
-        <Button
-          text="Play Now"
-          icon={playIcon}
-          style={{
-            backgroundColor: "#00925D",
-            display: `${width < 500 ? "none" : "flex"}`,
-          }}
-        />
+        <div className={styles.hidden}>
+          <Button
+            text="Play Now"
+            icon={playIcon}
+            style={{
+              backgroundColor: "#00925D",
+            }}
+          />
+        </div>
+
         {!isExplore && (
           <Button
             text="Watch Trailer"

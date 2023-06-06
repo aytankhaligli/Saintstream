@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <div>
       <SimpleSlider hasArrow={false} initialSlide={0} autoplay={true}>
-        <Hero width={window.innerWidth} />
+        <Hero />
       </SimpleSlider>
       <SliderSection count={6} data={Streamlist} element={<StreamList />} />
       <SliderSection
