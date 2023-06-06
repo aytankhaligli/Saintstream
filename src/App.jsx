@@ -8,16 +8,33 @@ import Home from "./pages/Home";
 import Movie from "./pages/Movie";
 import About from "./pages/About";
 import Root from "./components/Root";
+import ErrorPage from "./components/ErrorPage";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<Root />}>
-      <Route index element={<Home />} />
-      <Route path="/:id" element={<Movie />} />
-      <Route path="/about" element={<About />} />
-    </Route>
-  )
-);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "movies/:movieId",
+        element: <Movie />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/home",
+        element: <Home />,
+      },
+    ],
+  },
+]);
 
 function App() {
   return <RouterProvider router={router} />;
