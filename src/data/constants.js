@@ -109,3 +109,19 @@ export const Streamlist = [
     image: "../src/assets/images/NatGeo.png",
   },
 ];
+
+export const navElements = [
+  "Home",
+  "Discover",
+  "Movie Release",
+  "Forum",
+  "About",
+];
+export const footerNavElements = ["Home", "Discover", "Forum", "About"];
+export const footerElements = ["Privacy policy", "Term of Service", "Language"];
+export const socialIcons = [
+  { url: "../../src/assets/icons/Facebook.svg", name: "facebook" },
+  { url: "../../src/assets/icons/Instagram.svg", name: "instagram" },
+  { url: "../../src/assets/icons/twitter.svg", name: "twitter" },
+  { url: "../../src/assets/icons/google.svg", name: "google" },
+];
