@@ -11,10 +11,8 @@
   cursor: pointer;
 }
 
-@media (max-width: 80em) {
-  .button {
-    padding: 8px 16px;
-  }
+.button.hidden {
+  display: none;
 }
 
 @media (max-width: 66em) {
@@ -22,11 +20,13 @@
     padding: 6px 12px;
     font-size: 12px;
   }
+
   .icon {
     width: 16px;
     height: 16px;
   }
 }
+
 @media (max-width: 32em) {
   .button {
     padding: 6px 32px;
