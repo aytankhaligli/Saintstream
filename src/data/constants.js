@@ -6,7 +6,7 @@ export const Movies = [
     episodes: 9,
     time: "1h30m",
     year: 2022,
-    category: ["Fantasy", "Actions"],
+    categories: ["Fantasy", "Actions"],
     image: "../src/assets/images/lastofus.png",
     imdb: 4.3,
     isMovie: false,
@@ -20,7 +20,7 @@ export const Movies = [
     episodes: 9,
     time: "2h40m",
     year: 2022,
-    category: ["Fantasy", "Actions"],
+    categories: ["Fantasy", "Actions"],
     image: "../src/assets/images/Mandalorian.png",
     imdb: 4.3,
     isMovie: false,
@@ -32,7 +32,7 @@ export const Movies = [
     name: "Enola Holmes 2",
     time: "2h20m",
     year: 2020,
-    category: ["Action"],
+    categories: ["Action"],
     image: "../src/assets/images/lastofus.png",
     imdb: 4.8,
     isMovie: true,
@@ -44,7 +44,7 @@ export const Movies = [
     name: "Satan's slaves",
     year: 2020,
     time: "1h20m",
-    category: ["Horror"],
+    categories: ["Horror"],
     image: "../src/assets/images/Mandalorian.png",
     imdb: 4.6,
     isMovie: true,
@@ -56,7 +56,7 @@ export const Movies = [
     name: "The Flash",
     year: 2022,
     time: "2h",
-    category: ["Mystery"],
+    categories: ["Mystery"],
     image: "../src/assets/images/lastofus.png",
     imdb: 4.6,
     isMovie: true,
@@ -70,7 +70,7 @@ export const Movies = [
     episodes: 9,
     time: "2h10m",
     year: 2019,
-    category: ["Action", "Drama"],
+    categories: ["Action", "Drama"],
     image: "../src/assets/images/Mandalorian.png",
     imdb: 4.6,
     isMovie: false,
@@ -117,6 +117,7 @@ export const navElements = [
   "Forum",
   "About",
 ];
+export const anotherNav = ["Episode", "Universe", "News", "Reviews"];
 export const footerNavElements = ["Home", "Discover", "Forum", "About"];
 export const footerElements = ["Privacy policy", "Term of Service", "Language"];
 export const socialIcons = [

@@ -1,0 +1,25 @@
+.card {
+  display: flex;
+  align-items: "center";
+  margin-right: 24px;
+}
+.imageBox {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 12px;
+}
+.imageBox img {
+  width: 48px;
+  height: 48px;
+}
+.title {
+  font-weight: 600;
+  color: #f9f9f9;
+}
+.role {
+  font-size: 12px;
+  font-weight: 500;
+  color: #9ca4ab;
+}

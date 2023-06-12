@@ -3,10 +3,13 @@ import Button from "../Button";
 import bookmarkIcon from "../../assets/icons/bookmark.svg";
 import playIcon from "../../assets/icons/play.svg";
 import outlinePlayIcon from "../../assets/icons/play_outline.svg";
+import downloadIcon from "../../assets/icons/download.svg";
+import likeIcon from "../../assets/icons/thumb-up.svg";
+import shareIcon from "../../assets/icons/share.svg";
 import { useEffect } from "react";
 import { useState } from "react";
 
-export default function Hero({ movie, isExplore }) {
+export default function Hero({ movie, isExplore = false, isMovie = false }) {
   const [width, setWidth] = useState("");
   function getWindowSize() {
     return window.innerWidth;
@@ -37,41 +40,72 @@ export default function Hero({ movie, isExplore }) {
       </div>
       <h1 className={styles.title}>{movie.name}</h1>
       <p className={styles.subtitle}>
-        {movie.time} • {movie.year} {movie.category.map((cat) => ` • ${cat}`)}
+        {movie.time} • {movie.year} {movie.categories.map((cat) => ` • ${cat}`)}
       </p>
-      {!isExplore && (
-        <p className={styles.text}>
-          {width > 500
-            ? movie.description
-            : movie.description.slice(0, 120) + "..."}
-          <span className={styles.more}>Read more</span>
-        </p>
-      )}
+      {!isExplore ||
+        (!isMovie && (
+          <p className={styles.text}>
+            {width > 500
+              ? movie.description
+              : movie.description.slice(0, 120) + "..."}
+            <span className={styles.more}>Read more</span>
+          </p>
+        ))}
+      <div className={styles.buttons}>
+        <div className={styles.buttonsContainer}>
+          <div className={styles.hidden}>
+            <Button
+              text="Play Now"
+              icon={playIcon}
+              style={{
+                backgroundColor: "#00925D",
+              }}
+            />
+          </div>
 
-      <div className={styles.buttonsContainer}>
-        <div className={styles.hidden}>
+          {!isExplore ||
+            (!isMovie && (
+              <Button
+                text="Watch Trailer"
+                icon={outlinePlayIcon}
+                style={{ backgroundColor: "#28262D" }}
+              />
+            ))}
+
           <Button
-            text="Play Now"
-            icon={playIcon}
-            style={{
-              backgroundColor: "#00925D",
-            }}
+            text="Add Watchlist"
+            icon={bookmarkIcon}
+            style={{ border: "1px solid #FFFFFF" }}
           />
         </div>
-
-        {!isExplore && (
-          <Button
-            text="Watch Trailer"
-            icon={outlinePlayIcon}
-            style={{ backgroundColor: "#28262D" }}
-          />
+        {isMovie && (
+          <div className={styles.buttonsContainer}>
+            <Button
+              text="Download"
+              icon={downloadIcon}
+              style={{
+                backgroundColor: "#0D0C0F",
+                border: "1px solid #28262D",
+              }}
+            />
+            <Button
+              text="Share"
+              icon={shareIcon}
+              style={{
+                backgroundColor: "#0D0C0F",
+                border: "1px solid #28262D",
+              }}
+            />
+            <Button
+              text="Like"
+              icon={likeIcon}
+              style={{
+                backgroundColor: "#0D0C0F",
+                border: "1px solid #28262D",
+              }}
+            />
+          </div>
         )}
-
-        <Button
-          text="Add Watchlist"
-          icon={bookmarkIcon}
-          style={{ border: "1px solid #FFFFFF" }}
-        />
       </div>
     </div>
   );
