@@ -1,0 +1,19 @@
+.inputBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.inputBox label {
+  font-size: 14px;
+}
+.input {
+  border: 1px solid #28262d;
+  background: #0d0c0f;
+  padding: 12px;
+  border-radius: 6px;
+  color: #fff;
+}
+.input:focus {
+  outline: none;
+}

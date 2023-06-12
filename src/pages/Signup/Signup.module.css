@@ -1,0 +1,31 @@
+.checkbox_wrapper input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+}
+.checkbox_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.checkbox_wrapper label {
+  font-size: 14px;
+}
+input.checked {
+  background-color: #008000;
+  position: relative;
+  border: none;
+}
+input.checked::before {
+  content: "✓";
+  font-size: 1.2em;
+  color: #fff;
+  position: absolute;
+  right: 2px;
+  top: -1px;
+}

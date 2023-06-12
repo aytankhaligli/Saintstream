@@ -1,0 +1,32 @@
+.container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login {
+  width: 500px;
+  border: 1px solid #28262d;
+  background-color: #191818;
+  border-radius: 10px;
+  padding: 28px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header p {
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  margin-top: 20px;
+}
+.footer p {
+  color: #aaaaaa;
+}
