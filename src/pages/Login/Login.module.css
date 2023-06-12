@@ -5,3 +5,8 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
+.google {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
