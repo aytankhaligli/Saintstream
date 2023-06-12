@@ -1,0 +1,19 @@
+.dropdown {
+  position: absolute;
+  top: 80px;
+  border-radius: 8px;
+  width: 160px;
+  padding: 12px;
+  background-color: black;
+  border: 1px solid #28262d;
+}
+.menu {
+  list-style: none;
+}
+.menu li {
+  padding: 12px;
+  border-bottom: 1px solid #28262d;
+}
+li:last-child {
+  border: none;
+}

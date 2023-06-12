@@ -6,8 +6,11 @@ import Navbar from "../Navbar";
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
 import { navElements } from "../../data/constants";
+import Dropdown from "../Dropdown";
+import { useState } from "react";
 
 export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <header className={styles.header}>
       <div>
@@ -21,8 +24,14 @@ export default function Header() {
         <img src={bellIcon} alt="search icon" className={styles.icon} />
         <div className={styles.profileContainer}>
           <div className={styles.profile}></div>
-          <img src={arrowIcon} alt="search icon" className={styles.icon} />
+          <img
+            src={arrowIcon}
+            alt="search icon"
+            className={styles.icon}
+            onClick={() => setIsOpen((pre) => !pre)}
+          />
         </div>
+        {isOpen && <Dropdown />}
       </div>
     </header>
   );
