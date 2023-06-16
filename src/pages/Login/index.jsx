@@ -50,7 +50,9 @@ export default function Login() {
           fields="name,email,picture"
           callback={handleFacebookLogin}
           render={(renderProps) => (
-            <button onClick={renderProps.onClick}>Sign in with Facebook</button>
+            <button onClick={renderProps.onClick} className={styles.facebook}>
+              Sign in with Facebook
+            </button>
           )}
         />
       </div>
