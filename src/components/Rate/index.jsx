@@ -1,12 +1,12 @@
 import styles from "./Rate.module.css";
 import ratingIcon from "../../assets/icons/rating.svg";
 
-export default function Rate({ rating }) {
+export default function Rate({ rating, media_type }) {
   return (
     <div className={styles.rating}>
       <img src={ratingIcon} alt="" />
       <p>
-        {rating} <span className={styles.text}>| Movie</span>
+        {rating} <span className={styles.text}>| {media_type} </span>
       </p>
     </div>
   );

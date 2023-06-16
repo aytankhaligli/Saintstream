@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import Button from "../../components/Button";
 import styles from "./Auth.module.css";
 
 export default function AuthContainer({ children, type }) {
+  const navigate = useNavigate();
   return (
     <div className={styles.container}>
       <div className={styles.login}>
@@ -19,6 +20,7 @@ export default function AuthContainer({ children, type }) {
           <Button
             text="Close"
             style={{ border: "1px solid #28262d", backgroundColor: "#0d0c0f" }}
+            onClick={() => navigate(-1)}
           />
         </div>
         {children}

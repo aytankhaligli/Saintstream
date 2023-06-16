@@ -10,6 +10,7 @@ export default function SimpleSlider({
   hasArrow,
   autoplay,
   initialSlide,
+  data,
 }) {
   const settings = {
     arrows: hasArrow,
@@ -25,7 +26,7 @@ export default function SimpleSlider({
   return (
     <div>
       <Slider {...settings}>
-        {Movies.map((movie) => (
+        {data.map((movie) => (
           <div key={movie.id}>{React.cloneElement(children, { movie })}</div>
         ))}
       </Slider>

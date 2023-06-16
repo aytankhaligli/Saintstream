@@ -8,9 +8,13 @@ import likeIcon from "../../assets/icons/thumb-up.svg";
 import shareIcon from "../../assets/icons/share.svg";
 import { useEffect } from "react";
 import { useState } from "react";
+import { getPosterImg } from "../../data/fetch";
 
 export default function Hero({ movie, isExplore = false, isMovie = false }) {
   const [width, setWidth] = useState("");
+  const movieTime =
+    Math.floor(movie.runtime / 60) + "h" + (movie.runtime % 60) + "m";
+
   function getWindowSize() {
     return window.innerWidth;
   }
@@ -29,7 +33,7 @@ export default function Hero({ movie, isExplore = false, isMovie = false }) {
     <div className={styles.hero}>
       <div className={styles.overlay}></div>
       <div className={styles.image}>
-        <img src={movie.image} alt="" />
+        <img src={getPosterImg(movie.poster_path)} alt="" />
       </div>
       <div className={styles.season}>
         {isExplore
@@ -38,11 +42,12 @@ export default function Hero({ movie, isExplore = false, isMovie = false }) {
           ? `Season ${movie.season}`
           : "Movie"}
       </div>
-      <h1 className={styles.title}>{movie.name}</h1>
+      <h1 className={styles.title}>{movie.title}</h1>
       <p className={styles.subtitle}>
-        {movie.time} • {movie.year} {movie.categories.map((cat) => ` • ${cat}`)}
+        {movie.runtime && movieTime} • {movie && movie.release_date.slice(0, 4)}
+        {movie.genres && movie.genres.map((genre) => ` • ${genre.name}`)}
       </p>
-      {!isExplore ||
+      {/* {!isExplore ||
         (!isMovie && (
           <p className={styles.text}>
             {width > 500
@@ -50,7 +55,7 @@ export default function Hero({ movie, isExplore = false, isMovie = false }) {
               : movie.description.slice(0, 120) + "..."}
             <span className={styles.more}>Read more</span>
           </p>
-        ))}
+        ))} */}
       <div className={styles.buttons}>
         <div className={styles.buttonsContainer}>
           <div className={styles.hidden}>

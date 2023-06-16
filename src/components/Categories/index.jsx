@@ -5,7 +5,7 @@ export default function Categories({ categories, icon }) {
     <div className={styles.category}>
       {icon && <img src={icon} alt="" />}|
       {categories.map((cat) => (
-        <p key={cat}>{cat}</p>
+        <p key={cat.name}>{cat.name}</p>
       ))}
     </div>
   );

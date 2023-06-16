@@ -7,6 +7,8 @@ import ErrorPage from "./components/ErrorPage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import AuthLayout from "./pages/AuthLayout";
+import ForgetPassword from "./pages/ForgetPassword";
+import { useState } from "react";
 
 const router = createBrowserRouter([
   {
@@ -30,18 +32,23 @@ const router = createBrowserRouter([
         path: "/home",
         element: <Home />,
       },
+    ],
+  },
+  {
+    path: "/",
+    element: <AuthLayout />,
+    children: [
       {
-        element: <AuthLayout />,
-        children: [
-          {
-            path: "/login",
-            element: <Login />,
-          },
-          {
-            path: "/signup",
-            element: <Signup />,
-          },
-        ],
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
+      {
+        path: "/forget",
+        element: <ForgetPassword />,
       },
     ],
   },
