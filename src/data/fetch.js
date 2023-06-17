@@ -17,7 +17,7 @@ export const fetchData = async (url, setData) => {
 };
 
 export const getPosterImg = (path) => {
-  return `https://image.tmdb.org/t/p/w440_and_h660_face/${path}`;
+  return `https://image.tmdb.org/t/p/original/${path}`;
 };
 
 export const getGenres = (genres, movie) => {
