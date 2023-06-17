@@ -8,7 +8,11 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import AuthLayout from "./pages/AuthLayout";
 import ForgetPassword from "./pages/ForgetPassword";
-import { useState } from "react";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import LoginContextProvider from "./context/LoginContext";
+
+const clientId =
+  "805826379803-pgig8dpn1a8aeedvf63vnlmcv7sf6pbf.apps.googleusercontent.com";
 
 const router = createBrowserRouter([
   {
@@ -55,7 +59,13 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <GoogleOAuthProvider clientId={clientId}>
+      <LoginContextProvider>
+        <RouterProvider router={router} />
+      </LoginContextProvider>
+    </GoogleOAuthProvider>
+  );
 }
 
 export default App;

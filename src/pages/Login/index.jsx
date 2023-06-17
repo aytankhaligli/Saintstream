@@ -1,14 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import styles from "./Login.module.css";
 import AuthContainer from "../../components/Auth";
-import GoogleLogin from "react-google-login";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-import { useEffect, useState } from "react";
+import { GoogleLogin } from "@react-oauth/google";
+import jwt_decode from "jwt-decode";
 
-const clientId =
-  "974891220260-vn0623qn8m5n7ivcvi8fhq4vs8btcdbh.apps.googleusercontent.com";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+import { useContext, useEffect, useState } from "react";
+import { LoginContext } from "../../context/LoginContext";
+
 const appId = "143428682080487";
 
 export default function Login() {
@@ -16,11 +17,24 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [error, setError] = useState(null);
+  const { login, isLoggedIn } = useContext(LoginContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     email !== "" && password !== "" && setDisabled(false);
     email === "" || (password === "" && setDisabled(true));
   }, [email, password]);
+
+  const onSuccess = (credentialResponse) => {
+    console.log(credentialResponse.credential);
+    const decoded = jwt_decode(credentialResponse.credential);
+    login(decoded);
+  };
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/home");
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -31,14 +45,6 @@ export default function Login() {
   };
   const validate = (email) => {
     return /\S+@\S+\.\S+/.test(email);
-  };
-
-  const handleGoogleLoginSuccess = (response) => {
-    console.log(response);
-  };
-
-  const handleGoogleLoginFailure = (error) => {
-    console.log("Login Failed", error);
   };
 
   const handleFacebookLogin = (response) => {
@@ -77,11 +83,10 @@ export default function Login() {
       </form>
       <div className={styles.google}>
         <GoogleLogin
-          clientId={clientId}
-          buttonText="Sign in with Google"
-          onSuccess={handleGoogleLoginSuccess}
-          onFailure={handleGoogleLoginFailure}
-          cookiePolicy="single_host_origin"
+          onSuccess={onSuccess}
+          onError={() => {
+            console.log("Login Failed");
+          }}
         />
         <FacebookLogin
           appId={appId}

@@ -7,11 +7,14 @@ import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
 import { navElements } from "../../data/constants";
 import Dropdown from "../Dropdown";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { LoginContext } from "../../context/LoginContext";
 
 export default function Header() {
   const dropdownRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
+  const { isLoggedIn, profileObj } = useContext(LoginContext);
+  console.log(profileObj);
 
   useEffect(() => {
     const outsideClick = (e) => {
@@ -37,7 +40,11 @@ export default function Header() {
         <img src={searchIcon} alt="search icon" className={styles.icon} />
         <img src={bellIcon} alt="search icon" className={styles.icon} />
         <div className={styles.profileContainer}>
-          <div className={styles.profile}></div>
+          {isLoggedIn && (
+            <div className={styles.profile}>
+              <img src={profileObj.picture} alt="" />
+            </div>
+          )}
           <img
             src={arrowIcon}
             alt="search icon"

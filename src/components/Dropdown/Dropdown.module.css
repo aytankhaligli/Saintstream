@@ -7,6 +7,9 @@
   background-color: black;
   border: 1px solid #28262d;
 }
+.title {
+  padding-left: 12px;
+}
 .menu {
   list-style: none;
 }

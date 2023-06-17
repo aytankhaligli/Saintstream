@@ -7,14 +7,16 @@ import ReleaseCard from "../../components/cards/ReleaseCard";
 import WatchlistCard from "../../components/cards/WatchlistCard";
 import SliderSection from "../../components/SliderSection";
 import Hero from "../../components/Hero";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { fetchData } from "../../data/fetch";
+import { LoginContext } from "../../context/LoginContext";
 
 export default function Home() {
   const [movies, setMovies] = useState([]);
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [genres, setGenres] = useState([]);
+  const { isLoggedIn } = useContext(LoginContext);
   console.log(movies);
 
   useEffect(() => {
@@ -47,26 +49,32 @@ export default function Home() {
         title="Just release"
         element={<ReleaseCard genres={genres} />}
       />
-      <SliderSection
-        count={4}
-        data={fakeMovies}
-        title="Your Watchlist"
-        element={<WatchlistCard />}
-      />
-      <SliderSection
-        count={4}
-        data={fakeMovies}
-        title="Your Likes"
-        element={<WatchlistCard />}
-      />
-      {/* <SimpleSlider
+      {isLoggedIn && (
+        <>
+          {" "}
+          <SliderSection
+            count={4}
+            data={fakeMovies}
+            title="Your Watchlist"
+            element={<WatchlistCard />}
+          />
+          <SliderSection
+            count={4}
+            data={fakeMovies}
+            title="Your Likes"
+            element={<WatchlistCard />}
+          />
+        </>
+      )}
+
+      <SimpleSlider
         hasArrow={true}
         initialSlide={1}
         autoplay={false}
         data={movies.slice(-5)}
       >
         <Hero isExplore={true} />
-      </SimpleSlider> */}
+      </SimpleSlider>
     </div>
   );
 }
