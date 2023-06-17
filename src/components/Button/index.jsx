@@ -1,8 +1,14 @@
 import styles from "./Button.module.css";
 
-export default function Button({ icon, text, style, show = true }) {
+export default function Button({ icon, text, style, show = true, onClick }) {
   return (
-    <div className={!show ? [styles.button, styles.hidden].join(" ") : styles.button} style={style}>
+    <div
+      className={
+        !show ? [styles.button, styles.hidden].join(" ") : styles.button
+      }
+      style={style}
+      onClick={onClick}
+    >
       <img src={icon} alt="" className={styles.icon} />
       {text}
     </div>
