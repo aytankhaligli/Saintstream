@@ -2,18 +2,22 @@ import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 
 export const MovieContext = createContext({
+  movies: [],
+  series: [],
   popularMovies: [],
   popularSeries: [],
   trendingAll: [],
-  genres: [],
+  allGenres: [],
   getMovieGenres: (movie) => {},
   getPosterImg: (path) => {},
 });
 
 const baseUrl = "https://api.themoviedb.org/3";
-const api_key = "59555ce48f74aaa22fe85d4160505521";
+const apiKey = "59555ce48f74aaa22fe85d4160505521";
 
 export default function MovieContextProvider({ children }) {
+  const [movies, setMovies] = useState([]);
+  const [series, setSeries] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
   const [popularSeries, setPopularSeries] = useState([]);
   const [trendingAll, setTrendingAll] = useState([]);
@@ -21,7 +25,7 @@ export default function MovieContextProvider({ children }) {
 
   function fetchData(url, setData, type = "all") {
     axios
-      .get(`${baseUrl}/${url}?api_key=${api_key}&language=en-US&page=1`)
+      .get(`${baseUrl}/${url}?api_key=${apiKey}&language=en-US&page=1`)
       .then((res) => {
         if (type === "all") {
           setData(res.data.results);
@@ -29,13 +33,18 @@ export default function MovieContextProvider({ children }) {
           setData(res.data.genres);
         } else if (type === "movie") {
           setData(res.data);
+        } else if (type === "cast") {
+          setData(res.data.cast);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   }
 
   useEffect(() => {
+    fetchData("discover/movie", setMovies);
+    fetchData("discover/tv", setSeries);
     fetchData("movie/popular", setPopularMovies);
+    fetchData("tv/popular", setPopularSeries);
     fetchData("trending/all/day", setTrendingAll);
     fetchData("genre/movie/list", setAllGenres, "genre");
   }, []);
@@ -65,6 +74,8 @@ export default function MovieContextProvider({ children }) {
   };
 
   const value = {
+    movies,
+    series,
     popularMovies,
     popularSeries,
     trendingAll,

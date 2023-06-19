@@ -10,20 +10,24 @@ import Hero from "../../components/Hero";
 import { useContext } from "react";
 import { LoginContext } from "../../context/LoginContext";
 import { MovieContext } from "../../context/MovieContext";
+import ScrollToTop from "../../helpers/ScrollToTop";
 
 export default function Home() {
   const { isLoggedIn } = useContext(LoginContext);
-  const { popularMovies, trendingAll } = useContext(MovieContext);
-
+  const { popularMovies, trendingAll, popularSeries } =
+    useContext(MovieContext);
+  const all = [...popularMovies.slice(0, 3), ...popularSeries.slice(0, 2)];
+  console.log(all);
   return (
     <div>
+      <ScrollToTop />
       <SimpleSlider
         hasArrow={false}
         initialSlide={0}
         autoplay={true}
         data={popularMovies.slice(0, 5)}
       >
-        <Hero />
+        <Hero isHomePage={true} />
       </SimpleSlider>
       <SliderSection count={6} data={Streamlist} element={<StreamList />} />
       <SliderSection

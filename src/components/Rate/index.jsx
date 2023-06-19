@@ -6,7 +6,8 @@ export default function Rate({ rating, media_type }) {
     <div className={styles.rating}>
       <img src={ratingIcon} alt="" />
       <p>
-        {rating} <span className={styles.text}>| {media_type} </span>
+        {rating}
+        {media_type && <span className={styles.text}> | {media_type} </span>}
       </p>
     </div>
   );

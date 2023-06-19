@@ -10,6 +10,7 @@ import AuthLayout from "./pages/AuthLayout";
 import ForgetPassword from "./pages/ForgetPassword";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import LoginContextProvider from "./context/LoginContext";
+import Discover from "./pages/Discover";
 
 const clientId =
   "805826379803-pgig8dpn1a8aeedvf63vnlmcv7sf6pbf.apps.googleusercontent.com";
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/:movieId",
         element: <Movie />,
+      },
+      {
+        path: "/discover",
+        element: <Discover />,
       },
       {
         path: "/about",

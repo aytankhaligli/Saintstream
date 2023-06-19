@@ -4,7 +4,9 @@
   position: relative;
   overflow: hidden;
 }
-
+.height {
+  height: 687px;
+}
 .image {
   width: 100vw;
   position: absolute;
@@ -85,7 +87,13 @@
 .more {
   display: none;
 }
-
+.genres {
+  width: 100%;
+  position: absolute;
+  z-index: 10;
+  bottom: 30px;
+  left: 0;
+}
 @media (max-width: 80em) {
   .hero {
     padding-left: 48px;

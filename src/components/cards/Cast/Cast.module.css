@@ -13,6 +13,7 @@
 .imageBox img {
   width: 48px;
   height: 48px;
+  object-fit: cover;
 }
 .title {
   font-weight: 600;
