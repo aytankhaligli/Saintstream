@@ -1,31 +1,27 @@
 import { useParams } from "react-router-dom";
 import Hero from "../../components/Hero";
-import { fakeMovies } from "../../data/faker";
 import styles from "./Movie.module.css";
 import SliderSection from "../../components/SliderSection";
 import Cast from "../../components/cards/Cast";
 import Watchlist from "../../components/cards/WatchlistCard";
 import Navbar from "../../components/Navbar";
-import { Movies, anotherNav } from "../../data/constants";
-import { fetchData } from "../../data/fetch";
+import { anotherNav } from "../../data/constants";
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { MovieContext } from "../../context/MovieContext";
 
 export default function Movie() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState("");
   const [similarMovies, setSimilarMovies] = useState([]);
-  console.log(similarMovies);
+  const { fetchData } = useContext(MovieContext);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    fetchData(`/movie/${movieId}?language=en-US`, setMovie);
-    fetchData(
-      `/movie/${movieId}/similar?language=en-US&page=1`,
-      setSimilarMovies
-    );
+    fetchData(`movie/${movieId}`, setMovie, "movie");
+    fetchData(`movie/${movieId}/similar`, setSimilarMovies);
   }, [movieId]);
 
-  console.log(movie);
+  console.log(similarMovies);
 
   return (
     <div>

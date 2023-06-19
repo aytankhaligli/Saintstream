@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import Categories from "../../Categories";
 import Rate from "../../Rate";
 import styles from "./ReleaseCard.module.css";
-import { getGenres, getPosterImg } from "../../../data/fetch";
-export default function ReleaseCard({ item, genres }) {
-  const movieGenres = getGenres(genres, item).slice(0, 2);
+import { useContext } from "react";
+import { MovieContext } from "../../../context/MovieContext";
+export default function ReleaseCard({ item }) {
+  const { getMovieGenres, getPosterImg } = useContext(MovieContext);
+  const movieGenres = getMovieGenres(item).slice(0, 2);
   return (
     <Link to={`/${item.id}`}>
       <div className={styles.card}>

@@ -3,12 +3,13 @@ import Rate from "../../Rate";
 import Categories from "../../Categories";
 import filmIcon from "../../../assets/icons/film.svg";
 import { Link } from "react-router-dom";
-import { getGenres, getPosterImg } from "../../../data/fetch";
+import { useContext } from "react";
+import { MovieContext } from "../../../context/MovieContext";
 
-export default function MovieCard({ item, index, genres }) {
-  const movieGenres = getGenres(genres, item).slice(0, 3);
+export default function MovieCard({ item, index }) {
+  const { getMovieGenres, getPosterImg } = useContext(MovieContext);
+  const movieGenres = getMovieGenres(item).slice(0, 3);
 
-  // console.log(movieGenres);
   return (
     <Link to={`/${item.id}`}>
       <div className={styles.card}>

@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import Categories from "../../Categories";
 import Rate from "../../Rate";
 import styles from "./Watchlist.module.css";
-import { getPosterImg } from "../../../data/fetch";
+import { useContext } from "react";
+import { MovieContext } from "../../../context/MovieContext";
 
 export default function Watchlist({ item }) {
+  const { getPosterImg } = useContext(MovieContext);
   return (
     <Link to={`/${item.id}`}>
       <div className={styles.card}>

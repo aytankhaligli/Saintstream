@@ -8,10 +8,12 @@ import likeIcon from "../../assets/icons/thumb-up.svg";
 import shareIcon from "../../assets/icons/share.svg";
 import { useEffect } from "react";
 import { useState } from "react";
-import { getPosterImg } from "../../data/fetch";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { MovieContext } from "../../context/MovieContext";
 
 export default function Hero({ movie, isExplore = false, isMovie = false }) {
+  const { getPosterImg } = useContext(MovieContext);
   const [width, setWidth] = useState("");
   const movieTime =
     Math.floor(movie.runtime / 60) + "h" + (movie.runtime % 60) + "m";
