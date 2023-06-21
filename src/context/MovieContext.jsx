@@ -9,13 +9,20 @@ export const MovieContext = createContext({
   trendingAll: [],
   allGenres: [],
   getMovieGenres: (movie) => {},
-  getPosterImg: (path) => {},
+  getPosterImg: (path) => {}, 
 });
 
 const baseUrl = "https://api.themoviedb.org/3";
 const apiKey = "59555ce48f74aaa22fe85d4160505521";
 
 export default function MovieContextProvider({ children }) {
+  const data = useProvideData();
+  return (
+    <MovieContext.Provider value={data}>{children}</MovieContext.Provider>
+  );
+}
+
+const useProvideData = ()=> {
   const [movies, setMovies] = useState([]);
   const [series, setSeries] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
@@ -85,7 +92,6 @@ export default function MovieContextProvider({ children }) {
     getPosterImg,
     fetchData,
   };
-  return (
-    <MovieContext.Provider value={value}>{children}</MovieContext.Provider>
-  );
+
+  return value;
 }
