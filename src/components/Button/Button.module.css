@@ -18,7 +18,6 @@
 @media (max-width: 66em) {
   .button {
     padding: 6px 12px;
-    font-size: 12px;
   }
 
   .icon {
@@ -28,7 +27,7 @@
 }
 
 @media (max-width: 32em) {
-  .button {
-    padding: 6px 32px;
+  .text {
+    display: none;
   }
 }

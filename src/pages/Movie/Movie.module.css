@@ -6,6 +6,10 @@
 .aboutBox {
   margin-top: 25px;
 }
+.more {
+  color: #00925d;
+  display: none;
+}
 .cast {
   padding-left: 0;
 }
@@ -19,4 +23,13 @@
 }
 .navbar {
   padding: 0 75px;
+}
+@media (max-width: 32em) {
+  .more {
+    display: inline;
+  }
+  .aboutBox,
+  .cast {
+    padding: 0 16px;
+  }
 }

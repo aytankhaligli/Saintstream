@@ -16,7 +16,7 @@ export default function Watchlist({ item }) {
         <h1 className={styles.title}>{item.title ? item.title : item.name}</h1>
         <div className={styles.ratingBox}>
           <Rate rating={item.vote_average} />
-          <Categories categories={getMovieGenres(item)} />
+          {!item.categories && <Categories categories={getMovieGenres(item)} />}
         </div>
       </div>
     </Link>

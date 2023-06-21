@@ -85,6 +85,7 @@
   justify-content: space-between;
 }
 .more {
+  color: #00925d;
   display: none;
 }
 .genres {
@@ -134,15 +135,9 @@
   .hero {
     padding: 24px 16px;
   }
-  .image {
-    width: auto;
-  }
-  .image img {
-    height: 412px;
-    max-width: auto;
-  }
+
   .season {
-    margin-top: 194px;
+    margin-top: 280px;
   }
   .title {
     font-size: 32px;
@@ -152,9 +147,11 @@
   }
   .more {
     display: inline;
-    color: #00925d;
   }
   .hidden {
     display: none;
+  }
+  .genres {
+    bottom: 50px;
   }
 }

@@ -1,6 +1,13 @@
 import styles from "./Button.module.css";
 
-export default function Button({ icon, text, style, show = true, onClick }) {
+export default function Button({
+  icon,
+  text,
+  style,
+  show = true,
+  onClick,
+  isMoviePageIcon,
+}) {
   return (
     <div
       className={
@@ -10,7 +17,7 @@ export default function Button({ icon, text, style, show = true, onClick }) {
       onClick={onClick}
     >
       <img src={icon} alt="" className={styles.icon} />
-      {text}
+      <p className={isMoviePageIcon && styles.text}> {text}</p>
     </div>
   );
 }

@@ -14,7 +14,7 @@ export default function Header() {
   const dropdownRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const { isLoggedIn, profileObj } = useContext(LoginContext);
-  console.log(profileObj);
+  // console.log(profileObj);
 
   useEffect(() => {
     const outsideClick = (e) => {

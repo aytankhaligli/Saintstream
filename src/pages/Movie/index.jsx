@@ -23,6 +23,20 @@ export default function Movie() {
     setIsMovie(movies.some((movie) => movie.id === +movieId));
   }, [movieId, movies]);
 
+  const [width, setWidth] = useState("");
+  function getWindowSize() {
+    return window.innerWidth;
+  }
+  useEffect(() => {
+    function handleWindowResize() {
+      setWidth(getWindowSize());
+    }
+    window.addEventListener("resize", handleWindowResize);
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
+
   // console.log(isMovie);
   useEffect(() => {
     if (isMovie) {
@@ -36,15 +50,19 @@ export default function Movie() {
     }
   }, [movieId, isMovie, fetchData]);
 
-  // console.log(movie);
-
   return (
     <div>
       <ScrollToTop />
-      <Hero movie={movie} isMovie={isMovie} isMoviePage={true} />
+      <Hero movie={movie} isMovie={isMovie} isMoviePage={true} width={width} />
       <div className={styles.aboutBox}>
         <h1>Story Line</h1>
-        <p>{movie.overview}</p>
+        <p>
+          {movie.overview &&
+            (width > 500
+              ? movie.overview
+              : movie.overview.slice(0, 120) + "...")}
+          <span className={styles.more}>More</span>
+        </p>
       </div>
       <div className={styles.cast}>
         <SliderSection
@@ -52,6 +70,7 @@ export default function Movie() {
           data={cast}
           title="Top Cast"
           element={<Cast />}
+          isCast={true}
         />
       </div>
       <div className={styles.navbar}>

@@ -21,26 +21,14 @@ export default function Hero({
   isHomePage = false,
   isMoviePage = false,
   isMovie,
+  width,
 }) {
   const { getPosterImg, allGenres, getMovieGenres } = useContext(MovieContext);
 
-  const [width, setWidth] = useState("");
   const movieTime =
     Math.floor(movie.runtime / 60) + "h" + (movie.runtime % 60) + "m";
-  function getWindowSize() {
-    return window.innerWidth;
-  }
-  useEffect(() => {
-    function handleWindowResize() {
-      setWidth(getWindowSize());
-    }
-    window.addEventListener("resize", handleWindowResize);
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
-  }, []);
+
   console.log(movie);
-  console.log(allGenres);
   return (
     <Link to={!isMovie && `/${movie.id}`}>
       <div
@@ -68,9 +56,9 @@ export default function Hero({
           {movie.first_air_date && movie.first_air_date.slice(0, 4)}
 
           {/*  //! I have Problem here only movie Page i take an error from getMovieGenres, because i dont have allGenres */}
-          {/* {movie.genres
+          {movie.genres
             ? movie.genres.map((genre) => ` • ${genre.name}`)
-            : genres.map((genre) => ` • ${genre.name}`)} */}
+            : getMovieGenres(movie).map((genre) => ` • ${genre.name}`)}
         </p>
         {!isExplore && isHomePage && (
           <p className={styles.text}>
@@ -82,7 +70,7 @@ export default function Hero({
         )}
         <div className={styles.buttons}>
           <div className={styles.buttonsContainer}>
-            <div className={styles.hidden}>
+            <div className={styles}>
               <Button
                 text="Play Now"
                 icon={playIcon}
@@ -104,6 +92,7 @@ export default function Hero({
               text="Add Watchlist"
               icon={bookmarkIcon}
               style={{ border: "1px solid #FFFFFF" }}
+              isMoviePageIcon={true}
             />
           </div>
           {isMoviePage && (
@@ -115,6 +104,7 @@ export default function Hero({
                   backgroundColor: "#0D0C0F",
                   border: "1px solid #28262D",
                 }}
+                isMoviePageIcon={true}
               />
               <Button
                 text="Share"
@@ -123,6 +113,7 @@ export default function Hero({
                   backgroundColor: "#0D0C0F",
                   border: "1px solid #28262D",
                 }}
+                isMoviePageIcon={true}
               />
               <Button
                 text="Like"
@@ -131,13 +122,14 @@ export default function Hero({
                   backgroundColor: "#0D0C0F",
                   border: "1px solid #28262D",
                 }}
+                isMoviePageIcon={true}
               />
             </div>
           )}
         </div>
         {isExplore && (
           <div className={styles.genres}>
-            <MultipleItems count={6} data={allGenres}>
+            <MultipleItems count={6} data={allGenres} isCast={true}>
               <GenreCard />
             </MultipleItems>
           </div>

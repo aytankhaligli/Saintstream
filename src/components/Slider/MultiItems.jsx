@@ -21,7 +21,7 @@ function SamplePrevArrow({ className, onClick }) {
   );
 }
 
-export default function MultipleItems({ data, count, children }) {
+export default function MultipleItems({ data, count, children, isCast }) {
   const settings = {
     infinite: true,
     speed: 500,
@@ -42,7 +42,7 @@ export default function MultipleItems({ data, count, children }) {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: count - 3,
+          slidesToShow: isCast ? 2 : count - 3,
           slidesToScroll: 2,
           initialSlide: 2,
         },
@@ -50,7 +50,7 @@ export default function MultipleItems({ data, count, children }) {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: count - 3,
+          slidesToShow: isCast ? 2 : count - 3,
           slidesToScroll: 1,
         },
       },

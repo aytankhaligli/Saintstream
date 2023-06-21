@@ -16,8 +16,6 @@ export default function Home() {
   const { isLoggedIn } = useContext(LoginContext);
   const { popularMovies, trendingAll, popularSeries } =
     useContext(MovieContext);
-  const all = [...popularMovies.slice(0, 3), ...popularSeries.slice(0, 2)];
-  console.log(all);
   return (
     <div>
       <ScrollToTop />
