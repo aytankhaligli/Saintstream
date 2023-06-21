@@ -56,9 +56,9 @@ export default function Hero({
           {movie.first_air_date && movie.first_air_date.slice(0, 4)}
 
           {/*  //! I have Problem here only movie Page i take an error from getMovieGenres, because i dont have allGenres */}
-          {movie.genres
+          {/* {movie.genres
             ? movie.genres.map((genre) => ` • ${genre.name}`)
-            : getMovieGenres(movie).map((genre) => ` • ${genre.name}`)}
+            : getMovieGenres(movie).map((genre) => ` • ${genre.name}`)} */}
         </p>
         {!isExplore && isHomePage && (
           <p className={styles.text}>
