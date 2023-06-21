@@ -51,7 +51,7 @@ export default function MovieContextProvider({ children }) {
 
   const getMovieGenres = (movie) => {
     const commonItems = [];
-
+    if(movie){
     for (let i = 0; i < allGenres.length; i++) {
       const item1 = allGenres[i];
 
@@ -66,6 +66,7 @@ export default function MovieContextProvider({ children }) {
         }
       }
     }
+  }
     return commonItems;
   };
 
