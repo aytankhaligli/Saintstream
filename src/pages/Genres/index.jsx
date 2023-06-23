@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { MovieContext } from "../../context/MovieContext";
 import Watchlist from "../../components/cards/WatchlistCard";
 import styles from "./Genres.module.css";
+import ScrollToTop from "../../helpers/ScrollToTop";
 
 export default function Genres() {
   const { genreId } = useParams();
@@ -18,6 +19,7 @@ export default function Genres() {
   console.log(genre);
   return (
     <div className={styles.container}>
+      <ScrollToTop />
       {genre ? (
         <>
           {" "}
