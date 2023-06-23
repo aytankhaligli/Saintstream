@@ -2,14 +2,19 @@ import { createContext, useState } from "react";
 
 export const LoginContext = createContext({
   isLoggedIn: false,
+  inputError: null,
   profileObj: {},
   login: () => {},
   logout: () => {},
+  valiedate: () => {},
+  handleChange: (e, input, setInput, text) => {},
+  submit: (input, text) => {},
 });
 
 export default function LoginContextProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [profileObj, setProfileObj] = useState({});
+  const [inputError, setInputError] = useState(null);
   function login(obj) {
     setIsLoggedIn(true);
     setProfileObj(obj);
@@ -18,7 +23,27 @@ export default function LoginContextProvider({ children }) {
     setIsLoggedIn(false);
     setProfileObj({});
   }
-  const value = { isLoggedIn, profileObj, login, logout };
+  function validate(email) {
+    return /\S+@\S+\.\S+/.test(email);
+  }
+  function handleChange(e, input, setInput, text) {
+    setInput(e.target.value);
+    // validate(email) && setError(null);
+    validate(input) ? setInputError(null) : setInputError(text);
+  }
+  function submit(input, text) {
+    validate(input) ? setInputError(null) : setInputError(text);
+  }
+
+  const value = {
+    isLoggedIn,
+    profileObj,
+    login,
+    logout,
+    inputError,
+    submit,
+    handleChange,
+  };
   return (
     <LoginContext.Provider value={value}>{children}</LoginContext.Provider>
   );

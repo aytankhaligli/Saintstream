@@ -7,7 +7,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, inputError } from "react";
 import { LoginContext } from "../../context/LoginContext";
 
 const appId = "143428682080487";
@@ -16,13 +16,14 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState(true);
-  const [error, setError] = useState(null);
-  const { login, isLoggedIn } = useContext(LoginContext);
+  const { login, isLoggedIn, handleChange, submit, inputError } =
+    useContext(LoginContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     email !== "" && password !== "" && setDisabled(false);
-    email === "" || (password === "" && setDisabled(true));
+    (email === "" || password === "") && setDisabled(true);
+    inputError && setDisabled(true);
   }, [email, password]);
 
   const onSuccess = (credentialResponse) => {
@@ -36,17 +37,6 @@ export default function Login() {
     }
   }, [isLoggedIn, navigate]);
 
-  const handleChangeEmail = (e) => {
-    setEmail(e.target.value);
-    validate(email) && setError(null);
-  };
-  const submit = () => {
-    validate(email) ? setError(null) : setError("Please write correct email");
-  };
-  const validate = (email) => {
-    return /\S+@\S+\.\S+/.test(email);
-  };
-
   const handleFacebookLogin = (response) => {
     console.log(response);
   };
@@ -58,9 +48,11 @@ export default function Login() {
           type="email"
           placeholder="Email"
           value={email}
-          onChange={handleChangeEmail}
+          onChange={(e) =>
+            handleChange(e, email, setEmail, "Please type correct email")
+          }
         />
-        {error && <p className={styles.errorText}>{error}</p>}
+        {inputError && <p className={styles.errorText}>{inputError}</p>}
 
         <Input
           type="text"
@@ -78,7 +70,7 @@ export default function Login() {
             color: disabled ? "#aaa" : "#000",
             cursor: disabled && "not-allowed",
           }}
-          onClick={submit}
+          onClick={() => submit(email, "Please type correct email")}
         />
       </form>
       <div className={styles.google}>

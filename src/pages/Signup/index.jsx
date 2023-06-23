@@ -1,18 +1,67 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContainer from "../../components/Auth";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import styles from "./Signup.module.css";
+import { LoginContext } from "../../context/LoginContext";
 
 export default function Signup() {
   const [isChecked, setIsChecked] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [secondPassword, setSecondPassword] = useState("");
+  const [error, setError] = useState(null);
+  const { inputError, handleChange } = useContext(LoginContext);
+  console.log(password);
+  console.log(secondPassword);
+  console.log(error);
+
+  function passwordOnChange(e) {
+    setSecondPassword(e.target.value);
+    secondPassword !== password
+      ? setError("Please repeat your password")
+      : setError(null);
+  }
+
+  useEffect(() => {
+    email !== "" &&
+      password !== "" &&
+      secondPassword !== "" &&
+      username !== "" &&
+      isChecked &&
+      !error &&
+      setDisabled(false);
+    (email === "" ||
+      password === "" ||
+      secondPassword === "" ||
+      username === "" ||
+      !isChecked ||
+      error) &&
+      setDisabled(true);
+    inputError && setDisabled(true);
+  }, [email, password, secondPassword, inputError, username]);
   return (
     <AuthContainer type="signup">
       <form>
-        <Input placeholder="Username" />
-        <Input placeholder="Email" />
-        <Input placeholder="Password" />
-        <Input placeholder="Password" />
+        <Input
+          placeholder="Username"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <Input
+          placeholder="Email"
+          onChange={(e) =>
+            handleChange(e, email, setEmail, "Please type correct email")
+          }
+        />
+        {inputError && <p className={styles.errorText}>{inputError}</p>}
+        <Input
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Input placeholder="Password" onChange={passwordOnChange} />
+        {error && <p className={styles.errorText}>{error}</p>}
         <div className={styles.checkbox_wrapper}>
           <input
             type="checkbox"
@@ -24,7 +73,11 @@ export default function Signup() {
 
         <Button
           text="Continue"
-          style={{ backgroundColor: "#fff", color: "#aaa" }}
+          style={{
+            backgroundColor: "#fff",
+            color: disabled ? "#aaa" : "#000",
+            cursor: disabled && "not-allowed",
+          }}
         />
       </form>
     </AuthContainer>
