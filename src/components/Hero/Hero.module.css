@@ -88,13 +88,7 @@
   color: #00925d;
   display: none;
 }
-.genres {
-  width: 100%;
-  position: absolute;
-  z-index: 10;
-  bottom: 30px;
-  left: 0;
-}
+
 @media (max-width: 80em) {
   .hero {
     padding-left: 48px;

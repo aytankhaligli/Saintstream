@@ -11,10 +11,13 @@ import { useContext } from "react";
 import { LoginContext } from "../../context/LoginContext";
 import { MovieContext } from "../../context/MovieContext";
 import ScrollToTop from "../../helpers/ScrollToTop";
+import MultipleItems from "../../components/Slider/MultiItems";
+import GenreCard from "../../components/cards/GenreCard";
+import styles from "./Home.module.css";
 
 export default function Home() {
   const { isLoggedIn } = useContext(LoginContext);
-  const { popularMovies, trendingAll, popularSeries } =
+  const { popularMovies, trendingAll, popularSeries, allGenres } =
     useContext(MovieContext);
   return (
     <div>
@@ -65,6 +68,12 @@ export default function Home() {
       >
         <Hero isExplore={true} />
       </SimpleSlider>
+
+      <div className={styles.genres}>
+        <MultipleItems count={6} data={allGenres} isCast={true}>
+          <GenreCard />
+        </MultipleItems>
+      </div>
     </div>
   );
 }

@@ -124,13 +124,6 @@ export default function Hero({
             </div>
           )}
         </div>
-        {isExplore && (
-          <div className={styles.genres}>
-            <MultipleItems count={6} data={allGenres} isCast={true}>
-              <GenreCard />
-            </MultipleItems>
-          </div>
-        )}
       </div>
     </Link>
   );
