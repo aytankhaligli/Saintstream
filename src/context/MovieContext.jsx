@@ -8,8 +8,10 @@ export const MovieContext = createContext({
   popularSeries: [],
   trendingAll: [],
   allGenres: [],
+  moviesbyGenres: [],
   searchingMovies: [],
   searchingQuery: "",
+  searchingGenre: "",
   getMovieGenres: (movie) => {},
   getPosterImg: (path) => {},
 });
@@ -30,9 +32,9 @@ const useProvideData = () => {
   const [trendingAll, setTrendingAll] = useState([]);
   const [allGenres, setAllGenres] = useState([]);
   const [searchingMovies, setSearchingMovie] = useState([]);
+  const [moviesbyGenres, setMoviesbyGenres] = useState([]);
   const [searchingQuery, setSearchingQuery] = useState("");
-  console.log(searchingQuery);
-  console.log(searchingMovies);
+  const [searchingGenre, setSearchingGenre] = useState("");
 
   function fetchData(url, setData, type = "all") {
     if (type === "search") {
@@ -42,7 +44,7 @@ const useProvideData = () => {
         .catch((err) => console.error(err));
     } else {
       axios
-        .get(`${baseUrl}/${url}?api_key=${apiKey}&language=en-US&page=1`)
+        .get(`${baseUrl}/${url}?api_key=${apiKey}&language=en-US`)
         .then((res) => {
           if (type === "all") {
             setData(res.data.results);
@@ -75,6 +77,14 @@ const useProvideData = () => {
     );
   }, [searchingQuery]);
 
+  useEffect(() => {
+    fetchData(
+      `discover/movie?with_genres=${searchingGenre}`,
+      setMoviesbyGenres,
+      "search"
+    );
+  }, [searchingGenre]);
+
   const getMovieGenres = (movie) => {
     const commonItems = [];
     if (movie) {
@@ -103,6 +113,9 @@ const useProvideData = () => {
   const getPosterImg = (path) => {
     return `https://image.tmdb.org/t/p/original/${path}`;
   };
+  function sortbyGenre(id) {
+    id && setSearchingGenre(id);
+  }
 
   const value = {
     movies,
@@ -116,6 +129,8 @@ const useProvideData = () => {
     fetchData,
     search,
     searchingMovies,
+    sortbyGenre,
+    moviesbyGenres,
   };
 
   return value;

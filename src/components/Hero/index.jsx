@@ -12,7 +12,6 @@ import { MovieContext } from "../../context/MovieContext";
 import GenreCard from "../cards/GenreCard";
 import MultipleItems from "../Slider/MultiItems";
 import { ModalContext } from "../../context/ModalContext";
-import SearchModal from "../SearchModal";
 
 export default function Hero({
   movie,
@@ -42,7 +41,7 @@ export default function Hero({
         </div>
         <div className={styles.season}>
           {!isExplore &&
-            (!movie.seasons
+            (!movie?.seasons?.length > 0
               ? "Movie"
               : movie.seasons[movie.seasons.length - 1].name)}
           {isExplore && "Explore by the genre"}

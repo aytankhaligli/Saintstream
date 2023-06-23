@@ -17,11 +17,11 @@ export default function Movie() {
   const [movie, setMovie] = useState("");
   const [similarMovies, setSimilarMovies] = useState([]);
   const [cast, setCast] = useState([]);
-  const { fetchData, movies } = useContext(MovieContext);
-
+  const { fetchData, movies, series } = useContext(MovieContext);
   useEffect(() => {
     setIsMovie(movies.some((movie) => movie.id === +movieId));
-  }, [movieId, movies]);
+    setIsMovie(!series.some((serie) => serie.id === +movieId));
+  }, [movieId, movies, series]);
 
   const [width, setWidth] = useState("");
   function getWindowSize() {

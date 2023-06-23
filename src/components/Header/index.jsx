@@ -20,7 +20,6 @@ export default function Header() {
   const { isLoggedIn, profileObj } = useContext(LoginContext);
   const { isModalOpen, openModal, closeModal } = useContext(ModalContext);
   const { searchingMovies } = useContext(MovieContext);
-  console.log(searchingMovies);
 
   useEffect(() => {
     const outsideClick = (e) => {

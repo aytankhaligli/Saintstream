@@ -5,6 +5,9 @@
   padding: 8px;
   gap: 10px;
 }
+.card:hover {
+  background-color: rgb(84, 81, 81);
+}
 .image {
   width: 84px;
   height: 100px;
