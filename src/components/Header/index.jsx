@@ -9,18 +9,24 @@ import { navElements } from "../../data/constants";
 import Dropdown from "../Dropdown";
 import { useContext, useEffect, useRef, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
+import SearchModal from "../SearchModal";
+import { ModalContext } from "../../context/ModalContext";
 
 export default function Header() {
-  const dropdownRef = useRef(null);
+  const modalRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const { isLoggedIn, profileObj } = useContext(LoginContext);
+  const { isModalOpen, openModal, closeModal } = useContext(ModalContext);
   // console.log(profileObj);
 
   useEffect(() => {
     const outsideClick = (e) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target))
+      if (modalRef.current && !modalRef.current.contains(e.target)) {
         setIsOpen(false);
+        closeModal();
+      }
     };
+
     document.addEventListener("click", outsideClick);
 
     return () => {
@@ -36,8 +42,13 @@ export default function Header() {
         </Link>
       </div>
       <Navbar items={navElements} />
-      <div className={styles.iconsContainer} ref={dropdownRef}>
-        <img src={searchIcon} alt="search icon" className={styles.icon} />
+      <div className={styles.iconsContainer} ref={modalRef}>
+        <img
+          src={searchIcon}
+          alt="search icon"
+          className={styles.icon}
+          onClick={openModal}
+        />
         <img src={bellIcon} alt="search icon" className={styles.icon} />
         <div className={styles.profileContainer}>
           {isLoggedIn && (
@@ -53,6 +64,7 @@ export default function Header() {
           />
         </div>
         {isOpen && <Dropdown />}
+        {isModalOpen && <SearchModal />}
       </div>
     </header>
   );

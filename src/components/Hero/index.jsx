@@ -6,14 +6,13 @@ import outlinePlayIcon from "../../assets/icons/play_outline.svg";
 import downloadIcon from "../../assets/icons/download.svg";
 import likeIcon from "../../assets/icons/thumb-up.svg";
 import shareIcon from "../../assets/icons/share.svg";
-import { useEffect } from "react";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { MovieContext } from "../../context/MovieContext";
-import SliderSection from "../SliderSection";
 import GenreCard from "../cards/GenreCard";
 import MultipleItems from "../Slider/MultiItems";
+import { ModalContext } from "../../context/ModalContext";
+import SearchModal from "../SearchModal";
 
 export default function Hero({
   movie,
@@ -24,6 +23,7 @@ export default function Hero({
   width,
 }) {
   const { getPosterImg, allGenres, getMovieGenres } = useContext(MovieContext);
+  const { isModalOpen } = useContext(ModalContext);
 
   const movieTime =
     Math.floor(movie.runtime / 60) + "h" + (movie.runtime % 60) + "m";
@@ -34,6 +34,7 @@ export default function Hero({
         className={
           isExplore ? [styles.hero, styles.height].join(" ") : styles.hero
         }
+        style={{ filter: isModalOpen && "blur(4px" }}
       >
         <div className={styles.overlay}></div>
         <div className={styles.image}>
