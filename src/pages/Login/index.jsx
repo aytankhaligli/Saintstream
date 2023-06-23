@@ -27,7 +27,6 @@ export default function Login() {
   }, [email, password]);
 
   const onSuccess = (credentialResponse) => {
-    console.log(credentialResponse.credential);
     const decoded = jwt_decode(credentialResponse.credential);
     login(decoded);
   };

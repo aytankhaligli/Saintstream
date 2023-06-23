@@ -28,7 +28,6 @@ export default function Hero({
   const movieTime =
     Math.floor(movie.runtime / 60) + "h" + (movie.runtime % 60) + "m";
 
-  console.log(movie);
   return (
     <Link to={!isMovie && `/${movie.id}`}>
       <div
@@ -54,11 +53,9 @@ export default function Hero({
           {movie.runtime && movieTime + "•"}
           {movie.release_date && movie.release_date.slice(0, 4)}
           {movie.first_air_date && movie.first_air_date.slice(0, 4)}
-
-          {/*  //! I have Problem here only movie Page i take an error from getMovieGenres, because i dont have allGenres */}
-          {/* {movie.genres
+          {movie.genres
             ? movie.genres.map((genre) => ` • ${genre.name}`)
-            : getMovieGenres(movie).map((genre) => ` • ${genre.name}`)} */}
+            : getMovieGenres(movie).map((genre) => ` • ${genre.name}`)}
         </p>
         {!isExplore && isHomePage && (
           <p className={styles.text}>

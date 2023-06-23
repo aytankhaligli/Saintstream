@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const LoginContext = createContext({
   isLoggedIn: false,
@@ -15,9 +15,17 @@ export default function LoginContextProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [profileObj, setProfileObj] = useState({});
   const [inputError, setInputError] = useState(null);
+
+  useEffect(() => {
+    const profile = JSON.parse(localStorage.getItem("profile"));
+    profile && setProfileObj(profile);
+    profile && setIsLoggedIn(true);
+  }, []);
+
   function login(obj) {
     setIsLoggedIn(true);
     setProfileObj(obj);
+    localStorage.setItem("profile", JSON.stringify(obj));
   }
   function logout() {
     setIsLoggedIn(false);
