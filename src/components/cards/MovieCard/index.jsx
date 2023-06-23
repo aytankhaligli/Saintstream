@@ -16,7 +16,7 @@ export default function MovieCard({ item, index }) {
         <div className={styles.number}>{index + 1}</div>
         <div className={styles.imageBox}>
           <img
-            src={getPosterImg(item.backdrop_path)}
+            src={getPosterImg(item.poster_path)}
             alt=""
             className={styles.image}
           />

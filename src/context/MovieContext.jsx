@@ -8,8 +8,10 @@ export const MovieContext = createContext({
   popularSeries: [],
   trendingAll: [],
   allGenres: [],
+  searchingMovies: [],
+  searchingQuery: "",
   getMovieGenres: (movie) => {},
-  getPosterImg: (path) => {}, 
+  getPosterImg: (path) => {},
 });
 
 const baseUrl = "https://api.themoviedb.org/3";
@@ -17,34 +19,43 @@ const apiKey = "59555ce48f74aaa22fe85d4160505521";
 
 export default function MovieContextProvider({ children }) {
   const data = useProvideData();
-  return (
-    <MovieContext.Provider value={data}>{children}</MovieContext.Provider>
-  );
+  return <MovieContext.Provider value={data}>{children}</MovieContext.Provider>;
 }
 
-const useProvideData = ()=> {
+const useProvideData = () => {
   const [movies, setMovies] = useState([]);
   const [series, setSeries] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
   const [popularSeries, setPopularSeries] = useState([]);
   const [trendingAll, setTrendingAll] = useState([]);
   const [allGenres, setAllGenres] = useState([]);
+  const [searchingMovies, setSearchingMovie] = useState([]);
+  const [searchingQuery, setSearchingQuery] = useState("");
+  console.log(searchingQuery);
+  console.log(searchingMovies);
 
   function fetchData(url, setData, type = "all") {
-    axios
-      .get(`${baseUrl}/${url}?api_key=${apiKey}&language=en-US&page=1`)
-      .then((res) => {
-        if (type === "all") {
-          setData(res.data.results);
-        } else if (type === "genre") {
-          setData(res.data.genres);
-        } else if (type === "movie") {
-          setData(res.data);
-        } else if (type === "cast") {
-          setData(res.data.cast);
-        }
-      })
-      .catch((err) => console.error(err));
+    if (type === "search") {
+      axios
+        .get(`${baseUrl}/${url}&api_key=${apiKey}&language=en-US&page=1`)
+        .then((res) => setData(res.data.results))
+        .catch((err) => console.error(err));
+    } else {
+      axios
+        .get(`${baseUrl}/${url}?api_key=${apiKey}&language=en-US&page=1`)
+        .then((res) => {
+          if (type === "all") {
+            setData(res.data.results);
+          } else if (type === "genre") {
+            setData(res.data.genres);
+          } else if (type === "movie") {
+            setData(res.data);
+          } else if (type === "cast") {
+            setData(res.data.cast);
+          }
+        })
+        .catch((err) => console.error(err));
+    }
   }
 
   useEffect(() => {
@@ -56,26 +67,38 @@ const useProvideData = ()=> {
     fetchData("genre/movie/list", setAllGenres, "genre");
   }, []);
 
+  useEffect(() => {
+    fetchData(
+      `search/movie?query=${searchingQuery}`,
+      setSearchingMovie,
+      "search"
+    );
+  }, [searchingQuery]);
+
   const getMovieGenres = (movie) => {
     const commonItems = [];
-    if(movie){
-    for (let i = 0; i < allGenres.length; i++) {
-      const item1 = allGenres[i];
+    if (movie) {
+      for (let i = 0; i < allGenres.length; i++) {
+        const item1 = allGenres[i];
 
-      for (let j = 0; j < movie.genre_ids.length; j++) {
-        const item2 = movie.genre_ids[j];
+        for (let j = 0; j < movie.genre_ids.length; j++) {
+          const item2 = movie.genre_ids[j];
 
-        if (item1.id === item2) {
-          commonItems.push({
-            id: item1.id,
-            name: item1.name === "Science Fiction" ? "Sci-Fi" : item1.name,
-          });
+          if (item1.id === item2) {
+            commonItems.push({
+              id: item1.id,
+              name: item1.name === "Science Fiction" ? "Sci-Fi" : item1.name,
+            });
+          }
         }
       }
     }
-  }
     return commonItems;
   };
+
+  function search(searchingData) {
+    setSearchingQuery(searchingData.replace(/\s+/g, "+"));
+  }
 
   const getPosterImg = (path) => {
     return `https://image.tmdb.org/t/p/original/${path}`;
@@ -91,7 +114,9 @@ const useProvideData = ()=> {
     getMovieGenres,
     getPosterImg,
     fetchData,
+    search,
+    searchingMovies,
   };
 
   return value;
-}
+};

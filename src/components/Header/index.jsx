@@ -11,13 +11,16 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
 import SearchModal from "../SearchModal";
 import { ModalContext } from "../../context/ModalContext";
+import { MovieContext } from "../../context/MovieContext";
+import SearchingMovieCard from "../cards/SearchingMovieCard";
 
 export default function Header() {
   const modalRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const { isLoggedIn, profileObj } = useContext(LoginContext);
   const { isModalOpen, openModal, closeModal } = useContext(ModalContext);
-  // console.log(profileObj);
+  const { searchingMovies } = useContext(MovieContext);
+  console.log(searchingMovies);
 
   useEffect(() => {
     const outsideClick = (e) => {
@@ -64,7 +67,18 @@ export default function Header() {
           />
         </div>
         {isOpen && <Dropdown />}
-        {isModalOpen && <SearchModal />}
+        {isModalOpen && (
+          <div className={styles.searchBox}>
+            <SearchModal />
+            {searchingMovies.length > 0 && (
+              <div className={styles.resultsContainer}>
+                {searchingMovies.map((item) => (
+                  <SearchingMovieCard key={item.id} item={item} />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </header>
   );

@@ -1,15 +1,16 @@
 .searchBox {
-  position: absolute;
+  /* position: absolute;
   bottom: -100%;
   left: 50%;
   transform: translateX(-50%);
-  width: 50%;
+  width: 50%; */
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 14px 0px;
   border-radius: 8px;
   display: flex;
   padding: 18px 24px;
   background-color: black;
   border: 1px solid #fff;
+  margin-bottom: 12px;
 }
 .input {
   border: none;
