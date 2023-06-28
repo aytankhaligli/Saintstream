@@ -5,9 +5,8 @@ import styles from "./Login.module.css";
 import AuthContainer from "../../components/Auth";
 import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
-
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-import { useContext, useEffect, useState, inputError } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
 
 const appId = "143428682080487";
@@ -38,6 +37,10 @@ export default function Login() {
 
   const handleFacebookLogin = (response) => {
     console.log(response);
+    login(response);
+  };
+  const componentClicked = (data) => {
+    console.warn(data);
   };
 
   return (
@@ -81,9 +84,10 @@ export default function Login() {
         />
         <FacebookLogin
           appId={appId}
-          autoLoad={false}
+          autoLoad={true}
           fields="name,email,picture"
           callback={handleFacebookLogin}
+          onClick={componentClicked}
           render={(renderProps) => (
             <button onClick={renderProps.onClick} className={styles.facebook}>
               Sign in with Facebook

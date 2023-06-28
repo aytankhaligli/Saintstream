@@ -7,6 +7,7 @@ export const LoginContext = createContext({
   login: () => {},
   logout: () => {},
   valiedate: () => {},
+  credentials: {},
   handleChange: (e, input, setInput, text) => {},
   submit: (input, text) => {},
 });
@@ -15,6 +16,11 @@ export default function LoginContextProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [profileObj, setProfileObj] = useState({});
   const [inputError, setInputError] = useState(null);
+  const [credentials, setCredentials] = useState({
+    email: "",
+    password: "",
+    name: "",
+  });
 
   useEffect(() => {
     const profile = JSON.parse(localStorage.getItem("profile"));
@@ -23,13 +29,24 @@ export default function LoginContextProvider({ children }) {
   }, []);
 
   function login(obj) {
+    console.log(obj);
     setIsLoggedIn(true);
-    setProfileObj(obj);
-    localStorage.setItem("profile", JSON.stringify(obj));
+    setProfileObj({
+      name: obj.name,
+      picture: obj.picture.data ? obj.picture.data.url : obj.picture,
+    });
+    localStorage.setItem(
+      "profile",
+      JSON.stringify({
+        name: obj.name,
+        picture: obj.picture.data ? obj.picture.data.url : obj.picture,
+      })
+    );
   }
   function logout() {
     setIsLoggedIn(false);
     setProfileObj({});
+    localStorage.removeItem("profile");
   }
   function validate(email) {
     return /\S+@\S+\.\S+/.test(email);
@@ -42,6 +59,11 @@ export default function LoginContextProvider({ children }) {
   function submit(input, text) {
     validate(input) ? setInputError(null) : setInputError(text);
   }
+  function signup(email, password, name) {
+    setCredentials({ email, password, name });
+    login(credentials);
+    console.log(credentials);
+  }
 
   const value = {
     isLoggedIn,
@@ -51,6 +73,7 @@ export default function LoginContextProvider({ children }) {
     inputError,
     submit,
     handleChange,
+    signup,
   };
   return (
     <LoginContext.Provider value={value}>{children}</LoginContext.Provider>

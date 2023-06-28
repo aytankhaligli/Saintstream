@@ -4,6 +4,7 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import styles from "./Signup.module.css";
 import { LoginContext } from "../../context/LoginContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
   const [isChecked, setIsChecked] = useState(false);
@@ -13,10 +14,8 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [secondPassword, setSecondPassword] = useState("");
   const [error, setError] = useState(null);
-  const { inputError, handleChange } = useContext(LoginContext);
-  console.log(password);
-  console.log(secondPassword);
-  console.log(error);
+  const { inputError, handleChange, signup, isLoggedIn } =
+    useContext(LoginContext);
 
   function passwordOnChange(e) {
     setSecondPassword(e.target.value);
@@ -24,6 +23,7 @@ export default function Signup() {
       ? setError("Please repeat your password")
       : setError(null);
   }
+  const navigate = useNavigate();
 
   useEffect(() => {
     email !== "" &&
@@ -41,7 +41,13 @@ export default function Signup() {
       error) &&
       setDisabled(true);
     inputError && setDisabled(true);
-  }, [email, password, secondPassword, inputError, username]);
+  }, [email, password, secondPassword, inputError, username, error, isChecked]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/home");
+    }
+  }, [isLoggedIn, navigate]);
   return (
     <AuthContainer type="signup">
       <form>
@@ -78,6 +84,7 @@ export default function Signup() {
             color: disabled ? "#aaa" : "#000",
             cursor: disabled && "not-allowed",
           }}
+          onClick={() => signup(email, password, username)}
         />
       </form>
     </AuthContainer>
