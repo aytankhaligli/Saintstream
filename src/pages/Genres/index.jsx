@@ -16,7 +16,7 @@ export default function Genres() {
     allGenres.length > 0 &&
     allGenres.filter((genre) => genre.id === +genreId)[0];
 
-  console.log(genre);
+  // console.log(genre);
   return (
     <div className={styles.container}>
       <ScrollToTop />

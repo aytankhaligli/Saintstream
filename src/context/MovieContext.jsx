@@ -12,6 +12,7 @@ export const MovieContext = createContext({
   searchingMovies: [],
   searchingQuery: "",
   searchingGenre: "",
+  filteringGenre: "",
   getMovieGenres: (movie) => {},
   getPosterImg: (path) => {},
 });
@@ -36,6 +37,7 @@ const useProvideData = () => {
   const [searchingQuery, setSearchingQuery] = useState("");
   const [searchingYear, setSearchingYear] = useState("");
   const [searchingGenre, setSearchingGenre] = useState("");
+  const [filteringGenre, setFilteringGenre] = useState("");
 
   function fetchData(url, setData, type = "all") {
     if (type === "search") {
@@ -71,14 +73,13 @@ const useProvideData = () => {
   }, []);
 
   useEffect(() => {
-    console.log(searchingGenre);
     fetchData(
       `search/movie?query=${searchingQuery}&primary_release_year=${searchingYear}&with_genres
-      =${searchingGenre}`,
+      =${filteringGenre}`,
       setSearchingMovie,
       "search"
     );
-  }, [searchingQuery, searchingGenre, searchingYear]);
+  }, [searchingQuery, filteringGenre, searchingYear]);
 
   useEffect(() => {
     fetchData(
@@ -115,7 +116,7 @@ const useProvideData = () => {
   function filter(genre, year) {
     const id =
       genre && allGenres.filter((genr) => genr.name === genre)[0].id.toString();
-    setSearchingGenre(id);
+    setFilteringGenre(id);
     setSearchingYear(year);
   }
 
