@@ -13,6 +13,7 @@ import SearchModal from "../SearchModal";
 import { ModalContext } from "../../context/ModalContext";
 import { MovieContext } from "../../context/MovieContext";
 import SearchingMovieCard from "../cards/SearchingMovieCard";
+import Filter from "../Filter";
 
 export default function Header() {
   const modalRef = useRef(null);
@@ -69,6 +70,7 @@ export default function Header() {
         {isModalOpen && (
           <div className={styles.searchBox}>
             <SearchModal />
+            <Filter />
             {searchingMovies.length > 0 && (
               <div className={styles.resultsContainer}>
                 {searchingMovies.map((item) => (

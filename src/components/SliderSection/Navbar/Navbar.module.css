@@ -1,0 +1,34 @@
+.list {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+.item {
+  min-width: 48px;
+}
+
+.item:hover {
+  font-weight: 800;
+}
+.element {
+  margin-left: 10px;
+}
+a.active {
+  font-weight: 800;
+}
+
+@media (max-width: 66em) {
+  .list {
+    gap: 20px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 38em) {
+  .navbar {
+    display: none;
+  }
+}

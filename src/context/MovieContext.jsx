@@ -34,6 +34,7 @@ const useProvideData = () => {
   const [searchingMovies, setSearchingMovie] = useState([]);
   const [moviesbyGenres, setMoviesbyGenres] = useState([]);
   const [searchingQuery, setSearchingQuery] = useState("");
+  const [searchingYear, setSearchingYear] = useState("");
   const [searchingGenre, setSearchingGenre] = useState("");
 
   function fetchData(url, setData, type = "all") {
@@ -70,12 +71,14 @@ const useProvideData = () => {
   }, []);
 
   useEffect(() => {
+    console.log(searchingGenre);
     fetchData(
-      `search/movie?query=${searchingQuery}`,
+      `search/movie?query=${searchingQuery}&primary_release_year=${searchingYear}&with_genres
+      =${searchingGenre}`,
       setSearchingMovie,
       "search"
     );
-  }, [searchingQuery]);
+  }, [searchingQuery, searchingGenre, searchingYear]);
 
   useEffect(() => {
     fetchData(
@@ -109,6 +112,12 @@ const useProvideData = () => {
   function search(searchingData) {
     setSearchingQuery(searchingData.replace(/\s+/g, "+"));
   }
+  function filter(genre, year) {
+    const id =
+      genre && allGenres.filter((genr) => genr.name === genre)[0].id.toString();
+    setSearchingGenre(id);
+    setSearchingYear(year);
+  }
 
   const getPosterImg = (path) => {
     return `https://image.tmdb.org/t/p/original/${path}`;
@@ -131,6 +140,7 @@ const useProvideData = () => {
     searchingMovies,
     sortbyGenre,
     moviesbyGenres,
+    filter,
   };
 
   return value;
