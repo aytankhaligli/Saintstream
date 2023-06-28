@@ -31,6 +31,10 @@ const router = createBrowserRouter([
         element: <Genres />,
       },
       {
+        path: "genres/:genreId",
+        element: <Genres />,
+      },
+      {
         path: "/discover",
         element: <Discover />,
       },
