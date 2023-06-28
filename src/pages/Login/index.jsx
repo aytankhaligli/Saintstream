@@ -15,7 +15,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState(true);
-  const { login, isLoggedIn, handleChange, submit, inputError } =
+  const { login, isLoggedIn, handleChange, signIn, inputError } =
     useContext(LoginContext);
   const navigate = useNavigate();
 
@@ -72,7 +72,7 @@ export default function Login() {
             color: disabled ? "#aaa" : "#000",
             cursor: disabled && "not-allowed",
           }}
-          onClick={() => submit(email, "Please type correct email")}
+          onClick={() => signIn(email, password)}
         />
       </form>
       <div className={styles.google}>
@@ -84,7 +84,7 @@ export default function Login() {
         />
         <FacebookLogin
           appId={appId}
-          autoLoad={true}
+          autoLoad={false}
           fields="name,email,picture"
           callback={handleFacebookLogin}
           onClick={componentClicked}

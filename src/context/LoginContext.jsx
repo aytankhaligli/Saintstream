@@ -1,4 +1,6 @@
+import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+const API_KEY = "AIzaSyD6awMYmMp6c0QVfJR-A0sNEX0Pbl_Ehnk";
 
 export const LoginContext = createContext({
   isLoggedIn: false,
@@ -7,7 +9,6 @@ export const LoginContext = createContext({
   login: () => {},
   logout: () => {},
   valiedate: () => {},
-  credentials: {},
   handleChange: (e, input, setInput, text) => {},
   submit: (input, text) => {},
 });
@@ -16,11 +17,7 @@ export default function LoginContextProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [profileObj, setProfileObj] = useState({});
   const [inputError, setInputError] = useState(null);
-  const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
-    name: "",
-  });
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const profile = JSON.parse(localStorage.getItem("profile"));
@@ -28,18 +25,19 @@ export default function LoginContextProvider({ children }) {
     profile && setIsLoggedIn(true);
   }, []);
 
-  function login(obj) {
-    console.log(obj);
+  async function login(obj) {
     setIsLoggedIn(true);
     setProfileObj({
       name: obj.name,
-      picture: obj.picture.data ? obj.picture.data.url : obj.picture,
+      picture:
+        obj.picture && obj.picture.data ? obj.picture.data.url : obj.picture,
     });
     localStorage.setItem(
       "profile",
       JSON.stringify({
         name: obj.name,
-        picture: obj.picture.data ? obj.picture.data.url : obj.picture,
+        picture:
+          obj.picture && obj.picture.data ? obj.picture.data.url : obj.picture,
       })
     );
   }
@@ -53,16 +51,43 @@ export default function LoginContextProvider({ children }) {
   }
   function handleChange(e, input, setInput, text) {
     setInput(e.target.value);
-    // validate(email) && setError(null);
     validate(input) ? setInputError(null) : setInputError(text);
   }
-  function submit(input, text) {
-    validate(input) ? setInputError(null) : setInputError(text);
+  async function authenticate(mode, email, password, name = "") {
+    const url = `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${API_KEY}`;
+    try {
+      const response = await axios.post(url, {
+        email,
+        password,
+        displayName: name,
+        returnSecureToken: true,
+      });
+      return response.data;
+    } catch (err) {
+      setError(err.message);
+      console.log(error);
+    }
   }
-  function signup(email, password, name) {
-    setCredentials({ email, password, name });
-    login(credentials);
-    console.log(credentials);
+
+  async function createUser(email, password, name) {
+    await authenticate("signUp", email, password, name);
+  }
+
+  async function signup(email, password, name) {
+    login({ email, password, name });
+    await createUser(email, password, name);
+  }
+  async function signIn(email, password) {
+    try {
+      const response = await authenticate(
+        "signInWithPassword",
+        email,
+        password
+      );
+      login({ email: response.email, name: response.displayName });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   const value = {
@@ -71,9 +96,9 @@ export default function LoginContextProvider({ children }) {
     login,
     logout,
     inputError,
-    submit,
     handleChange,
     signup,
+    signIn,
   };
   return (
     <LoginContext.Provider value={value}>{children}</LoginContext.Provider>
