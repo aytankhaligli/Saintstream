@@ -14,8 +14,8 @@ export const MovieContext = createContext({
   searchingQuery: "",
   searchingGenre: "",
   filteringGenre: "",
-  getMovieGenres: (movie) => {},
-  getPosterImg: (path) => {},
+  getMovieGenres: (movie) => { },
+  getPosterImg: (path) => { },
 });
 
 const baseUrl = "https://api.themoviedb.org/3";
@@ -48,17 +48,18 @@ const useProvideData = () => {
     if (type === "search") {
       axios
         .get(
-          `${baseUrl}/${url}&api_key=${apiKey}&language=en-US&page=${
-            currentPage ? currentPage : 1
+          `${baseUrl}/${url}&api_key=${apiKey}&language=en-US&page=${currentPage ? currentPage : 1
           }`
         )
-        .then((res) => setData(res.data.results))
+        .then((res) => {
+          console.log(res.data.results);
+          setData(res.data.results)
+        })
         .catch((err) => console.error(err));
     } else {
       axios
         .get(
-          `${baseUrl}/${url}?api_key=${apiKey}&language=en-US&page=${
-            currentPage ? currentPage : 1
+          `${baseUrl}/${url}?api_key=${apiKey}&language=en-US&page=${currentPage ? currentPage : 1
           }`
         )
         .then((res) => {
@@ -94,10 +95,10 @@ const useProvideData = () => {
 
   function changePage(page) {
     setCurrentPage(page);
-    console.log(currentPage);
   }
 
   useEffect(() => {
+    console.log(searchingQuery);
     fetchData(
       `search/movie?query=${searchingQuery}&primary_release_year=${searchingYear}&with_genres
       =${filteringGenre}`,

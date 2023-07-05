@@ -5,7 +5,8 @@ import ReactPaginate from "react-paginate";
 export default function Pagination() {
   const { totalPages, changePage } = useContext(MovieContext);
   function handlePageClick(data) {
-    changePage(data.selected);
+    console.log(data.selected);
+    changePage(data.selected + 1);
   }
   return (
     <div className={styles.pagination}>
