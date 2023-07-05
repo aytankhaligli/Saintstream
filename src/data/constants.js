@@ -113,7 +113,7 @@ export const Streamlist = [
 export const navElements = [
   "Home",
   "Discover",
-  "Movie Release",
+  "Popular People",
   "Forum",
   "About",
 ];

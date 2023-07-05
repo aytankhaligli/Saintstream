@@ -8,7 +8,11 @@ export default function Navbar({ items, element }) {
         {items.map((item, index) => (
           <li className={styles.item} key={index}>
             <NavLink
-              to={item}
+              to={
+                item.split("").includes(" ")
+                  ? item.replace(" ", "-").toLowerCase()
+                  : item.toLowerCase()
+              }
               className={({ isActive }) => (isActive ? styles.active : "")}
             >
               {item}

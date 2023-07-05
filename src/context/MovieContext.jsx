@@ -10,6 +10,7 @@ export const MovieContext = createContext({
   allGenres: [],
   moviesbyGenres: [],
   searchingMovies: [],
+  popularPeople: [],
   searchingQuery: "",
   searchingGenre: "",
   filteringGenre: "",
@@ -34,10 +35,14 @@ const useProvideData = () => {
   const [allGenres, setAllGenres] = useState([]);
   const [searchingMovies, setSearchingMovie] = useState([]);
   const [moviesbyGenres, setMoviesbyGenres] = useState([]);
+  const [popularPeople, setPopularPeople] = useState([]);
+  const [searchingPeople, setSearchingPeople] = useState([]);
   const [searchingQuery, setSearchingQuery] = useState("");
   const [searchingYear, setSearchingYear] = useState("");
   const [searchingGenre, setSearchingGenre] = useState("");
   const [filteringGenre, setFilteringGenre] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
   function fetchData(url, setData, type = "all") {
     if (type === "search") {
@@ -47,7 +52,11 @@ const useProvideData = () => {
         .catch((err) => console.error(err));
     } else {
       axios
-        .get(`${baseUrl}/${url}?api_key=${apiKey}&language=en-US`)
+        .get(
+          `${baseUrl}/${url}?api_key=${apiKey}&language=en-US&page=${
+            currentPage ? currentPage : 1
+          }`
+        )
         .then((res) => {
           if (type === "all") {
             setData(res.data.results);
@@ -57,6 +66,8 @@ const useProvideData = () => {
             setData(res.data);
           } else if (type === "cast") {
             setData(res.data.cast);
+          } else if (type === "page") {
+            setData(res.data.total_pages);
           }
         })
         .catch((err) => console.error(err));
@@ -70,13 +81,28 @@ const useProvideData = () => {
     fetchData("tv/popular", setPopularSeries);
     fetchData("trending/all/day", setTrendingAll);
     fetchData("genre/movie/list", setAllGenres, "genre");
+    fetchData("person/popular", setTotalPages, "page");
   }, []);
+
+  useEffect(() => {
+    fetchData("person/popular", setPopularPeople);
+  }, [currentPage]);
+
+  function changePage(page) {
+    setCurrentPage(page);
+    console.log(currentPage);
+  }
 
   useEffect(() => {
     fetchData(
       `search/movie?query=${searchingQuery}&primary_release_year=${searchingYear}&with_genres
       =${filteringGenre}`,
       setSearchingMovie,
+      "search"
+    );
+    fetchData(
+      `search/person?query=${searchingQuery}&include_adult=false`,
+      setSearchingPeople,
       "search"
     );
   }, [searchingQuery, filteringGenre, searchingYear]);
@@ -142,6 +168,10 @@ const useProvideData = () => {
     sortbyGenre,
     moviesbyGenres,
     filter,
+    popularPeople,
+    searchingPeople,
+    totalPages,
+    changePage,
   };
 
   return value;

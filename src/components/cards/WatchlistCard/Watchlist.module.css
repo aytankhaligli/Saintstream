@@ -2,20 +2,27 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: 280px;
+  overflow: hidden;
 }
 .image {
   width: 280px;
-  height: 183px;
+  height: 420px;
   border-radius: 16px;
   overflow: hidden;
 }
 .image img {
   width: 100%;
+  height: auto;
   object-fit: cover;
 }
 .ratingBox {
   display: flex;
   align-items: center;
+}
+.movie {
+  font-size: 14px;
+  text-wrap: nowrap;
 }
 .title {
   font-family: "Rubik";

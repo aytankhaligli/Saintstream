@@ -1,0 +1,13 @@
+.container {
+  margin-top: 120px;
+  padding: 0 75px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  row-gap: 28px;
+}
+.search {
+  margin-bottom: 16px;
+}

@@ -12,6 +12,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import LoginContextProvider from "./context/LoginContext";
 import Discover from "./pages/Discover";
 import Genres from "./pages/Genres";
+import PopularPeople from "./pages/PopularPeople";
 
 const clientId =
   "805826379803-pgig8dpn1a8aeedvf63vnlmcv7sf6pbf.apps.googleusercontent.com";
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
+      },
+      {
+        path: "/popular-people",
+        element: <PopularPeople />,
       },
     ],
   },
