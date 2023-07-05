@@ -10,4 +10,30 @@
 }
 .search {
   margin-bottom: 16px;
+  width: auto;
+}
+@media (max-width: 80em) {
+  .container {
+    padding: 0 48px;
+  }
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 66em) {
+  .container {
+    padding: 0 48px;
+  }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 32em) {
+  .container {
+    padding: 0 16px;
+  }
+  .grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

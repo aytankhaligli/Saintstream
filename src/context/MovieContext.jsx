@@ -47,7 +47,11 @@ const useProvideData = () => {
   function fetchData(url, setData, type = "all") {
     if (type === "search") {
       axios
-        .get(`${baseUrl}/${url}&api_key=${apiKey}&language=en-US&page=1`)
+        .get(
+          `${baseUrl}/${url}&api_key=${apiKey}&language=en-US&page=${
+            currentPage ? currentPage : 1
+          }`
+        )
         .then((res) => setData(res.data.results))
         .catch((err) => console.error(err));
     } else {
@@ -105,7 +109,7 @@ const useProvideData = () => {
       setSearchingPeople,
       "search"
     );
-  }, [searchingQuery, filteringGenre, searchingYear]);
+  }, [searchingQuery, filteringGenre, searchingYear, currentPage]);
 
   useEffect(() => {
     fetchData(

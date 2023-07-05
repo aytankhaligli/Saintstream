@@ -13,7 +13,7 @@ export default function PopularPeople() {
         <SearchModal />
       </div>
       <div className={styles.grid}>
-        {people.map((pers) => (
+        {people.map((pers, index) => (
           <Watchlist item={pers} key={pers.id} type="people" />
         ))}
       </div>
