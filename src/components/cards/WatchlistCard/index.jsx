@@ -23,8 +23,8 @@ export default function Watchlist({ item, type }) {
         <h1 className={styles.title}>{item.title ? item.title : item.name}</h1>
         {type === "people" ? (
           <div className={styles.ratingBox}>
-            {item.known_for.map((movie) => (
-              <p key={movie.original_title} className={styles.movie}>
+            {item.known_for.map((movie, index) => (
+              <p key={movie.id} className={styles.movie}>
                 {movie.original_name
                   ? movie.original_name
                   : movie.original_title}
