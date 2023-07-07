@@ -8,6 +8,8 @@ import jwt_decode from "jwt-decode";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const appId = "143428682080487";
 
@@ -15,7 +17,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState(true);
-  const { login, isLoggedIn, handleChange, signIn, inputError } =
+  const { login, isLoggedIn, handleChange, inputError } =
     useContext(LoginContext);
   const navigate = useNavigate();
 
@@ -43,6 +45,18 @@ export default function Login() {
     console.warn(data);
   };
 
+  function signIn() {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+        login(user);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+
   return (
     <AuthContainer>
       <form className={styles.form}>
@@ -51,7 +65,7 @@ export default function Login() {
           placeholder="Email"
           value={email}
           onChange={(e) =>
-            handleChange(e, email, setEmail, "Please type correct email")
+            handleChange(e, setEmail, "Please type correct email")
           }
         />
         {inputError && <p className={styles.errorText}>{inputError}</p>}
@@ -72,7 +86,7 @@ export default function Login() {
             color: disabled ? "#aaa" : "#000",
             cursor: disabled && "not-allowed",
           }}
-          onClick={() => signIn(email, password)}
+          onClick={signIn}
         />
       </form>
       <div className={styles.google}>

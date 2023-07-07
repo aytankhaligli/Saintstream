@@ -5,6 +5,8 @@ import Button from "../../components/Button";
 import styles from "./Signup.module.css";
 import { LoginContext } from "../../context/LoginContext";
 import { useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../../firebase";
 
 export default function Signup() {
   const [isChecked, setIsChecked] = useState(false);
@@ -14,16 +16,19 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [secondPassword, setSecondPassword] = useState("");
   const [error, setError] = useState(null);
-  const { inputError, handleChange, signup, isLoggedIn } =
+  const { inputError, handleChange, isLoggedIn, login } =
     useContext(LoginContext);
+  const navigate = useNavigate();
 
-  function passwordOnChange(e) {
-    setSecondPassword(e.target.value);
+  useEffect(() => {
     secondPassword !== password
       ? setError("Please repeat your password")
       : setError(null);
+  }, [password, secondPassword]);
+
+  function passwordOnChange(e) {
+    setSecondPassword(e.target.value);
   }
-  const navigate = useNavigate();
 
   useEffect(() => {
     email !== "" &&
@@ -48,6 +53,24 @@ export default function Signup() {
       navigate("/home");
     }
   }, [isLoggedIn, navigate]);
+
+  const register = async (name, email, password) => {
+    try {
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(auth.currentUser, { displayName: name }).catch(
+        (err) => console.log(err)
+      );
+      login(user.user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  function signup(e) {
+    e.preventDefault();
+    register(username, email, password);
+  }
+
   return (
     <AuthContainer type="signup">
       <form>
@@ -58,7 +81,7 @@ export default function Signup() {
         <Input
           placeholder="Email"
           onChange={(e) =>
-            handleChange(e, email, setEmail, "Please type correct email")
+            handleChange(e, setEmail, "Please type correct email")
           }
         />
         {inputError && <p className={styles.errorText}>{inputError}</p>}
@@ -79,12 +102,13 @@ export default function Signup() {
 
         <Button
           text="Continue"
+          type="submit"
           style={{
             backgroundColor: "#fff",
             color: disabled ? "#aaa" : "#000",
             cursor: disabled && "not-allowed",
           }}
-          onClick={() => signup(email, password, username)}
+          onClick={signup}
         />
       </form>
     </AuthContainer>

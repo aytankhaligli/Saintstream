@@ -1,5 +1,5 @@
 import styles from "./Pagination.module.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { MovieContext } from "../../context/MovieContext";
 import ReactPaginate from "react-paginate";
 export default function Pagination() {

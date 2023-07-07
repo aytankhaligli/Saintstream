@@ -5,11 +5,21 @@
   width: 280px;
   overflow: hidden;
 }
+.watchlistImage {
+  width: 100%;
+  height: 100px;
+}
+
 .image {
   width: 280px;
   height: 420px;
   border-radius: 16px;
   overflow: hidden;
+}
+.watchlistImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .image img {
   width: 100%;

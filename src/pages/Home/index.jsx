@@ -7,7 +7,7 @@ import ReleaseCard from "../../components/cards/ReleaseCard";
 import WatchlistCard from "../../components/cards/WatchlistCard";
 import SliderSection from "../../components/SliderSection";
 import Hero from "../../components/Hero";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
 import { MovieContext } from "../../context/MovieContext";
 import ScrollToTop from "../../helpers/ScrollToTop";
@@ -17,7 +17,7 @@ import styles from "./Home.module.css";
 
 export default function Home() {
   const { isLoggedIn } = useContext(LoginContext);
-  const { popularMovies, trendingAll, popularSeries, allGenres } =
+  const { popularMovies, trendingAll, allGenres, watchlist } =
     useContext(MovieContext);
   return (
     <div>
@@ -46,8 +46,8 @@ export default function Home() {
       {isLoggedIn && (
         <>
           <SliderSection
-            count={4}
-            data={fakeMovies}
+            count={watchlist.length < 4 ? watchlist.length : 4}
+            data={watchlist}
             title="Your Watchlist"
             element={<WatchlistCard />}
           />

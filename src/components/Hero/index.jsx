@@ -1,6 +1,7 @@
 import styles from "./Hero.module.css";
 import Button from "../Button";
 import bookmarkIcon from "../../assets/icons/bookmark.svg";
+import bookmarkFill from "../../assets/icons/bookmark-fill.svg";
 import playIcon from "../../assets/icons/play.svg";
 import outlinePlayIcon from "../../assets/icons/play_outline.svg";
 import downloadIcon from "../../assets/icons/download.svg";
@@ -9,9 +10,15 @@ import shareIcon from "../../assets/icons/share.svg";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { MovieContext } from "../../context/MovieContext";
-import GenreCard from "../cards/GenreCard";
-import MultipleItems from "../Slider/MultiItems";
 import { ModalContext } from "../../context/ModalContext";
+import {
+  collection,
+  addDoc,
+  deleteDoc,
+  doc,
+  getDocs,
+} from "firebase/firestore";
+import db from "../../firebase";
 
 export default function Hero({
   movie,
@@ -21,8 +28,15 @@ export default function Hero({
   isMovie,
   width,
 }) {
-  const { getPosterImg, allGenres, getMovieGenres } = useContext(MovieContext);
+  const {
+    getPosterImg,
+    getMovieGenres,
+    watchlist,
+    addWatchlist,
+    removeWatchlist,
+  } = useContext(MovieContext);
   const { isModalOpen } = useContext(ModalContext);
+  console.log(watchlist);
 
   const movieTime =
     Math.floor(movie.runtime / 60) + "h" + (movie.runtime % 60) + "m";
@@ -86,10 +100,23 @@ export default function Hero({
             )}
 
             <Button
-              text="Add Watchlist"
-              icon={bookmarkIcon}
+              text={
+                watchlist.some((mov) => mov.id === movie.id)
+                  ? "Remove Watchlist"
+                  : "Add Watchlist"
+              }
+              icon={
+                watchlist.some((mov) => mov.id === movie.id)
+                  ? bookmarkFill
+                  : bookmarkIcon
+              }
               style={{ border: "1px solid #FFFFFF" }}
               isMoviePageIcon={true}
+              onClick={() =>
+                watchlist.some((mov) => mov.id === movie.id)
+                  ? removeWatchlist(movie)
+                  : addWatchlist(movie)
+              }
             />
           </div>
           {isMoviePage && (

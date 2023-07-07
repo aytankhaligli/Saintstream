@@ -10,7 +10,9 @@ export default function Watchlist({ item, type }) {
   return (
     <Link to={`/${item.id}`}>
       <div className={styles.card}>
-        <div className={styles.image}>
+        <div
+          className={type === "people" ? styles.image : styles.watchlistImage}
+        >
           <img
             src={
               type === "people"
@@ -36,7 +38,9 @@ export default function Watchlist({ item, type }) {
           <div className={styles.ratingBox}>
             <Rate rating={item.vote_average} />
             {!item.categories && (
-              <Categories categories={getMovieGenres(item)} />
+              <Categories
+                categories={item.genres ? item.genres : getMovieGenres(item)}
+              />
             )}
           </div>
         )}

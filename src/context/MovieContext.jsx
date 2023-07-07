@@ -1,5 +1,13 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+import db from "../firebase";
 
 export const MovieContext = createContext({
   movies: [],
@@ -14,8 +22,8 @@ export const MovieContext = createContext({
   searchingQuery: "",
   searchingGenre: "",
   filteringGenre: "",
-  getMovieGenres: (movie) => { },
-  getPosterImg: (path) => { },
+  getMovieGenres: (movie) => {},
+  getPosterImg: (path) => {},
 });
 
 const baseUrl = "https://api.themoviedb.org/3";
@@ -43,23 +51,76 @@ const useProvideData = () => {
   const [filteringGenre, setFilteringGenre] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [watchlist, setWatchlist] = useState([]);
+
+  const fetchWatchlist = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "watchlist"));
+      const fetchedWatchlist = [];
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        data.movie && fetchedWatchlist.push(data.movie);
+      });
+
+      setWatchlist(fetchedWatchlist);
+      console.log(fetchedWatchlist);
+    } catch (error) {
+      console.error("Error fetching watchlist:", error);
+    }
+  };
+  useEffect(() => {
+    fetchWatchlist();
+  }, []);
+  //Firebase add and delete
+  const addWatchlist = async (movie) => {
+    try {
+      const docRef = await addDoc(collection(db, "watchlist"), {
+        movie: movie,
+      });
+      fetchWatchlist();
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+
+  const removeWatchlist = async (movie) => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "watchlist"));
+      querySnapshot.forEach(async (doc) => {
+        // console.log(doc.id, doc.data());
+        const movId = doc.exists() && doc.data().movie.id;
+        // console.log(movId, movie.id);
+        if (movId && movId === movie.id) {
+          await deleteDoc(doc.ref);
+          fetchWatchlist();
+          console.log("Document removed successfully");
+        }
+      });
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
 
   function fetchData(url, setData, type = "all") {
     if (type === "search") {
       axios
         .get(
-          `${baseUrl}/${url}&api_key=${apiKey}&language=en-US&page=${currentPage ? currentPage : 1
+          `${baseUrl}/${url}&api_key=${apiKey}&language=en-US&page=${
+            currentPage ? currentPage : 1
           }`
         )
         .then((res) => {
-          console.log(res.data.results);
-          setData(res.data.results)
+          // console.log(res.data.results);
+          setData(res.data.results);
         })
         .catch((err) => console.error(err));
     } else {
       axios
         .get(
-          `${baseUrl}/${url}?api_key=${apiKey}&language=en-US&page=${currentPage ? currentPage : 1
+          `${baseUrl}/${url}?api_key=${apiKey}&language=en-US&page=${
+            currentPage ? currentPage : 1
           }`
         )
         .then((res) => {
@@ -98,7 +159,7 @@ const useProvideData = () => {
   }
 
   useEffect(() => {
-    console.log(searchingQuery);
+    // console.log(searchingQuery);
     fetchData(
       `search/movie?query=${searchingQuery}&primary_release_year=${searchingYear}&with_genres
       =${filteringGenre}`,
@@ -177,6 +238,9 @@ const useProvideData = () => {
     searchingPeople,
     totalPages,
     changePage,
+    watchlist,
+    addWatchlist,
+    removeWatchlist,
   };
 
   return value;

@@ -1,6 +1,5 @@
-import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-const API_KEY = "AIzaSyD6awMYmMp6c0QVfJR-A0sNEX0Pbl_Ehnk";
+import { auth } from "../firebase";
 
 export const LoginContext = createContext({
   isLoggedIn: false,
@@ -18,7 +17,6 @@ export default function LoginContextProvider({ children }) {
   const [profileObj, setProfileObj] = useState({});
   const [inputError, setInputError] = useState(null);
   const [error, setError] = useState(null);
-
   useEffect(() => {
     const profile = JSON.parse(localStorage.getItem("profile"));
     profile && setProfileObj(profile);
@@ -28,7 +26,7 @@ export default function LoginContextProvider({ children }) {
   async function login(obj) {
     setIsLoggedIn(true);
     setProfileObj({
-      name: obj.name,
+      name: obj.name ? obj.name : obj.displayName,
       picture:
         obj.picture && obj.picture.data ? obj.picture.data.url : obj.picture,
     });
@@ -44,51 +42,39 @@ export default function LoginContextProvider({ children }) {
   function logout() {
     setIsLoggedIn(false);
     setProfileObj({});
+    auth
+      .signOut()
+      .then(() => {
+        console.log("User logged out successfully");
+      })
+      .catch((error) => {
+        console.error("Error logging out:", error);
+      });
     localStorage.removeItem("profile");
   }
   function validate(email) {
     return /\S+@\S+\.\S+/.test(email);
   }
-  function handleChange(e, input, setInput, text) {
-    setInput(e.target.value);
-    validate(input) ? setInputError(null) : setInputError(text);
-  }
-  async function authenticate(mode, email, password, name = "") {
-    const url = `https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${API_KEY}`;
-    try {
-      const response = await axios.post(url, {
-        email,
-        password,
-        displayName: name,
-        returnSecureToken: true,
-      });
-      return response.data;
-    } catch (err) {
-      setError(err.message);
-      console.log(error);
-    }
+
+  function handleChange(e, setInput, text) {
+    const inputValue = e.target.value;
+    setInput(inputValue);
+    validate(inputValue) ? setInputError(null) : setInputError(text);
   }
 
-  async function createUser(email, password, name) {
-    await authenticate("signUp", email, password, name);
-  }
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        setProfileObj({ name: authUser.displayName });
+      } else {
+        setProfileObj({});
+      }
+    });
 
-  async function signup(email, password, name) {
-    login({ email, password, name });
-    await createUser(email, password, name);
-  }
-  async function signIn(email, password) {
-    try {
-      const response = await authenticate(
-        "signInWithPassword",
-        email,
-        password
-      );
-      login({ email: response.email, name: response.displayName });
-    } catch (err) {
-      console.error(err);
-    }
-  }
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   const value = {
     isLoggedIn,
@@ -97,8 +83,6 @@ export default function LoginContextProvider({ children }) {
     logout,
     inputError,
     handleChange,
-    signup,
-    signIn,
   };
   return (
     <LoginContext.Provider value={value}>{children}</LoginContext.Provider>
