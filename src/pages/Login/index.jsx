@@ -9,7 +9,8 @@ import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import db, { auth } from "../../firebase";
+import { doc, setDoc } from "@firebase/firestore";
 
 const appId = "143428682080487";
 
@@ -47,9 +48,8 @@ export default function Login() {
 
   function signIn() {
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
-        console.log(user);
         login(user);
       })
       .catch((error) => {

@@ -22,8 +22,8 @@ export const MovieContext = createContext({
   searchingQuery: "",
   searchingGenre: "",
   filteringGenre: "",
-  getMovieGenres: (movie) => {},
-  getPosterImg: (path) => {},
+  getMovieGenres: (movie) => { },
+  getPosterImg: (path) => { },
 });
 
 const baseUrl = "https://api.themoviedb.org/3";
@@ -88,14 +88,10 @@ const useProvideData = () => {
   const removeWatchlist = async (movie) => {
     try {
       const querySnapshot = await getDocs(collection(db, "watchlist"));
-      querySnapshot.forEach(async (doc) => {
-        // console.log(doc.id, doc.data());
-        const movId = doc.exists() && doc.data().movie.id;
-        // console.log(movId, movie.id);
-        if (movId && movId === movie.id) {
-          await deleteDoc(doc.ref);
+      querySnapshot.forEach(async (document) => {
+        if (document.data().movie.id === movie.id) {
+          await deleteDoc(doc(db, "watchlist", document.id));
           fetchWatchlist();
-          console.log("Document removed successfully");
         }
       });
     } catch (e) {
@@ -107,8 +103,7 @@ const useProvideData = () => {
     if (type === "search") {
       axios
         .get(
-          `${baseUrl}/${url}&api_key=${apiKey}&language=en-US&page=${
-            currentPage ? currentPage : 1
+          `${baseUrl}/${url}&api_key=${apiKey}&language=en-US&page=${currentPage ? currentPage : 1
           }`
         )
         .then((res) => {
@@ -119,8 +114,7 @@ const useProvideData = () => {
     } else {
       axios
         .get(
-          `${baseUrl}/${url}?api_key=${apiKey}&language=en-US&page=${
-            currentPage ? currentPage : 1
+          `${baseUrl}/${url}?api_key=${apiKey}&language=en-US&page=${currentPage ? currentPage : 1
           }`
         )
         .then((res) => {

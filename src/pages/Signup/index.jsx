@@ -6,8 +6,8 @@ import styles from "./Signup.module.css";
 import { LoginContext } from "../../context/LoginContext";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../../firebase";
-
+import db, { auth } from "../../firebase";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 export default function Signup() {
   const [isChecked, setIsChecked] = useState(false);
   const [disabled, setDisabled] = useState(true);
@@ -57,6 +57,12 @@ export default function Signup() {
   const register = async (name, email, password) => {
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);
+      await setDoc(doc(db, "users", user.user.uid), {
+        username: name,
+        email: email,
+        id: user.user.uid,
+      });
+
       await updateProfile(auth.currentUser, { displayName: name }).catch(
         (err) => console.log(err)
       );
