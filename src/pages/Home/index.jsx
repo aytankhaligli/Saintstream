@@ -24,7 +24,7 @@ export default function Home() {
       <SimpleSlider
         hasArrow={false}
         initialSlide={0}
-        autoplay={true}
+        autoplay={false}
         data={popularMovies.slice(0, 5)}
       >
         <Hero isHomePage={true} />

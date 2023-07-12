@@ -1,12 +1,15 @@
 .hero {
   padding: 64px 75px;
+  padding-top: 0;
   font-family: "Rubik";
   position: relative;
   overflow: hidden;
 }
-.height {
+
+.hero .height {
   height: 687px;
 }
+
 .image {
   width: 100vw;
   position: absolute;
@@ -14,19 +17,19 @@
   top: 0;
   z-index: -50;
 }
+
 .image img {
   width: 100%;
   object-fit: cover;
 }
+
 .overlay {
-  background-image: linear-gradient(
-    358.93deg,
-    #0d0c0f 0.83%,
-    rgba(13, 12, 15, 0.85) 28.55%,
-    rgba(13, 12, 15, 0.26) 57.53%,
-    rgba(13, 12, 15, 0.284314) 70.66%,
-    #0d0c0f 103.18%
-  );
+  background-image: linear-gradient(358.93deg,
+      #0d0c0f 0.83%,
+      rgba(13, 12, 15, 0.85) 28.55%,
+      rgba(13, 12, 15, 0.26) 57.53%,
+      rgba(13, 12, 15, 0.284314) 70.66%,
+      #0d0c0f 103.18%);
   height: 800px;
   width: 100%;
   position: absolute;
@@ -80,10 +83,12 @@
   align-items: center;
   gap: 24px;
 }
+
 .buttons {
   display: flex;
   justify-content: space-between;
 }
+
 .more {
   color: #00925d;
   display: none;
@@ -94,6 +99,7 @@
     padding-left: 48px;
     padding-right: 48px;
   }
+
   .season {
     margin-top: 120px;
   }
@@ -103,21 +109,26 @@
   .hero {
     padding-bottom: 35px;
   }
+
   .season {
     margin-bottom: 12px;
     margin-top: 80px;
   }
+
   .title {
     font-size: 24px;
     margin-bottom: 2px;
   }
+
   .subtitle {
     margin-bottom: 2px;
     font-size: 12px;
   }
+
   .buttonsContainer {
     gap: 12px;
   }
+
   .text {
     max-width: 464px;
     font-size: 12px;
@@ -133,18 +144,23 @@
   .season {
     margin-top: 280px;
   }
+
   .title {
     font-size: 32px;
   }
+
   .buttonsContainer {
     justify-content: center;
   }
+
   .more {
     display: inline;
   }
+
   .hidden {
     display: none;
   }
+
   .genres {
     bottom: 50px;
   }

@@ -8,7 +8,7 @@ import downloadIcon from "../../assets/icons/download.svg";
 import likeIcon from "../../assets/icons/thumb-up.svg";
 import unlikeIcon from "../../assets/icons/thumbs-down.svg";
 import shareIcon from "../../assets/icons/share.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { MovieContext } from "../../context/MovieContext";
 import { ModalContext } from "../../context/ModalContext";
@@ -33,12 +33,23 @@ export default function Hero({
     setLikes,
   } = useContext(LoginContext);
   const { isModalOpen } = useContext(ModalContext);
-
+  const navigate = useNavigate();
   const movieTime =
     Math.floor(movie.runtime / 60) + "h" + (movie.runtime % 60) + "m";
 
+  const linkClicked = (e) => {
+    if (!isMovie) navigate(`/${movie.id}`);
+  }
+
+  const watchListClicked = (e) => {
+    e.stopPropagation();
+    userWatchlist.some((mov) => mov.id === movie.id)
+      ? removeList(movie, "watchlist", setWatchlist)
+      : addList(movie, "watchlist", setWatchlist);
+  }
+
   return (
-    <Link to={!isMovie && `/${movie.id}`}>
+    <div onClick={linkClicked}>
       <div
         className={
           isExplore ? [styles.hero, styles.height].join(" ") : styles.hero
@@ -108,11 +119,7 @@ export default function Hero({
                 }
                 style={{ border: "1px solid #FFFFFF" }}
                 isMoviePageIcon={true}
-                onClick={() =>
-                  userWatchlist.some((mov) => mov.id === movie.id)
-                    ? removeList(movie, "watchlist", setWatchlist)
-                    : addList(movie, "watchlist", setWatchlist)
-                }
+                onClick={watchListClicked}
               />
             )}
           </div>
@@ -164,6 +171,6 @@ export default function Hero({
           )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
