@@ -1,5 +1,12 @@
 import { createContext, useEffect, useState } from "react";
-import { auth } from "../firebase";
+import db, { auth } from "../firebase";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+} from "firebase/firestore";
 
 export const LoginContext = createContext({
   isLoggedIn: false,
@@ -16,7 +23,10 @@ export default function LoginContextProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [profileObj, setProfileObj] = useState({});
   const [inputError, setInputError] = useState(null);
-  const [error, setError] = useState(null);
+  const [watchlist, setWatchlist] = useState([]);
+  const [userWatchlist, setUserWatchlist] = useState([]);
+  const [likes, setLikes] = useState([]);
+  const [userLikes, setUserLikes] = useState([]);
   useEffect(() => {
     const profile = JSON.parse(localStorage.getItem("profile"));
     profile && setProfileObj(profile);
@@ -26,6 +36,7 @@ export default function LoginContextProvider({ children }) {
   async function login(obj) {
     setIsLoggedIn(true);
     setProfileObj({
+      id: obj.uid,
       name: obj.name ? obj.name : obj.displayName,
       picture:
         obj.picture && obj.picture.data ? obj.picture.data.url : obj.picture,
@@ -33,7 +44,8 @@ export default function LoginContextProvider({ children }) {
     localStorage.setItem(
       "profile",
       JSON.stringify({
-        name: obj.name,
+        id: obj.uid,
+        name: obj.name ? obj.name : obj.displayName,
         picture:
           obj.picture && obj.picture.data ? obj.picture.data.url : obj.picture,
       })
@@ -65,7 +77,11 @@ export default function LoginContextProvider({ children }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        setProfileObj({ name: authUser.displayName });
+        setProfileObj({
+          name: authUser.displayName,
+          id: authUser.uid,
+          picture: authUser.photoURL,
+        });
       } else {
         setProfileObj({});
       }
@@ -76,6 +92,67 @@ export default function LoginContextProvider({ children }) {
     };
   }, []);
 
+  // Watchlist and Likes
+
+  const fetchList = async (listName, setList) => {
+    try {
+      const querySnapshot = await getDocs(collection(db, listName));
+      const fetchedList = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        data.movie && fetchedList.push(data);
+      });
+      setList(fetchedList);
+    } catch (error) {
+      console.error("Error fetching watchlist:", error);
+    }
+  };
+
+  const setListwithId = (list, setUserList) => {
+    const userList = list
+      .filter((item) => item.userId === profileObj.id)
+      .map((item) => item.movie);
+    setUserList(userList);
+  };
+
+  useEffect(() => {
+    fetchList("watchlist", setWatchlist);
+    setListwithId(watchlist, setUserWatchlist);
+  }, [watchlist, isLoggedIn, profileObj]);
+
+  useEffect(() => {
+    fetchList("likes", setLikes);
+    setListwithId(likes, setUserLikes);
+  }, [likes, isLoggedIn, profileObj]);
+
+  //Firebase add and delete
+
+  const addList = async (movie, list, setList) => {
+    try {
+      await addDoc(collection(db, list), {
+        movie: movie,
+        userId: profileObj.id,
+      });
+      fetchList(list, setList);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+
+  const removeList = async (movie, list, setList) => {
+    try {
+      const querySnapshot = await getDocs(collection(db, list));
+      querySnapshot.forEach(async (document) => {
+        if (document.data().movie.id === movie.id) {
+          await deleteDoc(doc(db, list, document.id));
+          fetchList(list, setList);
+        }
+      });
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+
   const value = {
     isLoggedIn,
     profileObj,
@@ -83,6 +160,12 @@ export default function LoginContextProvider({ children }) {
     logout,
     inputError,
     handleChange,
+    setWatchlist,
+    setLikes,
+    userWatchlist,
+    addList,
+    removeList,
+    userLikes,
   };
   return (
     <LoginContext.Provider value={value}>{children}</LoginContext.Provider>

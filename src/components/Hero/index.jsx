@@ -6,19 +6,13 @@ import playIcon from "../../assets/icons/play.svg";
 import outlinePlayIcon from "../../assets/icons/play_outline.svg";
 import downloadIcon from "../../assets/icons/download.svg";
 import likeIcon from "../../assets/icons/thumb-up.svg";
+import unlikeIcon from "../../assets/icons/thumbs-down.svg";
 import shareIcon from "../../assets/icons/share.svg";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { MovieContext } from "../../context/MovieContext";
 import { ModalContext } from "../../context/ModalContext";
-import {
-  collection,
-  addDoc,
-  deleteDoc,
-  doc,
-  getDocs,
-} from "firebase/firestore";
-import db from "../../firebase";
+import { LoginContext } from "../../context/LoginContext";
 
 export default function Hero({
   movie,
@@ -28,15 +22,17 @@ export default function Hero({
   isMovie,
   width,
 }) {
+  const { getPosterImg, getMovieGenres } = useContext(MovieContext);
   const {
-    getPosterImg,
-    getMovieGenres,
-    watchlist,
-    addWatchlist,
-    removeWatchlist,
-  } = useContext(MovieContext);
+    userWatchlist,
+    userLikes,
+    addList,
+    removeList,
+    isLoggedIn,
+    setWatchlist,
+    setLikes,
+  } = useContext(LoginContext);
   const { isModalOpen } = useContext(ModalContext);
-  console.log(watchlist);
 
   const movieTime =
     Math.floor(movie.runtime / 60) + "h" + (movie.runtime % 60) + "m";
@@ -98,26 +94,27 @@ export default function Hero({
                 style={{ backgroundColor: "#28262D" }}
               />
             )}
-
-            <Button
-              text={
-                watchlist.some((mov) => mov.id === movie.id)
-                  ? "Remove Watchlist"
-                  : "Add Watchlist"
-              }
-              icon={
-                watchlist.some((mov) => mov.id === movie.id)
-                  ? bookmarkFill
-                  : bookmarkIcon
-              }
-              style={{ border: "1px solid #FFFFFF" }}
-              isMoviePageIcon={true}
-              onClick={() =>
-                watchlist.some((mov) => mov.id === movie.id)
-                  ? removeWatchlist(movie)
-                  : addWatchlist(movie)
-              }
-            />
+            {isLoggedIn && (
+              <Button
+                text={
+                  userWatchlist.some((mov) => mov.id === movie.id)
+                    ? "Remove Watchlist"
+                    : "Add Watchlist"
+                }
+                icon={
+                  userWatchlist.some((mov) => mov.id === movie.id)
+                    ? bookmarkFill
+                    : bookmarkIcon
+                }
+                style={{ border: "1px solid #FFFFFF" }}
+                isMoviePageIcon={true}
+                onClick={() =>
+                  userWatchlist.some((mov) => mov.id === movie.id)
+                    ? removeList(movie, "watchlist", setWatchlist)
+                    : addList(movie, "watchlist", setWatchlist)
+                }
+              />
+            )}
           </div>
           {isMoviePage && (
             <div className={styles.buttonsContainer}>
@@ -139,15 +136,30 @@ export default function Hero({
                 }}
                 isMoviePageIcon={true}
               />
-              <Button
-                text="Like"
-                icon={likeIcon}
-                style={{
-                  backgroundColor: "#0D0C0F",
-                  border: "1px solid #28262D",
-                }}
-                isMoviePageIcon={true}
-              />
+              {isLoggedIn && (
+                <Button
+                  text={
+                    userLikes.some((mov) => mov.id === movie.id)
+                      ? "Unlike"
+                      : "Like"
+                  }
+                  icon={
+                    userLikes.some((mov) => mov.id === movie.id)
+                      ? unlikeIcon
+                      : likeIcon
+                  }
+                  style={{
+                    backgroundColor: "#0D0C0F",
+                    border: "1px solid #28262D",
+                  }}
+                  isMoviePageIcon={true}
+                  onClick={() =>
+                    userLikes.some((mov) => mov.id === movie.id)
+                      ? removeList(movie, "likes", setLikes)
+                      : addList(movie, "likes", setLikes)
+                  }
+                />
+              )}
             </div>
           )}
         </div>

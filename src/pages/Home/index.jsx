@@ -1,13 +1,12 @@
 import SimpleSlider from "../../components/Slider";
 import { Streamlist } from "../../data/constants";
-import { fakeMovies } from "../../data/faker";
 import StreamList from "../../components/cards/StreamList";
 import MovieCard from "../../components/cards/MovieCard";
 import ReleaseCard from "../../components/cards/ReleaseCard";
 import WatchlistCard from "../../components/cards/WatchlistCard";
 import SliderSection from "../../components/SliderSection";
 import Hero from "../../components/Hero";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { LoginContext } from "../../context/LoginContext";
 import { MovieContext } from "../../context/MovieContext";
 import ScrollToTop from "../../helpers/ScrollToTop";
@@ -16,9 +15,9 @@ import GenreCard from "../../components/cards/GenreCard";
 import styles from "./Home.module.css";
 
 export default function Home() {
-  const { isLoggedIn } = useContext(LoginContext);
-  const { popularMovies, trendingAll, allGenres, watchlist } =
-    useContext(MovieContext);
+  const { isLoggedIn, userWatchlist, userLikes } = useContext(LoginContext);
+  const { popularMovies, trendingAll, allGenres } = useContext(MovieContext);
+
   return (
     <div>
       <ScrollToTop />
@@ -45,18 +44,22 @@ export default function Home() {
       />
       {isLoggedIn && (
         <>
-          <SliderSection
-            count={watchlist.length < 4 ? watchlist.length : 4}
-            data={watchlist}
-            title="Your Watchlist"
-            element={<WatchlistCard />}
-          />
-          <SliderSection
-            count={4}
-            data={fakeMovies}
-            title="Your Likes"
-            element={<WatchlistCard />}
-          />
+          {userWatchlist.length > 0 && (
+            <SliderSection
+              count={userWatchlist.length < 4 ? userWatchlist.length : 4}
+              data={userWatchlist}
+              title="Your Watchlist"
+              element={<WatchlistCard />}
+            />
+          )}
+          {userLikes.length > 0 && (
+            <SliderSection
+              count={userLikes.length < 4 ? userLikes.length : 4}
+              data={userLikes}
+              title="Your Likes"
+              element={<WatchlistCard />}
+            />
+          )}
         </>
       )}
 

@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { MovieContext } from "../../../context/MovieContext";
 
 export default function Watchlist({ item, type }) {
-  const { getPosterImg, getMovieGenres, allGenres } = useContext(MovieContext);
+  const { getPosterImg, getMovieGenres } = useContext(MovieContext);
   return (
     <Link to={`/${item.id}`}>
       <div className={styles.card}>
