@@ -59,12 +59,6 @@ export default function Signup() {
     }
   }, [isLoggedIn, navigate]);
 
-  function createObjectURL(object) {
-    return window.URL
-      ? window.URL.createObjectURL(object)
-      : window.webkitURL.createObjectURL(object);
-  }
-
   const register = async (userData, email, password) => {
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);

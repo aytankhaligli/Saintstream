@@ -16,13 +16,13 @@ export default function Dropdown() {
       <ul className={styles.menu}>
         {isLoggedIn ? (
           <>
-            <Link to="">
+            <Link to="/profile">
               <li>Profile</li>
             </Link>
-            <Link to="">
+            <Link to="/home">
               <li>Home</li>
             </Link>
-            <Link to="">
+            <Link to="/settings">
               <li>Settings</li>
             </Link>
 

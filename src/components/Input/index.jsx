@@ -1,15 +1,35 @@
+/* eslint-disable react/display-name */
+import { forwardRef } from "react";
 import styles from "./Input.module.css";
 
-export default function Input({ placeholder, onChange, type }) {
-  return (
-    <div className={styles.inputBox}>
-      <label>{placeholder}</label>
-      <input
-        type={type}
-        placeholder={placeholder}
-        onChange={onChange}
-        className={styles.input}
-      />
-    </div>
-  );
-}
+const Input = forwardRef(
+  (
+    {
+      placeholder,
+      onChange,
+      type,
+      defaultValue,
+      readonly = false,
+      disabled = false,
+    },
+    ref
+  ) => {
+    return (
+      <div className={styles.inputBox}>
+        <label>{placeholder}</label>
+        <input
+          ref={ref}
+          type={type}
+          placeholder={placeholder}
+          onChange={onChange}
+          className={styles.input}
+          defaultValue={defaultValue}
+          readOnly={readonly}
+          disabled={disabled}
+        />
+      </div>
+    );
+  }
+);
+
+export default Input;

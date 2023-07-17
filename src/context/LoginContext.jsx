@@ -1,12 +1,16 @@
 import { createContext, useEffect, useState } from "react";
-import db, { auth } from "../firebase";
+import db, { auth, storage } from "../firebase";
 import {
   addDoc,
   collection,
   deleteDoc,
   doc,
   getDocs,
+  getDoc,
+  updateDoc,
 } from "firebase/firestore";
+import { updateProfile } from "firebase/auth";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export const LoginContext = createContext({
   isLoggedIn: false,
@@ -27,6 +31,7 @@ export default function LoginContextProvider({ children }) {
   const [userWatchlist, setUserWatchlist] = useState([]);
   const [likes, setLikes] = useState([]);
   const [userLikes, setUserLikes] = useState([]);
+  const [userData, setUserData] = useState({});
 
   async function login(obj) {
     setIsLoggedIn(true);
@@ -89,7 +94,7 @@ export default function LoginContextProvider({ children }) {
       });
       setList(fetchedList);
     } catch (error) {
-      console.error("Error fetching watchlist:", error);
+      console.error("Error fetching list:", error);
     }
   };
 
@@ -100,6 +105,44 @@ export default function LoginContextProvider({ children }) {
     setUserList(userList);
   };
 
+  useEffect(() => {
+    async function getUserData() {
+      try {
+        const docRef = doc(db, "users", profileObj.id);
+        const docSnap = await getDoc(docRef);
+        setUserData(docSnap.data());
+        console.log(userData);
+      } catch (error) {
+        console.error("Error fetching userData:", error);
+      }
+    }
+    if (profileObj.id) {
+      getUserData();
+    }
+  }, [profileObj]);
+
+  async function updateUserdata(userData) {
+    const storageRef = ref(storage, "images/" + userData.imagePath.name);
+    await uploadBytes(storageRef, userData.imagePath);
+    const downloadURL = await getDownloadURL(storageRef);
+
+    await updateDoc(doc(db, "users", profileObj.id), {
+      name: userData.name,
+      surname: userData.surname,
+      username: userData.username,
+      imagePath: downloadURL,
+    });
+    await updateProfile(auth.currentUser, {
+      displayName: userData.username,
+      photoURL: downloadURL,
+    }).catch((err) => console.log(err));
+
+    setProfileObj({
+      name: auth.currentUser.displayName,
+      id: auth.currentUser.uid,
+      picture: auth.currentUser.photoURL,
+    });
+  }
   useEffect(() => {
     fetchList("watchlist", setWatchlist);
     setListwithId(watchlist, setUserWatchlist);
@@ -151,6 +194,8 @@ export default function LoginContextProvider({ children }) {
     addList,
     removeList,
     userLikes,
+    userData,
+    updateUserdata,
   };
   return (
     <LoginContext.Provider value={value}>{children}</LoginContext.Provider>
