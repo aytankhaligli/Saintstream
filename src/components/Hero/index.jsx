@@ -8,7 +8,7 @@ import downloadIcon from "../../assets/icons/download.svg";
 import likeIcon from "../../assets/icons/thumb-up.svg";
 import unlikeIcon from "../../assets/icons/thumbs-down.svg";
 import shareIcon from "../../assets/icons/share.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { MovieContext } from "../../context/MovieContext";
 import { ModalContext } from "../../context/ModalContext";
@@ -22,7 +22,7 @@ export default function Hero({
   isMovie,
   width,
 }) {
-  const { getPosterImg, getMovieGenres } = useContext(MovieContext);
+  const { getPosterImg, getMovieGenres, getVideos } = useContext(MovieContext);
   const {
     userWatchlist,
     userLikes,
@@ -39,13 +39,18 @@ export default function Hero({
 
   const linkClicked = (e) => {
     if (!isMovie) navigate(`/${movie.id}`);
-  }
+  };
 
   const watchListClicked = (e) => {
     e.stopPropagation();
     userWatchlist.some((mov) => mov.id === movie.id)
       ? removeList(movie, "watchlist", setWatchlist)
       : addList(movie, "watchlist", setWatchlist);
+  };
+  function watch(e) {
+    e.stopPropagation();
+    getVideos(movie.id);
+    navigate(`/video`);
   }
 
   return (
@@ -95,6 +100,7 @@ export default function Hero({
                 style={{
                   backgroundColor: "#00925D",
                 }}
+                onClick={watch}
               />
             </div>
 
@@ -103,6 +109,7 @@ export default function Hero({
                 text="Watch Trailer"
                 icon={outlinePlayIcon}
                 style={{ backgroundColor: "#28262D" }}
+                onClick={watch}
               />
             )}
             {isLoggedIn && (

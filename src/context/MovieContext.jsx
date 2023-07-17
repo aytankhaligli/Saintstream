@@ -1,13 +1,5 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
-import db from "../firebase";
 
 export const MovieContext = createContext({
   movies: [],
@@ -51,6 +43,7 @@ const useProvideData = () => {
   const [filteringGenre, setFilteringGenre] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [video, setVideo] = useState("");
 
   function fetchData(url, setData, type = "all") {
     if (type === "search") {
@@ -61,7 +54,6 @@ const useProvideData = () => {
           }`
         )
         .then((res) => {
-          // console.log(res.data.results);
           setData(res.data.results);
         })
         .catch((err) => console.error(err));
@@ -97,6 +89,8 @@ const useProvideData = () => {
     fetchData("trending/all/day", setTrendingAll);
     fetchData("genre/movie/list", setAllGenres, "genre");
     fetchData("person/popular", setTotalPages, "page");
+    const savedVideo = JSON.parse(localStorage.getItem("video"));
+    savedVideo && setVideo(savedVideo);
   }, []);
 
   useEffect(() => {
@@ -107,8 +101,15 @@ const useProvideData = () => {
     setCurrentPage(page);
   }
 
+  function getVideos(id) {
+    localStorage.removeItem("video");
+    fetchData(`movie/${id}/videos`, setVideo);
+  }
   useEffect(() => {
-    // console.log(searchingQuery);
+    localStorage.setItem("video", JSON.stringify(video));
+  }, [video]);
+
+  useEffect(() => {
     fetchData(
       `search/movie?query=${searchingQuery}&primary_release_year=${searchingYear}&with_genres
       =${filteringGenre}`,
@@ -187,6 +188,8 @@ const useProvideData = () => {
     searchingPeople,
     totalPages,
     changePage,
+    getVideos,
+    video,
   };
 
   return value;

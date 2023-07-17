@@ -14,6 +14,7 @@ import Discover from "./pages/Discover";
 import Genres from "./pages/Genres";
 import PopularPeople from "./pages/PopularPeople";
 import Profile from "./pages/Profile";
+import Video from "./pages/Video";
 
 const clientId =
   "805826379803-pgig8dpn1a8aeedvf63vnlmcv7sf6pbf.apps.googleusercontent.com";
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "/video",
+        element: <Video />,
       },
     ],
   },
