@@ -27,29 +27,14 @@ export default function LoginContextProvider({ children }) {
   const [userWatchlist, setUserWatchlist] = useState([]);
   const [likes, setLikes] = useState([]);
   const [userLikes, setUserLikes] = useState([]);
-  useEffect(() => {
-    const profile = JSON.parse(localStorage.getItem("profile"));
-    profile && setProfileObj(profile);
-    profile && setIsLoggedIn(true);
-  }, []);
 
   async function login(obj) {
     setIsLoggedIn(true);
     setProfileObj({
+      name: obj.displayName,
       id: obj.uid,
-      name: obj.name ? obj.name : obj.displayName,
-      picture:
-        obj.picture && obj.picture.data ? obj.picture.data.url : obj.picture,
+      picture: obj.photoURL,
     });
-    localStorage.setItem(
-      "profile",
-      JSON.stringify({
-        id: obj.uid,
-        name: obj.name ? obj.name : obj.displayName,
-        picture:
-          obj.picture && obj.picture.data ? obj.picture.data.url : obj.picture,
-      })
-    );
   }
   function logout() {
     setIsLoggedIn(false);
@@ -62,7 +47,6 @@ export default function LoginContextProvider({ children }) {
       .catch((error) => {
         console.error("Error logging out:", error);
       });
-    localStorage.removeItem("profile");
   }
   function validate(email) {
     return /\S+@\S+\.\S+/.test(email);
@@ -82,6 +66,7 @@ export default function LoginContextProvider({ children }) {
           id: authUser.uid,
           picture: authUser.photoURL,
         });
+        setIsLoggedIn(true);
       } else {
         setProfileObj({});
       }

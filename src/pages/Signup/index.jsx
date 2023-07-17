@@ -6,12 +6,18 @@ import styles from "./Signup.module.css";
 import { LoginContext } from "../../context/LoginContext";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import db, { auth } from "../../firebase";
-import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+import db, { auth, storage } from "../../firebase";
+import { setDoc, doc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 export default function Signup() {
   const [isChecked, setIsChecked] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const [username, setUsername] = useState("");
+  const [user, setUser] = useState({
+    name: "",
+    surname: "",
+    username: "",
+    imagePath: "",
+  });
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [secondPassword, setSecondPassword] = useState("");
@@ -19,7 +25,6 @@ export default function Signup() {
   const { inputError, handleChange, isLoggedIn, login } =
     useContext(LoginContext);
   const navigate = useNavigate();
-
   useEffect(() => {
     secondPassword !== password
       ? setError("Please repeat your password")
@@ -29,24 +34,24 @@ export default function Signup() {
   function passwordOnChange(e) {
     setSecondPassword(e.target.value);
   }
-
+  // console.log(user.imagePath);
   useEffect(() => {
     email !== "" &&
       password !== "" &&
       secondPassword !== "" &&
-      username !== "" &&
+      user.username !== "" &&
       isChecked &&
       !error &&
       setDisabled(false);
     (email === "" ||
       password === "" ||
       secondPassword === "" ||
-      username === "" ||
+      user.username === "" ||
       !isChecked ||
       error) &&
       setDisabled(true);
     inputError && setDisabled(true);
-  }, [email, password, secondPassword, inputError, username, error, isChecked]);
+  }, [email, password, secondPassword, inputError, user, error, isChecked]);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -54,19 +59,32 @@ export default function Signup() {
     }
   }, [isLoggedIn, navigate]);
 
-  const register = async (name, email, password) => {
+  function createObjectURL(object) {
+    return window.URL
+      ? window.URL.createObjectURL(object)
+      : window.webkitURL.createObjectURL(object);
+  }
+
+  const register = async (userData, email, password) => {
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);
+      const storageRef = ref(storage, "images/" + userData.imagePath.name);
+      await uploadBytes(storageRef, userData.imagePath);
+      const downloadURL = await getDownloadURL(storageRef);
       await setDoc(doc(db, "users", user.user.uid), {
-        username: name,
+        name: userData.name,
+        surname: userData.surname,
+        username: userData.username,
+        imagePath: downloadURL,
         email: email,
         id: user.user.uid,
       });
 
-      await updateProfile(auth.currentUser, { displayName: name }).catch(
-        (err) => console.log(err)
-      );
-      login(user.user);
+      await updateProfile(auth.currentUser, {
+        displayName: userData.username,
+        photoURL: downloadURL,
+      }).catch((err) => console.log(err));
+      login(auth.currentUser);
     } catch (err) {
       console.log(err);
     }
@@ -74,17 +92,33 @@ export default function Signup() {
 
   function signup(e) {
     e.preventDefault();
-    register(username, email, password);
+    register(user, email, password);
   }
 
   return (
     <AuthContainer type="signup">
       <form>
         <Input
-          placeholder="Username"
-          onChange={(e) => setUsername(e.target.value)}
+          type="text"
+          placeholder="Name"
+          onChange={(e) => setUser((pre) => ({ ...pre, name: e.target.value }))}
         />
         <Input
+          type="text"
+          placeholder="Surname"
+          onChange={(e) =>
+            setUser((pre) => ({ ...pre, surname: e.target.value }))
+          }
+        />
+        <Input
+          type="text"
+          placeholder="Username"
+          onChange={(e) =>
+            setUser((pre) => ({ ...pre, username: e.target.value }))
+          }
+        />
+        <Input
+          type="email"
           placeholder="Email"
           onChange={(e) =>
             handleChange(e, setEmail, "Please type correct email")
@@ -92,11 +126,24 @@ export default function Signup() {
         />
         {inputError && <p className={styles.errorText}>{inputError}</p>}
         <Input
+          type="password"
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Input placeholder="Password" onChange={passwordOnChange} />
+        <Input
+          type="password"
+          placeholder="Password"
+          onChange={passwordOnChange}
+        />
         {error && <p className={styles.errorText}>{error}</p>}
+        <Input
+          type="file"
+          name="ImageStyle"
+          placeholder="Upload your image"
+          onChange={(e) =>
+            setUser((pre) => ({ ...pre, imagePath: e.target.files[0] }))
+          }
+        />
         <div className={styles.checkbox_wrapper}>
           <input
             type="checkbox"
