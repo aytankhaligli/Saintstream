@@ -11,6 +11,7 @@ const Input = forwardRef(
       defaultValue,
       readonly = false,
       disabled = false,
+      value
     },
     ref
   ) => {
@@ -26,6 +27,7 @@ const Input = forwardRef(
           defaultValue={defaultValue}
           readOnly={readonly}
           disabled={disabled}
+          value={value}
         />
       </div>
     );

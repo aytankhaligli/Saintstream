@@ -11,12 +11,7 @@ export default function Profile() {
   const surnameRef = createRef();
   const usernameRef = createRef();
   const [previewImage, setPreviewImage] = useState("");
-  const [user, setUser] = useState({
-    name: "",
-    surname: "",
-    username: "",
-    imagePath: "",
-  });
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     setUser({
@@ -25,7 +20,9 @@ export default function Profile() {
       username: userData.username,
       imagePath: userData.imagePath,
     });
-  }, []);
+  });
+
+  console.log(user);
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
@@ -48,98 +45,101 @@ export default function Profile() {
     ref.current.selectionEnd = ref.current.value.length;
   }
 
-  return (
-    <div className={styles.container}>
-      <h1>Your Profile</h1>
+  if (user !== null && user.name) {
+    return (
+      <div className={styles.container}>
+        <h1>Your Profile</h1>
 
-      <div className={styles.imageBox}>
-        <img
-          src={previewImage ? previewImage : user.imagePath}
-          alt=""
-          className={styles.profileImg}
-        />
-        <label className={styles.imageInput}>
-          <div className={styles.iconBox}>
-            <img
-              src={cameraIcon}
-              alt="camera icon"
-              className={styles.cameraIcon}
-            />
-          </div>
-
-          <input
-            type="file"
-            onChange={handleFileInputChange}
-            className={styles.input}
-            hidden
+        <div className={styles.imageBox}>
+          <img
+            src={previewImage ? previewImage : user.imagePath}
+            alt=""
+            className={styles.profileImg}
           />
-        </label>
-      </div>
+          <label className={styles.imageInput}>
+            <div className={styles.iconBox}>
+              <img
+                src={cameraIcon}
+                alt="camera icon"
+                className={styles.cameraIcon}
+              />
+            </div>
 
-      <div className={styles.inputBox}>
-        <Input
-          placeholder="Name"
-          defaultValue={user.name}
-          ref={nameRef}
-          readonly={true}
-          onChange={(e) => setUser((pre) => ({ ...pre, name: e.target.value }))}
-        />
-        <img
-          src={editIcon}
-          alt="icon"
-          className={styles.icon}
-          onClick={() => editInput(nameRef)}
+            <input
+              type="file"
+              onChange={handleFileInputChange}
+              className={styles.input}
+              hidden
+            />
+          </label>
+        </div>
+
+        <div className={styles.inputBox}>
+          <Input
+            placeholder="Name"
+            value={user.name}
+            ref={nameRef}
+            readonly={true}
+            onChange={(e) => setUser((pre) => ({ ...pre, name: e.target.value }))}
+          />
+          <img
+            src={editIcon}
+            alt="icon"
+            className={styles.icon}
+            onClick={() => editInput(nameRef)}
+          />
+        </div>
+        <div className={styles.inputBox}>
+          <Input
+            placeholder="Surname"
+            value={user.surname}
+            ref={surnameRef}
+
+            readonly={true}
+            onChange={(e) =>
+              setUser((pre) => ({ ...pre, surname: e.target.value }))
+            }
+          />
+          <img
+            src={editIcon}
+            alt="icon"
+            className={styles.icon}
+            onClick={() => editInput(surnameRef)}
+          />
+        </div>
+        <div className={styles.inputBox}>
+          <Input
+            placeholder="Username"
+            value={user.username}
+            ref={usernameRef}
+            readonly={true}
+            onChange={(e) =>
+              setUser((pre) => ({ ...pre, username: e.target.value }))
+            }
+          />
+          <img
+            src={editIcon}
+            alt="icon"
+            className={styles.icon}
+            onClick={() => editInput(usernameRef)}
+          />
+        </div>
+        <div className={styles.inputBox}>
+          <Input
+            placeholder="Email"
+            value={userData.email}
+            readonly={true}
+          />
+        </div>
+        <Button
+          text="Save Changes"
+          style={{
+            backgroundColor: "#fff",
+            color: "#000",
+          }}
+          onClick={() => updateUserdata(user)}
         />
       </div>
-      <div className={styles.inputBox}>
-        <Input
-          placeholder="Surname"
-          defaultValue={user.surname}
-          ref={surnameRef}
-          readonly={true}
-          onChange={(e) =>
-            setUser((pre) => ({ ...pre, surname: e.target.value }))
-          }
-        />
-        <img
-          src={editIcon}
-          alt="icon"
-          className={styles.icon}
-          onClick={() => editInput(surnameRef)}
-        />
-      </div>
-      <div className={styles.inputBox}>
-        <Input
-          placeholder="Username"
-          defaultValue={user.username}
-          ref={usernameRef}
-          readonly={true}
-          onChange={(e) =>
-            setUser((pre) => ({ ...pre, username: e.target.value }))
-          }
-        />
-        <img
-          src={editIcon}
-          alt="icon"
-          className={styles.icon}
-          onClick={() => editInput(usernameRef)}
-        />
-      </div>
-      <div className={styles.inputBox}>
-        <Input
-          placeholder="Email"
-          defaultValue={userData.email}
-          readonly={true}
-        />
-      </div>
-      <Button
-        text="Save Changes"
-        style={{
-          backgroundColor: "#fff",
-          color: "#000",
-        }}
-        onClick={() => updateUserdata(user)}
-      />
-    </div>
-  );
+    );
+  }
 }

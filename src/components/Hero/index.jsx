@@ -9,7 +9,7 @@ import likeIcon from "../../assets/icons/thumb-up.svg";
 import unlikeIcon from "../../assets/icons/thumbs-down.svg";
 import shareIcon from "../../assets/icons/share.svg";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { MovieContext } from "../../context/MovieContext";
 import { ModalContext } from "../../context/ModalContext";
 import { LoginContext } from "../../context/LoginContext";
@@ -22,7 +22,7 @@ export default function Hero({
   isMovie,
   width,
 }) {
-  const { getPosterImg, getMovieGenres, getVideos } = useContext(MovieContext);
+  const { getPosterImg, getMovieGenres, getVideos, video } = useContext(MovieContext);
   const {
     userWatchlist,
     userLikes,
@@ -34,6 +34,7 @@ export default function Hero({
   } = useContext(LoginContext);
   const { isModalOpen } = useContext(ModalContext);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
   const movieTime =
     Math.floor(movie.runtime / 60) + "h" + (movie.runtime % 60) + "m";
 
@@ -50,7 +51,10 @@ export default function Hero({
   function watch(e) {
     e.stopPropagation();
     getVideos(movie.id);
-    navigate(`/video`);
+    setShowModal(true);
+    console.log(video);
+
+    // navigate(`/video`);
   }
 
   return (
@@ -178,6 +182,19 @@ export default function Hero({
           )}
         </div>
       </div>
+      {
+        showModal && <div className={styles.absolute}>
+          {
+            video && video.map((vid, index) => (
+              index === 0 && <div key={vid.id} style={{ height: '100%' }}>
+                <iframe src={`https://www.youtube.com/embed/${vid.key}`} title={vid.name} width="100%" height="100%"></iframe>
+              </div>
+            ))
+          }
+
+          {/* <iframe src={`https://www.youtube.com/embed/OW1mU4vBBEU`} title="something"></iframe> */}
+        </div>
+      }
     </div>
   );
 }

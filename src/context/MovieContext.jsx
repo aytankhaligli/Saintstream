@@ -14,8 +14,8 @@ export const MovieContext = createContext({
   searchingQuery: "",
   searchingGenre: "",
   filteringGenre: "",
-  getMovieGenres: (movie) => {},
-  getPosterImg: (path) => {},
+  getMovieGenres: (movie) => { },
+  getPosterImg: (path) => { },
 });
 
 const baseUrl = "https://api.themoviedb.org/3";
@@ -43,14 +43,13 @@ const useProvideData = () => {
   const [filteringGenre, setFilteringGenre] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [video, setVideo] = useState("");
+  const [video, setVideo] = useState(null);
 
   function fetchData(url, setData, type = "all") {
     if (type === "search") {
       axios
         .get(
-          `${baseUrl}/${url}&api_key=${apiKey}&language=en-US&page=${
-            currentPage ? currentPage : 1
+          `${baseUrl}/${url}&api_key=${apiKey}&language=en-US&page=${currentPage ? currentPage : 1
           }`
         )
         .then((res) => {
@@ -60,8 +59,7 @@ const useProvideData = () => {
     } else {
       axios
         .get(
-          `${baseUrl}/${url}?api_key=${apiKey}&language=en-US&page=${
-            currentPage ? currentPage : 1
+          `${baseUrl}/${url}?api_key=${apiKey}&language=en-US&page=${currentPage ? currentPage : 1
           }`
         )
         .then((res) => {

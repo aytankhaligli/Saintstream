@@ -1,10 +1,8 @@
 import { useContext } from "react";
-import ReactPlayer from "react-player";
 import { MovieContext } from "../../context/MovieContext";
 import styles from "./Video.module.css";
 export default function Video() {
   const { video } = useContext(MovieContext);
-  console.log(video.slice(1));
   return (
     video && (
       <div className={styles.container}>
