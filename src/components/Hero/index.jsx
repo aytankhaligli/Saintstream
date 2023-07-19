@@ -8,11 +8,23 @@ import downloadIcon from "../../assets/icons/download.svg";
 import likeIcon from "../../assets/icons/thumb-up.svg";
 import unlikeIcon from "../../assets/icons/thumbs-down.svg";
 import shareIcon from "../../assets/icons/share.svg";
+import facebookIcon from "../../assets/icons/Facebook.svg";
+import twitterIcon from "../../assets/icons/Twitter.svg";
+import googleIcon from "../../assets/icons/Google.svg";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MovieContext } from "../../context/MovieContext";
 import { ModalContext } from "../../context/ModalContext";
 import { LoginContext } from "../../context/LoginContext";
+import { useRef } from "react";
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  TwitterShareButton,
+  TwitterIcon,
+  WhatsappShareButton,
+  WhatsappIcon,
+} from "react-share";
 
 export default function Hero({
   movie,
@@ -22,7 +34,8 @@ export default function Hero({
   isMovie,
   width,
 }) {
-  const { getPosterImg, getMovieGenres, getVideos, video } = useContext(MovieContext);
+  const { getPosterImg, getMovieGenres, getVideos } = useContext(MovieContext);
+  const [copySuccess, setCopySuccess] = useState("");
   const {
     userWatchlist,
     userLikes,
@@ -32,15 +45,26 @@ export default function Hero({
     setWatchlist,
     setLikes,
   } = useContext(LoginContext);
-  const { isModalOpen } = useContext(ModalContext);
+  const { isModalOpen, shareModal, openModal, modalRef } =
+    useContext(ModalContext);
   const navigate = useNavigate();
-  const [showModal, setShowModal] = useState(false);
+  // const modalRef = useRef(null);
+
   const movieTime =
     Math.floor(movie.runtime / 60) + "h" + (movie.runtime % 60) + "m";
 
   const linkClicked = (e) => {
     if (!isMovie) navigate(`/${movie.id}`);
   };
+  function copyToClipboard() {
+    navigator.clipboard.writeText(movie.homepage);
+    setCopySuccess("Copied!");
+  }
+  useEffect(() => {
+    setTimeout(() => {
+      setCopySuccess(false);
+    }, 1000);
+  }, [copySuccess]);
 
   const watchListClicked = (e) => {
     e.stopPropagation();
@@ -51,10 +75,11 @@ export default function Hero({
   function watch(e) {
     e.stopPropagation();
     getVideos(movie.id);
-    setShowModal(true);
-    console.log(video);
-
-    // navigate(`/video`);
+    navigate(`/video`);
+  }
+  function share(e) {
+    e.stopPropagation();
+    openModal("share");
   }
 
   return (
@@ -153,6 +178,7 @@ export default function Hero({
                   border: "1px solid #28262D",
                 }}
                 isMoviePageIcon={true}
+                onClick={share}
               />
               {isLoggedIn && (
                 <Button
@@ -178,23 +204,50 @@ export default function Hero({
                   }
                 />
               )}
+              {shareModal && (
+                <div className={styles.absolute}>
+                  <div className={styles.inputBox}>
+                    <input value={movie.homepage} readOnly />
+                    <Button
+                      text="Kopyala"
+                      style={{
+                        backgroundColor: "#00925D",
+                      }}
+                      onClick={copyToClipboard}
+                    />
+                    {copySuccess && (
+                      <div className={styles.copy}>{copySuccess}</div>
+                    )}
+                  </div>
+                  <div className={styles.icons}>
+                    <FacebookShareButton
+                      url={movie.homepage}
+                      quote={movie.title}
+                      hashtag={`#${movie.title}`}
+                    >
+                      <FacebookIcon size={54} round />
+                    </FacebookShareButton>
+                    <TwitterShareButton
+                      url={movie.homepage}
+                      quote={movie.title}
+                      hashtag={`#${movie.title}`}
+                    >
+                      <TwitterIcon size={54} round />
+                    </TwitterShareButton>
+                    <WhatsappShareButton
+                      url={movie.homepage}
+                      quote={movie.title}
+                      hashtag={`#${movie.title}`}
+                    >
+                      <WhatsappIcon size={54} round />
+                    </WhatsappShareButton>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
       </div>
-      {
-        showModal && <div className={styles.absolute}>
-          {
-            video && video.map((vid, index) => (
-              index === 0 && <div key={vid.id} style={{ height: '100%' }}>
-                <iframe src={`https://www.youtube.com/embed/${vid.key}`} title={vid.name} width="100%" height="100%"></iframe>
-              </div>
-            ))
-          }
-
-          {/* <iframe src={`https://www.youtube.com/embed/OW1mU4vBBEU`} title="something"></iframe> */}
-        </div>
-      }
     </div>
   );
 }

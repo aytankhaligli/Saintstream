@@ -8,9 +8,12 @@ import jwt_decode from "jwt-decode";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithRedirect } from "firebase/auth";
 import db, { auth } from "../../firebase";
 import { doc, setDoc } from "@firebase/firestore";
+// import { FacebookAuthProvider } from "firebase/auth";
+
+import { signInWithPopup, FacebookAuthProvider } from "firebase/auth";
 
 const appId = "143428682080487";
 
@@ -40,8 +43,23 @@ export default function Login() {
 
   const handleFacebookLogin = (response) => {
     console.log(response);
-    login(response);
+    login({
+      displayName: response.name,
+      photoURL: response.picture.data.url,
+      uid: response.id,
+    });
   };
+
+  const facebookLogin = async () => {
+    const provider = new FacebookAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const componentClicked = (data) => {
     console.warn(data);
   };
@@ -98,7 +116,7 @@ export default function Login() {
         />
         <FacebookLogin
           appId={appId}
-          autoLoad={false}
+          autoLoad={true}
           fields="name,email,picture"
           callback={handleFacebookLogin}
           onClick={componentClicked}
@@ -108,6 +126,7 @@ export default function Login() {
             </button>
           )}
         />
+        {/* <button onClick={facebookLogin}>Facebook login</button> */}
       </div>
     </AuthContainer>
   );

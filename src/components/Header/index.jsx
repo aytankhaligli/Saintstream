@@ -13,26 +13,27 @@ import { ModalContext } from "../../context/ModalContext";
 import Search from "../Search/Search";
 
 export default function Header() {
-  const modalRef = useRef(null);
+  // const modalRef = useRef(null);
   const location = useLocation();
-  const [isOpen, setIsOpen] = useState(false);
+
   const { isLoggedIn, profileObj } = useContext(LoginContext);
-  const { isModalOpen, openModal, closeModal } = useContext(ModalContext);
+  const { isModalOpen, openModal, closeModal, modalRef, isDropdownOpen } =
+    useContext(ModalContext);
 
-  useEffect(() => {
-    const outsideClick = (e) => {
-      if (modalRef.current && !modalRef.current.contains(e.target)) {
-        setIsOpen(false);
-        closeModal();
-      }
-    };
+  // useEffect(() => {
+  //   const outsideClick = (e) => {
+  //     if (modalRef.current && !modalRef.current.contains(e.target)) {
+  //       setIsOpen(false);
+  //       closeModal();
+  //     }
+  //   };
 
-    document.addEventListener("click", outsideClick);
+  //   document.addEventListener("click", outsideClick);
 
-    return () => {
-      document.removeEventListener("click", outsideClick);
-    };
-  }, []);
+  //   return () => {
+  //     document.removeEventListener("click", outsideClick);
+  //   };
+  // }, []);
 
   return (
     <header className={styles.header}>
@@ -48,7 +49,7 @@ export default function Header() {
             src={searchIcon}
             alt="search icon"
             className={styles.icon}
-            onClick={openModal}
+            onClick={(e) => openModal()}
           />
         )}
 
@@ -61,12 +62,12 @@ export default function Header() {
           )}
           <img
             src={arrowIcon}
-            alt="search icon"
+            alt="arrow icon"
             className={styles.icon}
-            onClick={() => setIsOpen((pre) => !pre)}
+            onClick={(e) => openModal("dropdown")}
           />
         </div>
-        {isOpen && <Dropdown />}
+        {isDropdownOpen && <Dropdown />}
         {isModalOpen && <Search />}
       </div>
     </header>

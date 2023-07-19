@@ -6,23 +6,22 @@ export default function Video() {
   return (
     video && (
       <div className={styles.container}>
-        <div className={styles.videoContainer}>
-          <ReactPlayer
-            url={`https://www.youtube.com/watch?v=${video[0].key}`}
-            width="100%"
-            height="100%"
-            controls={true}
-          />
-        </div>
+        <iframe
+          src={`https://www.youtube.com/embed/${video[0].key}`}
+          title={video[0].name}
+          width="100%"
+          height="100%"
+          className={styles.videoContainer}
+        ></iframe>
         <div className={styles.grid}>
           {video.slice(1).map((vid) => (
             <div key={vid.key}>
-              <ReactPlayer
-                url={`https://www.youtube.com/watch?v=${vid.key}`}
+              <iframe
+                src={`https://www.youtube.com/embed/${vid.key}`}
+                title={vid.name}
                 width="100%"
                 height="100%"
-                controls={true}
-              />
+              ></iframe>
             </div>
           ))}
         </div>
