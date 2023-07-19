@@ -9,9 +9,8 @@ import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
 import { signInWithEmailAndPassword, signInWithRedirect } from "firebase/auth";
-import db, { auth } from "../../firebase";
-import { doc, setDoc } from "@firebase/firestore";
-// import { FacebookAuthProvider } from "firebase/auth";
+import { auth } from "../../firebase";
+import facebookIcon from "../../assets/icons/Facebook.svg";
 
 import { signInWithPopup, FacebookAuthProvider } from "firebase/auth";
 
@@ -114,7 +113,7 @@ export default function Login() {
             console.log("Login Failed");
           }}
         />
-        <FacebookLogin
+        {/* <FacebookLogin
           appId={appId}
           autoLoad={true}
           fields="name,email,picture"
@@ -125,8 +124,8 @@ export default function Login() {
               Sign in with Facebook
             </button>
           )}
-        />
-        {/* <button onClick={facebookLogin}>Facebook login</button> */}
+        /> */}
+        <button onClick={facebookLogin}>Facebook login</button>
       </div>
     </AuthContainer>
   );
