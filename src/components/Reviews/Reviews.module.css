@@ -1,0 +1,64 @@
+.container {
+  padding: 0 75px;
+}
+.form {
+  margin-bottom: 30px;
+}
+.text {
+  background-color: #0d0c0f;
+  border: 1px solid #28262d;
+  color: #fff;
+  margin-bottom: 30px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+}
+.text:focus {
+  outline: none;
+}
+.inputBox {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+.reviews {
+  width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 30px;
+}
+.reviewBox {
+  height: 100px;
+  width: 100%;
+  border: 1px solid #28262d;
+  border-radius: 6px;
+  color: #fff;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+.image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid #28262d;
+  overflow: hidden;
+}
+.image img {
+  width: 100%;
+  height: 100%;
+}
+.userInfo {
+  font-size: 18px;
+  font-weight: bold;
+}
+.time {
+  margin-left: auto;
+  font-size: 12px;
+  opacity: 0.6;
+}

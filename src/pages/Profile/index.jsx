@@ -20,7 +20,7 @@ export default function Profile() {
       username: userData.username,
       imagePath: userData.imagePath,
     });
-  });
+  }, []);
 
   console.log(user);
 
@@ -80,7 +80,9 @@ export default function Profile() {
             value={user.name}
             ref={nameRef}
             readonly={true}
-            onChange={(e) => setUser((pre) => ({ ...pre, name: e.target.value }))}
+            onChange={(e) =>
+              setUser((pre) => ({ ...pre, name: e.target.value }))
+            }
           />
           <img
             src={editIcon}
@@ -94,7 +96,6 @@ export default function Profile() {
             placeholder="Surname"
             value={user.surname}
             ref={surnameRef}
-
             readonly={true}
             onChange={(e) =>
               setUser((pre) => ({ ...pre, surname: e.target.value }))
@@ -125,11 +126,7 @@ export default function Profile() {
           />
         </div>
         <div className={styles.inputBox}>
-          <Input
-            placeholder="Email"
-            value={userData.email}
-            readonly={true}
-          />
+          <Input placeholder="Email" value={userData.email} readonly={true} />
         </div>
         <Button
           text="Save Changes"

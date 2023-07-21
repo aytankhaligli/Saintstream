@@ -88,7 +88,7 @@ export default function Login() {
         {inputError && <p className={styles.errorText}>{inputError}</p>}
 
         <Input
-          type="text"
+          type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}

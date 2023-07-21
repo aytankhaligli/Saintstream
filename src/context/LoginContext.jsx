@@ -8,6 +8,8 @@ import {
   getDocs,
   getDoc,
   updateDoc,
+  Timestamp,
+  arrayUnion,
 } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -32,6 +34,7 @@ export default function LoginContextProvider({ children }) {
   const [likes, setLikes] = useState([]);
   const [userLikes, setUserLikes] = useState([]);
   const [userData, setUserData] = useState({});
+  const [reviews, setReviews] = useState({});
 
   async function login(obj) {
     setIsLoggedIn(true);
@@ -44,6 +47,7 @@ export default function LoginContextProvider({ children }) {
   function logout() {
     setIsLoggedIn(false);
     setProfileObj({});
+    setUserData({});
     auth
       .signOut()
       .then(() => {
@@ -90,8 +94,10 @@ export default function LoginContextProvider({ children }) {
       const fetchedList = [];
       querySnapshot.forEach((doc) => {
         const data = doc.data();
-        data.movie && fetchedList.push(data);
+
+        (data.movie || data.movie_id) && fetchedList.push(data);
       });
+
       setList(fetchedList);
     } catch (error) {
       console.error("Error fetching list:", error);
@@ -111,7 +117,6 @@ export default function LoginContextProvider({ children }) {
         const docRef = doc(db, "users", profileObj.id);
         const docSnap = await getDoc(docRef);
         setUserData(docSnap.data());
-        console.log(userData);
       } catch (error) {
         console.error("Error fetching userData:", error);
       }
@@ -153,6 +158,11 @@ export default function LoginContextProvider({ children }) {
     setListwithId(likes, setUserLikes);
   }, [likes, isLoggedIn, profileObj]);
 
+  useEffect(() => {
+    fetchList("reviews", setReviews);
+    // console.log(reviews);
+  }, [reviews, isLoggedIn, profileObj]);
+
   //Firebase add and delete
 
   const addList = async (movie, list, setList) => {
@@ -162,6 +172,57 @@ export default function LoginContextProvider({ children }) {
         userId: profileObj.id,
       });
       fetchList(list, setList);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+
+  const addReview = async (id, reviewData) => {
+    console.log(reviewData);
+    try {
+      const reviewsRef = collection(db, "reviews");
+      const querySnapshot = await getDocs(reviewsRef);
+      let reviewAdded = false;
+
+      // Check if the movie_id already exists in the collection
+      querySnapshot.forEach(async (doc) => {
+        const data = doc.data();
+        if (data.movie_id === id) {
+          reviewAdded = true;
+
+          await updateDoc(doc.ref, {
+            user_reviews: arrayUnion({
+              user_id: reviewData.id ? reviewData.id : "",
+              created_at: Timestamp.fromDate(new Date()),
+              username: reviewData.name,
+              email: reviewData.email,
+              review: reviewData.text,
+              imagePath: reviewData.imagePath ? reviewData.imagePath : "",
+            }),
+          });
+
+          fetchList("reviews", setReviews);
+        }
+      });
+
+      //If not exisists
+      if (!reviewAdded) {
+        await addDoc(collection(db, "reviews"), {
+          movie_id: id,
+          user_reviews: [
+            {
+              id: new Date(),
+              user_id: reviewData.id ? reviewData.id : "",
+              created_at: Timestamp.fromDate(new Date()),
+              username: reviewData.name,
+              email: reviewData.email,
+              review: reviewData.text,
+              imagePath: reviewData.imagePath ? reviewData.imagePath : "",
+            },
+          ],
+        });
+        fetchList("reviews", setReviews);
+      }
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -196,6 +257,8 @@ export default function LoginContextProvider({ children }) {
     userLikes,
     userData,
     updateUserdata,
+    addReview,
+    reviews,
   };
   return (
     <LoginContext.Provider value={value}>{children}</LoginContext.Provider>

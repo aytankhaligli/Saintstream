@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { MovieContext } from "../../context/MovieContext";
 import ScrollToTop from "../../helpers/ScrollToTop";
+import Reviews from "../../components/Reviews";
 
 export default function Movie() {
   const { movieId } = useParams();
@@ -82,6 +83,7 @@ export default function Movie() {
         title={isMovie ? "Similar Movies for you" : "Similar Series for you"}
         element={<Watchlist />}
       />
+      <Reviews movieId={movie.id} />
     </div>
   );
 }
