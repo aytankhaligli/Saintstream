@@ -35,6 +35,11 @@ export default function LoginContextProvider({ children }) {
   const [userLikes, setUserLikes] = useState([]);
   const [userData, setUserData] = useState({});
   const [reviews, setReviews] = useState({});
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    setErrorMsg(null);
+  }, []);
 
   async function login(obj) {
     setIsLoggedIn(true);
@@ -43,11 +48,14 @@ export default function LoginContextProvider({ children }) {
       id: obj.uid,
       picture: obj.photoURL,
     });
+    setErrorMsg(null);
   }
+
   function logout() {
     setIsLoggedIn(false);
     setProfileObj({});
     setUserData({});
+    setErrorMsg(null);
     auth
       .signOut()
       .then(() => {
@@ -65,6 +73,18 @@ export default function LoginContextProvider({ children }) {
     const inputValue = e.target.value;
     setInput(inputValue);
     validate(inputValue) ? setInputError(null) : setInputError(text);
+  }
+
+  function handleError(error) {
+    if (error === "Firebase: Error (auth/user-not-found).") {
+      setErrorMsg("This user is not exists!");
+    } else if (error === "Firebase: Error (auth/wrong-password).") {
+      setErrorMsg("Password is wrong!");
+    } else if (error === "Firebase: Error (auth/email-already-in-use).") {
+      setErrorMsg("This email already registered!");
+    } else {
+      setErrorMsg(null);
+    }
   }
 
   useEffect(() => {
@@ -259,6 +279,8 @@ export default function LoginContextProvider({ children }) {
     updateUserdata,
     addReview,
     reviews,
+    handleError,
+    errorMsg,
   };
   return (
     <LoginContext.Provider value={value}>{children}</LoginContext.Provider>

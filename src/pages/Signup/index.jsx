@@ -22,7 +22,7 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [secondPassword, setSecondPassword] = useState("");
   const [error, setError] = useState(null);
-  const { inputError, handleChange, isLoggedIn, login } =
+  const { inputError, handleChange, isLoggedIn, login, handleError, errorMsg } =
     useContext(LoginContext);
   const navigate = useNavigate();
   useEffect(() => {
@@ -81,6 +81,7 @@ export default function Signup() {
       login(auth.currentUser);
     } catch (err) {
       console.log(err);
+      handleError(err.message);
     }
   };
 
@@ -158,6 +159,11 @@ export default function Signup() {
           onClick={signup}
         />
       </form>
+      {errorMsg && (
+        <div className={styles.error}>
+          <p className={styles.errorText}>{errorMsg}</p>
+        </div>
+      )}
     </AuthContainer>
   );
 }

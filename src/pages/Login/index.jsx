@@ -20,7 +20,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState(true);
-  const { login, isLoggedIn, handleChange, inputError } =
+  const { login, isLoggedIn, handleChange, inputError, handleError, errorMsg } =
     useContext(LoginContext);
   const navigate = useNavigate();
 
@@ -71,6 +71,7 @@ export default function Login() {
       })
       .catch((error) => {
         console.log(error.message);
+        handleError(error.message);
       });
   }
 
@@ -127,6 +128,11 @@ export default function Login() {
         /> */}
         <button onClick={facebookLogin}>Facebook login</button>
       </div>
+      {errorMsg && (
+        <div className={styles.error}>
+          <p className={styles.errorText}>{errorMsg}</p>
+        </div>
+      )}
     </AuthContainer>
   );
 }

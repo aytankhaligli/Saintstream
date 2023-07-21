@@ -19,7 +19,6 @@ export default function Reviews({ movieId }) {
         })
       : setReviewData({});
   }, [userData]);
-  console.log(reviewData);
 
   useEffect(() => {
     const movieRews =
