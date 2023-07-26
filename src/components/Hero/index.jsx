@@ -34,6 +34,7 @@ export default function Hero({
   isMovie,
   width,
 }) {
+  console.log(movie);
   const { getPosterImg, getMovieGenres, getVideos } = useContext(MovieContext);
   const [copySuccess, setCopySuccess] = useState("");
   const {

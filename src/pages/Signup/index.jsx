@@ -65,6 +65,9 @@ export default function Signup() {
       const storageRef = ref(storage, "images/" + userData.imagePath.name);
       await uploadBytes(storageRef, userData.imagePath);
       const downloadURL = await getDownloadURL(storageRef);
+
+      // check if condition if email and username 
+
       await setDoc(doc(db, "users", user.user.uid), {
         name: userData.name,
         surname: userData.surname,
