@@ -45,10 +45,10 @@ export default function Hero({
     setWatchlist,
     setLikes,
   } = useContext(LoginContext);
-  const { isModalOpen, shareModal, openModal, modalRef } =
+  const { isModalOpen, shareModal, openModal } =
     useContext(ModalContext);
   const navigate = useNavigate();
-  // const modalRef = useRef(null);
+  // const testRef = useRef(null);
 
   const movieTime =
     Math.floor(movie.runtime / 60) + "h" + (movie.runtime % 60) + "m";
@@ -81,6 +81,12 @@ export default function Hero({
     e.stopPropagation();
     openModal("share");
   }
+
+  const handleDropdownModalClick = (e) => {
+    // Prevent the click event from propagating to the document level
+    e.stopPropagation();
+  };
+
 
   return (
     <div onClick={linkClicked}>
@@ -120,8 +126,8 @@ export default function Hero({
             <span className={styles.more}>Read more</span>
           </p>
         )}
-        <div className={styles.buttons}>
-          <div className={styles.buttonsContainer}>
+        <div className={styles.buttons} >
+          <div className={styles.buttonsContainer} >
             <div className={styles}>
               <Button
                 text="Play Now"
@@ -205,7 +211,7 @@ export default function Hero({
                 />
               )}
               {shareModal && (
-                <div className={styles.absolute}>
+                <div className={styles.absolute} onClick={handleDropdownModalClick}>
                   <div className={styles.inputBox}>
                     <input value={movie.homepage} readOnly />
                     <Button
