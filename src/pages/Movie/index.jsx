@@ -18,7 +18,7 @@ export default function Movie() {
   const [movie, setMovie] = useState("");
   const [similarMovies, setSimilarMovies] = useState([]);
   const [cast, setCast] = useState([]);
-  const { fetchData, movies, series } = useContext(MovieContext);
+  const { fetchData, movies, series, getCast } = useContext(MovieContext);
   useEffect(() => {
     setIsMovie(movies.some((movie) => movie.id === +movieId));
     setIsMovie(!series.some((serie) => serie.id === +movieId));
@@ -38,11 +38,12 @@ export default function Movie() {
     };
   }, []);
 
-  // console.log(isMovie);
+  console.log(cast);
   useEffect(() => {
     if (isMovie) {
       fetchData(`movie/${movieId}`, setMovie, "movie");
-      fetchData(`movie/${movieId}/credits`, setCast, "cast");
+      // fetchData(`movie/${movieId}/credits`, setCast, "cast");
+      getCast(movieId, setCast);
       fetchData(`movie/${movieId}/similar`, setSimilarMovies);
     } else {
       fetchData(`tv/${movieId}`, setMovie, "movie");

@@ -34,7 +34,6 @@ export default function Hero({
   isMovie,
   width,
 }) {
-  console.log(movie);
   const { getPosterImg, getMovieGenres, getVideos } = useContext(MovieContext);
   const [copySuccess, setCopySuccess] = useState("");
   const {
@@ -46,8 +45,7 @@ export default function Hero({
     setWatchlist,
     setLikes,
   } = useContext(LoginContext);
-  const { isModalOpen, shareModal, openModal } =
-    useContext(ModalContext);
+  const { isModalOpen, shareModal, openModal } = useContext(ModalContext);
   const navigate = useNavigate();
   // const testRef = useRef(null);
 
@@ -88,7 +86,6 @@ export default function Hero({
     e.stopPropagation();
   };
 
-
   return (
     <div onClick={linkClicked}>
       <div
@@ -127,8 +124,8 @@ export default function Hero({
             <span className={styles.more}>Read more</span>
           </p>
         )}
-        <div className={styles.buttons} >
-          <div className={styles.buttonsContainer} >
+        <div className={styles.buttons}>
+          <div className={styles.buttonsContainer}>
             <div className={styles}>
               <Button
                 text="Play Now"
@@ -212,7 +209,10 @@ export default function Hero({
                 />
               )}
               {shareModal && (
-                <div className={styles.absolute} onClick={handleDropdownModalClick}>
+                <div
+                  className={styles.absolute}
+                  onClick={handleDropdownModalClick}
+                >
                   <div className={styles.inputBox}>
                     <input value={movie.homepage} readOnly />
                     <Button

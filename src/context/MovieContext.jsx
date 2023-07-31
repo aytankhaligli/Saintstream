@@ -14,8 +14,8 @@ export const MovieContext = createContext({
   searchingQuery: "",
   searchingGenre: "",
   filteringGenre: "",
-  getMovieGenres: (movie) => { },
-  getPosterImg: (path) => { },
+  getMovieGenres: (movie) => {},
+  getPosterImg: (path) => {},
 });
 
 const baseUrl = "https://api.themoviedb.org/3";
@@ -49,7 +49,8 @@ const useProvideData = () => {
     if (type === "search") {
       axios
         .get(
-          `${baseUrl}/${url}&api_key=${apiKey}&language=en-US&page=${currentPage ? currentPage : 1
+          `${baseUrl}/${url}&api_key=${apiKey}&language=en-US&page=${
+            currentPage ? currentPage : 1
           }`
         )
         .then((res) => {
@@ -59,7 +60,8 @@ const useProvideData = () => {
     } else {
       axios
         .get(
-          `${baseUrl}/${url}?api_key=${apiKey}&language=en-US&page=${currentPage ? currentPage : 1
+          `${baseUrl}/${url}?api_key=${apiKey}&language=en-US&page=${
+            currentPage ? currentPage : 1
           }`
         )
         .then((res) => {
@@ -103,6 +105,11 @@ const useProvideData = () => {
     localStorage.removeItem("video");
     fetchData(`movie/${id}/videos`, setVideo);
   }
+
+  function getCast(id, setCast) {
+    fetchData(`movie/${id}/credits`, setCast, "cast");
+  }
+
   useEffect(() => {
     localStorage.setItem("video", JSON.stringify(video));
   }, [video]);
@@ -188,6 +195,7 @@ const useProvideData = () => {
     changePage,
     getVideos,
     video,
+    getCast,
   };
 
   return value;
