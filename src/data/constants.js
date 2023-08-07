@@ -121,8 +121,8 @@ export const anotherNav = ["Episode", "Universe", "News", "Reviews"];
 export const footerNavElements = ["Home", "Discover", "Forum", "About"];
 export const footerElements = ["Privacy policy", "Term of Service", "Language"];
 export const socialIcons = [
-  { url: "../../src/assets/icons/Facebook.svg", name: "facebook" },
-  { url: "../../src/assets/icons/Instagram.svg", name: "instagram" },
-  { url: "../../src/assets/icons/twitter.svg", name: "twitter" },
-  { url: "../../src/assets/icons/google.svg", name: "google" },
+  { url: "src/assets/icons/Facebook.svg", name: "facebook" },
+  { url: "./src/assets/icons/Instagram.svg", name: "instagram" },
+  { url: "./src/assets/icons/Twitter.svg", name: "twitter" },
+  { url: "./src/assets/icons/Google.svg", name: "google" },
 ];
