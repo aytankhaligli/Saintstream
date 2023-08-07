@@ -17,7 +17,7 @@ export default function Discover() {
   const { userWatchlist, userLikes } = useContext(LoginContext);
   const [moviesData, setMoviesData] = useState([]);
   const [recommendedMovies, setRecommendedMovies] = useState([]);
-  const [selectedMovieCast, setSelectedMovieCast] = useState([]);
+  // const [selectedMovieCast, setSelectedMovieCast] = useState([]);
   const [movieCast, setMovieCast] = useState([]);
   useEffect(() => {
     setMoviesData([...userWatchlist, ...userLikes]);

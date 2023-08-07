@@ -9,7 +9,7 @@ import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
 import { signInWithEmailAndPassword, signInWithRedirect } from "firebase/auth";
 import { auth } from "../../firebase";
-import facebookIcon from "../../assets/icons/Facebook.svg";
+// import facebookIcon from "../../assets/icons/Facebook.svg";
 
 import { signInWithPopup, FacebookAuthProvider } from "firebase/auth";
 

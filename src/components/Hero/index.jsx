@@ -8,15 +8,13 @@ import downloadIcon from "../../assets/icons/download.svg";
 import likeIcon from "../../assets/icons/thumb-up.svg";
 import unlikeIcon from "../../assets/icons/thumbs-down.svg";
 import shareIcon from "../../assets/icons/share.svg";
-import facebookIcon from "../../assets/icons/Facebook.svg";
-import twitterIcon from "../../assets/icons/Twitter.svg";
-import googleIcon from "../../assets/icons/Google.svg";
+
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { MovieContext } from "../../context/MovieContext";
 import { ModalContext } from "../../context/ModalContext";
 import { LoginContext } from "../../context/LoginContext";
-import { useRef } from "react";
+
 import {
   FacebookShareButton,
   FacebookIcon,
