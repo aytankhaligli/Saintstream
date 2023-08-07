@@ -5,7 +5,6 @@ import styles from "./Login.module.css";
 import AuthContainer from "../../components/Auth";
 import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../../context/LoginContext";
 import { signInWithEmailAndPassword, signInWithRedirect } from "firebase/auth";
@@ -14,7 +13,7 @@ import facebookIcon from "../../assets/icons/Facebook.svg";
 
 import { signInWithPopup, FacebookAuthProvider } from "firebase/auth";
 
-const appId = "143428682080487";
+// const appId = "143428682080487";
 
 export default function Login() {
   const [email, setEmail] = useState("");
