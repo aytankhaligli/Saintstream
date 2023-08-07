@@ -1,5 +1,5 @@
 import styles from "./Rate.module.css";
-import ratingIcon from "../../assets/icons/rating.svg";
+import ratingIcon from "./assets/icons/rating.svg";
 
 export default function Rate({ rating, media_type }) {
   return (
