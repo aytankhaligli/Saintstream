@@ -1,10 +1,6 @@
 import Navbar from "../Navbar";
 import styles from "./Footer.module.css";
 
-// import facebookIcon from "../../assets/icons/Facebook.svg";
-// import instagramIcon from "../../assets/icons/Instagram.svg";
-// import twitterIcon from "../../assets/icons/twitter.svg";
-// import googleIcon from "../../assets/icons/google.svg";
 import {
   footerNavElements,
   footerElements,
