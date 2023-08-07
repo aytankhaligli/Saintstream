@@ -24,7 +24,6 @@ export default function Discover() {
   }, [userWatchlist, userLikes]);
 
   const calculateMovieSimilarities = (selectedMovie) => {
-    // console.log(selectedMovieCast);
     const similarityScores =
       movies &&
       movies.map((movie) => {
@@ -32,7 +31,9 @@ export default function Discover() {
         getCast(movieId, setMovieCast);
 
         const genresSimilarity = calculateSimilarity(
-          selectedMovie.genres.map((mov) => mov.id),
+          selectedMovie.genres
+            ? selectedMovie.genres.map((mov) => mov.id)
+            : selectedMovie.genre_ids,
           movie.genres ? movie.genres : movie.genre_ids
         );
 

@@ -2,6 +2,13 @@ import facebookIcon from "./../assets/icons/Facebook.svg";
 import instagramIcon from "./../assets/icons/Instagram.svg";
 import twitterIcon from "./../assets/icons/Twitter.svg";
 import googleIcon from "./../assets/icons/Google.svg";
+import disney from "./../assets/images/Disney.png";
+import netflix from "./../assets/images/Netflix.png";
+import hbo from "./../assets/images/HBO.png";
+import pixar from "./../assets/images/Pixar.png";
+import marvel from "./../assets/images/Marvel.png";
+import star from "./../assets/images/Star-wars.png";
+import natgeo from "./../assets/images/NatGeo.png";
 export const Movies = [
   {
     id: 1,
@@ -86,31 +93,31 @@ export const Movies = [
 export const Streamlist = [
   {
     id: 1,
-    image: "./src/assets/images/Disney.png",
+    image: disney,
   },
   {
     id: 2,
-    image: "./src/assets/images/Netflix.png",
+    image: netflix,
   },
   {
     id: 3,
-    image: "./src/assets/images/HBO.png",
+    image: hbo,
   },
   {
     id: 4,
-    image: "./src/assets/images/Pixar.png",
+    image: pixar,
   },
   {
     id: 5,
-    image: "./src/assets/images/Marvel.png",
+    image: marvel,
   },
   {
     id: 6,
-    image: "./src/assets/images/Star-wars.png",
+    image: star,
   },
   {
     id: 7,
-    image: "./src/assets/images/NatGeo.png",
+    image: natgeo,
   },
 ];
 

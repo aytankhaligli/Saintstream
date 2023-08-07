@@ -33,7 +33,7 @@ export default function MultipleItems({ data, count, children, isCast }) {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: count - 2,
+          slidesToShow: 2,
           slidesToScroll: 3,
           infinite: true,
           dots: true,
@@ -42,7 +42,7 @@ export default function MultipleItems({ data, count, children, isCast }) {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: isCast ? 2 : count - 3,
+          slidesToShow: isCast ? 2 : 1,
           slidesToScroll: 2,
           initialSlide: 2,
         },
@@ -50,7 +50,7 @@ export default function MultipleItems({ data, count, children, isCast }) {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: isCast ? 2 : count - 3,
+          slidesToShow: isCast ? 2 : 1,
           slidesToScroll: 1,
         },
       },
