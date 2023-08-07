@@ -18,6 +18,7 @@
   }
   .videoContainer {
     height: 50%;
+    margin-bottom: 0px;
   }
   .grid {
     display: block;

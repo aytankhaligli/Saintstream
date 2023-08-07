@@ -46,7 +46,7 @@ export default function Home() {
         <>
           {userWatchlist.length > 0 && (
             <SliderSection
-              count={userWatchlist.length < 4 ? userWatchlist.length : 4}
+              count={userWatchlist.length}
               data={userWatchlist}
               title="Your Watchlist"
               element={<WatchlistCard />}
@@ -54,7 +54,7 @@ export default function Home() {
           )}
           {userLikes.length > 0 && (
             <SliderSection
-              count={userLikes.length < 4 ? userLikes.length : 4}
+              count={userLikes.length}
               data={userLikes}
               title="Your Likes"
               element={<WatchlistCard />}

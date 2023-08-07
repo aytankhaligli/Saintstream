@@ -16,7 +16,8 @@ export default function Button({
       style={style}
       onClick={onClick}
     >
-      <img src={icon} alt="" className={styles.icon} />
+      {icon && <img src={icon} alt="" className={styles.icon} />}
+
       <p className={isMoviePageIcon && styles.text}> {text}</p>
     </div>
   );

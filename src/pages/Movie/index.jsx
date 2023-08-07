@@ -19,6 +19,7 @@ export default function Movie() {
   const [similarMovies, setSimilarMovies] = useState([]);
   const [cast, setCast] = useState([]);
   const { fetchData, movies, series, getCast } = useContext(MovieContext);
+  const [isMore, setIsMore] = useState(false);
   useEffect(() => {
     setIsMovie(movies.some((movie) => movie.id === +movieId));
     setIsMovie(!series.some((serie) => serie.id === +movieId));
@@ -62,8 +63,14 @@ export default function Movie() {
           {movie.overview &&
             (width > 500
               ? movie.overview
+              : isMore
+              ? movie.overview
               : movie.overview.slice(0, 120) + "...")}
-          <span className={styles.more}>More</span>
+          {!isMore && (
+            <span className={styles.more} onClick={() => setIsMore(true)}>
+              More
+            </span>
+          )}
         </p>
       </div>
       <div className={styles.cast}>

@@ -24,6 +24,9 @@
   width: 100%;
   border: none;
   font-size: 14px;
+  margin-right: 10px;
+  background-color: white;
+  color: black;
 }
 .inputBox input:focus {
   outline: none;
@@ -211,5 +214,11 @@
 
   .genres {
     bottom: 50px;
+  }
+  .absolute {
+    width: 90%;
+    padding: 20px;
+    height: 200px;
+    top: 20%;
   }
 }
