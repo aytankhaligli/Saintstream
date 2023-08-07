@@ -12,3 +12,14 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
 }
+@media (max-width: 32em) {
+  .container {
+    padding: 0 16px;
+  }
+  .videoContainer {
+    height: 50%;
+  }
+  .grid {
+    display: block;
+  }
+}

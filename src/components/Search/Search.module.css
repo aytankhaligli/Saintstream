@@ -16,3 +16,13 @@
   overflow-y: scroll;
   border-radius: 8px;
 }
+@media (max-width: 32em) {
+  .searchBox {
+    width: 100%;
+    padding: 0 16px;
+  }
+  .resultsContainer {
+    width: 100%;
+    padding: 0 16px;
+  }
+}

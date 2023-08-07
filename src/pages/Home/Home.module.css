@@ -5,3 +5,8 @@
   bottom: 500px;
   left: 0;
 }
+@media (max-width: 32em) {
+  .genres {
+    bottom: 460px;
+  }
+}

@@ -22,8 +22,8 @@ export default function Dropdown() {
             <Link to="/home">
               <li>Home</li>
             </Link>
-            <Link to="/settings">
-              <li>Settings</li>
+            <Link to="/discover">
+              <li>Discover</li>
             </Link>
 
             <li onClick={signout}>Sign out</li>

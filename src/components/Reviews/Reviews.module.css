@@ -62,3 +62,14 @@
   font-size: 12px;
   opacity: 0.6;
 }
+@media (max-width: 32em) {
+  .container {
+    padding: 0 16px;
+  }
+  .container h1 {
+    font-size: 24px;
+  }
+  .inputBox {
+    gap: 2px;
+  }
+}
