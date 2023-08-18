@@ -8,8 +8,6 @@ Welcome to the SaintStream Movie App! This application allows users to stream an
 2. [Installation](#installation)
 3. [Usage](#usage)
 4. [Support](#support)
-5. [Contributing](#contributing)
-6. [License](#license)
 
 ## Features
 
