@@ -6,8 +6,8 @@ import disney from "./../assets/images/Disney.png";
 import netflix from "./../assets/images/Netflix.png";
 import hbo from "./../assets/images/HBO.png";
 import pixar from "./../assets/images/Pixar.png";
-import marvel from "./../assets/images/Marvel.png";
-import star from "./../assets/images/Star-wars.png";
+import marvel from "./../assets/images/marvel.png";
+import star from "./../assets/images/star-wars.png";
 import natgeo from "./../assets/images/NatGeo.png";
 
 export const Movies = [
