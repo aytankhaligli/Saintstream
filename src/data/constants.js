@@ -9,6 +9,7 @@ import pixar from "./../assets/images/Pixar.png";
 import marvel from "./../assets/images/Marvel.png";
 import star from "./../assets/images/Star-wars.png";
 import natgeo from "./../assets/images/NatGeo.png";
+
 export const Movies = [
   {
     id: 1,
@@ -128,6 +129,7 @@ export const navElements = [
   "Forum",
   "About",
 ];
+
 export const anotherNav = ["Episode", "Universe", "News", "Reviews"];
 export const footerNavElements = ["Home", "Discover", "Forum", "About"];
 export const footerElements = ["Privacy policy", "Term of Service", "Language"];
