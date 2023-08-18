@@ -198,7 +198,7 @@ export default function LoginContextProvider({ children }) {
   };
 
   const addReview = async (id, reviewData) => {
-    console.log(reviewData);
+    // console.log(reviewData);
     try {
       const reviewsRef = collection(db, "reviews");
       const querySnapshot = await getDocs(reviewsRef);

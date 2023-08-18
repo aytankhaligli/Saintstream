@@ -39,7 +39,7 @@ export default function Movie() {
     };
   }, []);
 
-  console.log(cast);
+  // console.log(cast);
   useEffect(() => {
     if (isMovie) {
       fetchData(`movie/${movieId}`, setMovie, "movie");

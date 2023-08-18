@@ -22,7 +22,7 @@ export default function Profile() {
     });
   }, []);
 
-  console.log(user);
+  // console.log(user);
 
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];

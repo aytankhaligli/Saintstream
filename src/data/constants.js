@@ -122,16 +122,10 @@ export const Streamlist = [
   },
 ];
 
-export const navElements = [
-  "Home",
-  "Discover",
-  "Popular People",
-  "Forum",
-  "About",
-];
+export const navElements = ["Home", "Discover", "Popular People", "Profile"];
 
 export const anotherNav = ["Episode", "Universe", "News", "Reviews"];
-export const footerNavElements = ["Home", "Discover", "Forum", "About"];
+export const footerNavElements = ["Home", "Discover", "Profile"];
 export const footerElements = ["Privacy policy", "Term of Service", "Language"];
 export const socialIcons = [
   { url: facebookIcon, name: "facebook" },

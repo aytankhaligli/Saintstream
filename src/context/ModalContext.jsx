@@ -2,8 +2,8 @@ import { createContext, useEffect, useState, useRef } from "react";
 
 export const ModalContext = createContext({
   isModalOpen: false,
-  openModal: () => { },
-  closeModal: () => { },
+  openModal: () => {},
+  closeModal: () => {},
 });
 
 export default function ModalContextProvider({ children }) {
@@ -19,7 +19,7 @@ export default function ModalContextProvider({ children }) {
       setDropdownOpen((pre) => !pre);
     } else if (type === "modal") {
       setIsModalOpen(true);
-      console.log(isModalOpen);
+      // console.log(isModalOpen);
     }
   }
 
